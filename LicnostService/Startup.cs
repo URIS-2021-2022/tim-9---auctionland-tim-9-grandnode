@@ -1,3 +1,4 @@
+using LicnostService.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,7 @@ namespace LicnostService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<ILicnostRepository, LicnostRepository>(); //Nova instanca svaki put kad ide novi request, potrebno za bazu
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
