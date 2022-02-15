@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LicnostService.Models
 {
-    public class LicnostUpdateDto
+    public class LicnostCUDto
     {
         public Guid LicnostId { get; set; }
         public string Ime { get; set; }

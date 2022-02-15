@@ -16,7 +16,7 @@ namespace LicnostService.Profiles
             CreateMap<Licnost, LicnostDto>()
                 .ForMember(dest => dest.ImeLicnosti,
                 opt => opt.MapFrom(src => src.Ime + " " + src.Prezime));
-            CreateMap<Licnost, LicnostUpdateDto>();
+            CreateMap<Licnost, LicnostCUDto>();
         }
 
     }

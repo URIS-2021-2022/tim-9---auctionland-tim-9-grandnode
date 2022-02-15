@@ -48,7 +48,7 @@ namespace LicnostService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<LicnostDto> CreateLicnost([FromBody] LicnostDto licnostDto) 
+        public ActionResult<LicnostDto> CreateLicnost([FromBody] LicnostCUDto licnostDto) 
         {
             try
             {
@@ -85,7 +85,7 @@ namespace LicnostService.Controllers
         }
 
         [HttpPut]
-        public ActionResult<LicnostUpdateDto> UpdateLicnost(LicnostUpdateDto licnostUpdateDto)
+        public ActionResult<LicnostCUDto> UpdateLicnost(LicnostCUDto licnostUpdateDto)
         {
             try
             {
