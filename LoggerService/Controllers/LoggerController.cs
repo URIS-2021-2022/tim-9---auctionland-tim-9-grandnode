@@ -30,7 +30,7 @@ namespace LoggerService.Controllers
             }
             else 
             {
-                logger.LogInformation("Service: " + message.ServiceName + ", Method: " + message.Method + ", Content: " + message.Information + ". Error: "
+                logger.LogError("Service: " + message.ServiceName + ", Method: " + message.Method + ", Content: " + message.Information + ". Error: "
                     + message.Error);
             }
             return Created("", message); //Nema potrebe da vraca adresu logovima se ne pristupa
