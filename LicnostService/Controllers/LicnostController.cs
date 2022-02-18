@@ -27,8 +27,11 @@ namespace LicnostService.Controllers
             this.linkGenerator = linkGenerator;
         }
 
+        //Done
         [HttpGet]
         [HttpHead]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<LicnostDto>> GetLicnosti() 
         {
             List<Licnost> licnosti = licnostRepository.GetLicnosti();
@@ -37,26 +40,34 @@ namespace LicnostService.Controllers
 
             return Ok(mapper.Map<List<LicnostDto>>(licnosti));
         }
+
+        //Done
         [HttpGet("{licnostId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<LicnostDto> GetLicnostById(Guid licnostId) 
         {
             Licnost licnost = licnostRepository.GetLicnostById(licnostId);
 
-            if (licnost == null) { return NoContent(); }
+            if (licnost == null) { return NotFound(); }
 
             return mapper.Map<LicnostDto>(licnost);
         }
 
+        //Done
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<LicnostDto> CreateLicnost([FromBody] LicnostCUDto licnostDto) 
         {
             try
             {
                 Licnost licnost = mapper.Map<Licnost>(licnostDto);
                 licnost = licnostRepository.CreateLicnost(licnost);
+                licnostRepository.SaveChanges();
                 string location = linkGenerator.GetPathByAction("GetLicnostById", "Licnost", new { licnostId = licnost.LicnostId });
 
-                return Created("", mapper.Map<LicnostDto>(licnost));
+                return Created(location, mapper.Map<LicnostDto>(licnost));
             }
             catch 
             {
@@ -64,7 +75,11 @@ namespace LicnostService.Controllers
             }
         }
 
+        //Done
         [HttpDelete("{licnostId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteLicnost(Guid licnostId) 
         {
             try
@@ -76,6 +91,7 @@ namespace LicnostService.Controllers
                 }
 
                 licnostRepository.DeleteLicnost(licnostId);
+                licnostRepository.SaveChanges();
                 return NoContent();
             }
             catch 
@@ -84,19 +100,26 @@ namespace LicnostService.Controllers
             }
         }
 
+        //Done
         [HttpPut]
-        public ActionResult<LicnostCUDto> UpdateLicnost(LicnostCUDto licnostUpdateDto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<LicnostDto> UpdateLicnost(LicnostCUDto licnostDto)
         {
             try
             {
-                if (licnostRepository.GetLicnostById(licnostUpdateDto.LicnostId) == null)
+                Licnost staraLicnost = licnostRepository.GetLicnostById(licnostDto.LicnostId);
+                if (staraLicnost == null)
                 {
                     return NotFound();
                 }
 
-                Licnost licnost = mapper.Map<Licnost>(licnostUpdateDto);
-                licnost = licnostRepository.UpdateLicnost(licnost);
-                return Ok(mapper.Map<LicnostDto>(licnost));
+                Licnost licnost = mapper.Map<Licnost>(licnostDto);
+                mapper.Map(licnost, staraLicnost);
+
+                licnostRepository.SaveChanges();
+                return Ok(mapper.Map<LicnostDto>(staraLicnost));
             }
             catch
             {

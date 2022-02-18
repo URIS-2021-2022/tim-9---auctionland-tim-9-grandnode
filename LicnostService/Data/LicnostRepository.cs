@@ -1,4 +1,6 @@
-﻿using LicnostService.Entities;
+﻿using AutoMapper;
+using LicnostService.Entities;
+using LicnostService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +10,46 @@ namespace LicnostService.Data
 {
     public class LicnostRepository : ILicnostRepository
     {
+
+        private readonly LicnostContext context;
+        private readonly IMapper mapper;
+
+        public LicnostRepository(LicnostContext context, IMapper mapper) 
+        {
+            this.context = context;
+            this.mapper = mapper;
+        }
+
+        public bool SaveChanges() 
+        {
+            return context.SaveChanges() > 0;
+        }
+
         public Licnost CreateLicnost(Licnost licnost)
         {
-            throw new NotImplementedException();
+            var createdEntity = context.Add(licnost);
+            return mapper.Map<Licnost>(createdEntity.Entity);
         }
 
         public void DeleteLicnost(Guid licnostId)
         {
-            throw new NotImplementedException();
+            Licnost licnost = GetLicnostById(licnostId);
+            context.Remove(licnost);
         }
 
         public Licnost GetLicnostById(Guid licnostId)
         {
-            throw new NotImplementedException();
+            return context.Licnosti.FirstOrDefault(e => e.LicnostId == licnostId);
         }
 
         public List<Licnost> GetLicnosti(string funkcija = null)
         {
-            throw new NotImplementedException();
+            return context.Licnosti.ToList();
         }
 
-        public Licnost UpdateLicnost(Licnost licnost)
+        public void UpdateLicnost(Licnost licnost)
         {
-            throw new NotImplementedException();
+            //Entity framework core prati entitet pa nema potrebe za implementacijom
         }
     }
 }

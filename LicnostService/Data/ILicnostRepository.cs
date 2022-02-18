@@ -9,11 +9,12 @@ namespace LicnostService.Data
     public interface ILicnostRepository
     {
 
+        bool SaveChanges();
         List<Licnost> GetLicnosti(string funkcija = null);
 
         Licnost GetLicnostById(Guid licnostId);
         Licnost CreateLicnost(Licnost licnost);
-        Licnost UpdateLicnost(Licnost licnost);
+        void UpdateLicnost(Licnost licnost);
         void DeleteLicnost(Guid licnostId);
 
     }
