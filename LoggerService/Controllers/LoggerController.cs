@@ -24,8 +24,15 @@ namespace LoggerService.Controllers
         [HttpPost]
         public ActionResult<Message> CreateMesage([FromBody] Message message)
         {
-
-            logger.LogInformation("Service: " + message.ServiceName + ", Method: " + message.Method + ", Content: " + message.Information);
+            if (message.Error == null || message.Error == "")
+            {
+                logger.LogInformation("Service: " + message.ServiceName + ", Method: " + message.Method + ", Content: " + message.Information);
+            }
+            else 
+            {
+                logger.LogInformation("Service: " + message.ServiceName + ", Method: " + message.Method + ", Content: " + message.Information + ". Error: "
+                    + message.Error);
+            }
             return Created("", message); //Nema potrebe da vraca adresu logovima se ne pristupa
         }
 
