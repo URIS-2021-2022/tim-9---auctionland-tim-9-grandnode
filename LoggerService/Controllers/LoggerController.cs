@@ -1,4 +1,4 @@
-﻿using LoggerService.Data;
+﻿
 using LoggerService.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,12 +14,10 @@ namespace LoggerService.Controllers
     [Route("api/logger")]
     public class LoggerController : ControllerBase
     {
-        private readonly ILoggerRepository loggerRepository;
         private readonly ILogger<LoggerController> logger;
 
-        public LoggerController(ILoggerRepository loggerRepository, ILogger<LoggerController> logger)
+        public LoggerController(ILogger<LoggerController> logger)
         {
-            this.loggerRepository = loggerRepository;
             this.logger = logger;
         }
 
@@ -27,8 +25,7 @@ namespace LoggerService.Controllers
         public ActionResult<Message> CreateMesage([FromBody] Message message)
         {
 
-            message = loggerRepository.CreateMessage(message);
-            logger.LogInformation("Sucessfully logged " + message.Information);
+            logger.LogInformation("Service: " + message.ServiceName + ", Method: " + message.Method + ", Content: " + message.Information);
             return Created("", message); //Nema potrebe da vraca adresu logovima se ne pristupa
         }
 

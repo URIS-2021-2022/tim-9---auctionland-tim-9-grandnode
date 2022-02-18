@@ -7,7 +7,8 @@ namespace LoggerService.Entities
 {
     public class Message
     {
-        public DateTime Time { get; set; }
+        public string ServiceName { get; set; }
+        public string Method { get; set; }
         public string Information { get; set; }
     }
 }
