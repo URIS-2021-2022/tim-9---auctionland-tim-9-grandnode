@@ -82,6 +82,7 @@ namespace LicnostService.Controllers
     /// <response code="201">Vraća podatke o upisanoj ličnosti</response>
     /// <response code="500">Postoji neki problem sa upisom</response>
         [HttpPost]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<LicnostDto> CreateLicnost([FromBody] LicnostCUDto licnostDto) 
@@ -152,6 +153,7 @@ namespace LicnostService.Controllers
         /// <response code="404">Ne postoji ličnost za koju je pokušana izmena</response>
         /// <response code="500">Postoji neki problem sa izmenom</response>
         [HttpPut]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
