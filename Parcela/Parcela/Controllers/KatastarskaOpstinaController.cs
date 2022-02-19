@@ -12,6 +12,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/opstina")]
+    [Produces("application/json")]
     public class KatastarskaOpstinaController : ControllerBase
     {
         private readonly IKatastarskaOpstinaRepository katastarskaOpstinaRepository;

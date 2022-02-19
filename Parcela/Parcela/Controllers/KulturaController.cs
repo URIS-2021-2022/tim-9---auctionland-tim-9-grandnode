@@ -12,6 +12,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/kultura")]
+    [Produces("application/json")]
     public class KulturaController : ControllerBase
     {
         private readonly IKulturaRepository kulturaRepository;

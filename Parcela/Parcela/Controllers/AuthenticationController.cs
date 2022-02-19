@@ -10,6 +10,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/auth")]
+    [Produces("application/json")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationHelper authenticationHelper;

@@ -12,6 +12,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/odvodnjavanje")]
+    [Produces("application/json")]
     public class OdvodnjavanjeController : ControllerBase
     {
         private readonly IOdvodnjavanjeRepository odvodnjavanjeRepository;

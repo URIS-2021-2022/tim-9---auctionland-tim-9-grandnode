@@ -15,6 +15,8 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/deoParcele")]
+    [Produces("application/json", "application/xml")]
+
     public class DeoParceleController : ControllerBase
     {
         private readonly IDeoParceleRepository deoParceleRepository;
@@ -53,19 +55,21 @@ namespace Parcela.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ParceleConfrimationDto> CreateDeoParcele([FromBody] DeoParceleCreateDto deoParcele)
+        [Consumes("application/json")]
+        public ActionResult<DeoParceleDto> CreateDeoParcele([FromBody] DeoParceleDto deoParcele)
+
         {
             try
             { 
 
                 DeoParcele dp = mapper.Map<DeoParcele>(deoParcele);
-
-                DeoParceleConfirmation confirmation = deoParceleRepository.CreateDeoParcele(dp);
+                DeoParcele confirmation = deoParceleRepository.CreateDeoParcele(dp);
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
-                string location = linkGenerator.GetPathByAction("GetDeoParceleById", "DeoParcele", new { deoParceleID = confirmation.DeoParceleID });
-                return Created(location, mapper.Map<ParceleConfrimationDto>(confirmation));
+                string location = linkGenerator.GetPathByAction("GetDeoParceleList", "DeoParcele", new { DeoParceleID = confirmation.DeoParceleID });
+                return Created(location, mapper.Map<DeoParceleDto>(confirmation));
             }
-            catch
+            catch (Exception)
+
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
             }
@@ -92,7 +96,8 @@ namespace Parcela.Controllers
         }
 
         [HttpPut]
-        public ActionResult<ParceleConfrimationDto> UpdateDeoParcele(DeoParceleUpdateDto deoParcele)
+        [Consumes("application/json")]
+        public ActionResult<DeoParceleDto> UpdateDeoParcele(DeoParceleDto deoParcele)
         {
             try
             {
@@ -102,8 +107,8 @@ namespace Parcela.Controllers
                     return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
                 }
                 DeoParcele dp = mapper.Map<DeoParcele>(deoParcele);
-                DeoParceleConfirmation confirmation = deoParceleRepository.UpdateDeoParcele(dp);
-                return Ok(mapper.Map<ParceleConfrimationDto>(confirmation));
+                DeoParcele confirmation = deoParceleRepository.UpdateDeoParcele(dp);
+                return Ok(mapper.Map<DeoParceleDto>(confirmation));
             }
             catch (Exception)
             {

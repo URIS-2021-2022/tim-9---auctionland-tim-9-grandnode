@@ -29,15 +29,20 @@ namespace Parcela.Data
                 }
             }) ;
         }
-        public DeoParceleConfirmation CreateDeoParcele(DeoParcele deoParcele)
+
+        public DeoParcele CreateDeoParcele(DeoParcele deoParcele)
         {
             deoParcele.DeoParceleID = Guid.NewGuid();
             DeoParceleLista.Add(deoParcele);
             DeoParcele dp = GetDeoParcelaById(deoParcele.DeoParceleID);
 
-            return new DeoParceleConfirmation
+            return new DeoParcele
             {
-                DeoParceleID = dp.DeoParceleID
+                DeoParceleID = dp.DeoParceleID,
+                ParcelaID = dp.ParcelaID,
+                IdealniDeoParcele = dp.IdealniDeoParcele,
+                StvarniDeoParcele = dp.StvarniDeoParcele
+
             };
         }
 
@@ -56,14 +61,17 @@ namespace Parcela.Data
             return DeoParceleLista.ToList();
         }
 
-        public DeoParceleConfirmation UpdateDeoParcele(DeoParcele deoParcele)
+
+        public DeoParcele UpdateDeoParcele(DeoParcele deoParcele)
         {
             DeoParcele dp = GetDeoParcelaById(deoParcele.DeoParceleID);
+
             dp.DeoParceleID = deoParcele.DeoParceleID;
-            return new DeoParceleConfirmation
-            {
-                DeoParceleID = dp.DeoParceleID
-            };
+            dp.IdealniDeoParcele = deoParcele.IdealniDeoParcele;
+            dp.ParcelaID = deoParcele.ParcelaID;
+            dp.StvarniDeoParcele = deoParcele.StvarniDeoParcele;
+
+            return dp;
 
         }
     }

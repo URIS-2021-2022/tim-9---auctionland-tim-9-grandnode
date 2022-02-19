@@ -14,6 +14,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/parcela")]
+    [Produces("application/json")]
     public class ParcelaController : ControllerBase
     {
         private readonly IParcelaRepository parcelaRepository;
@@ -52,17 +53,16 @@ namespace Parcela.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ParcelaConfrimationDto> CreateParcela([FromBody] ParcelaConfrimationDto parcela)
+        public ActionResult<ParcelaDto> CreateParcela([FromBody] ParcelaDto parcela)
         {
             try
             {
 
-               Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
-
-                ParcelaConfrimation confirmation = parcelaRepository.CreateParcela(p);
+                Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
+                Parcela.Entities.Parcela confirmation = parcelaRepository.CreateParcela(p);
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
                 string location = linkGenerator.GetPathByAction("GeParcelaById", "Parcela", new { parcelaID = confirmation.ParcelaID });
-                return Created(location, mapper.Map<ParcelaConfrimationDto>(confirmation));
+                return Created(location, mapper.Map<ParcelaDto>(confirmation));
             }
             catch
             {
@@ -91,7 +91,7 @@ namespace Parcela.Controllers
         }
 
         [HttpPut]
-        public ActionResult<ParcelaConfrimationDto> UpdateParcela(ParcelaUpdateDto parcela)
+        public ActionResult<ParcelaDto> UpdateParcela(ParcelaDto parcela)
         {
             try
             {
@@ -101,8 +101,8 @@ namespace Parcela.Controllers
                     return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
                 }
                 Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
-                ParcelaConfrimation confirmation = parcelaRepository.UpdateParcela(p);
-                return Ok(mapper.Map<ParceleConfrimationDto>(confirmation));
+                Parcela.Entities.Parcela confirmation = parcelaRepository.UpdateParcela(p);
+                return Ok(mapper.Map<ParcelaDto>(confirmation));
             }
             catch (Exception)
             {

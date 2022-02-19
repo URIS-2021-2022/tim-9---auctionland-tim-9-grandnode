@@ -12,6 +12,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/obradivost")]
+    [Produces("application/json")]
     public class ObradivostController : ControllerBase
     {
         private readonly IObradivostRepository obradivostRepository;

@@ -9,7 +9,8 @@ namespace Parcela.Data
 {
     public class ParcelaRepository : IParcelaRepository
     {
-        public ParcelaConfrimation CreateParcela(Entities.Parcela parcela)
+
+        public Parcela.Entities.Parcela CreateParcela(Entities.Parcela parcela)
         {
             throw new NotImplementedException();
         }
@@ -28,8 +29,7 @@ namespace Parcela.Data
         {
             throw new NotImplementedException();
         }
-
-        public ParcelaConfrimation UpdateParcela(Entities.Parcela parcela)
+        public Parcela.Entities.Parcela UpdateParcela(Entities.Parcela parcela)
         {
             throw new NotImplementedException();
         }

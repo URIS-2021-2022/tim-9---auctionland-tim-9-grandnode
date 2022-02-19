@@ -12,6 +12,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/zona")]
+    [Produces("application/json")]
     public class ZasticenaZonaController : ControllerBase
     {
         private readonly IZasticenaZonaRepository zasticenaZonaRepository;

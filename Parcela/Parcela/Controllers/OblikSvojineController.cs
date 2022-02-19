@@ -12,6 +12,7 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/oblik-svojine")]
+    [Produces("application/json")]
     public class OblikSvojineController : ControllerBase
     {
         private readonly IOblikSvojineRepository oblikSvojineRepository;
