@@ -14,6 +14,10 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/parcela")]
+<<<<<<< Updated upstream
+=======
+    [Produces("application/json")]
+>>>>>>> Stashed changes
     public class ParcelaController : ControllerBase
     {
         private readonly IParcelaRepository parcelaRepository;
@@ -52,17 +56,28 @@ namespace Parcela.Controllers
         }
 
         [HttpPost]
+<<<<<<< Updated upstream
         public ActionResult<ParcelaConfrimationDto> CreateParcela([FromBody] ParcelaConfrimationDto parcela)
+=======
+        public ActionResult<ParcelaDto> CreateParcela([FromBody] ParcelaDto parcela)
+>>>>>>> Stashed changes
         {
             try
             {
 
                Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
 
+<<<<<<< Updated upstream
                 ParcelaConfrimation confirmation = parcelaRepository.CreateParcela(p);
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
                 string location = linkGenerator.GetPathByAction("GeParcelaById", "Parcela", new { parcelaID = confirmation.ParcelaID });
                 return Created(location, mapper.Map<ParcelaConfrimationDto>(confirmation));
+=======
+                Parcela.Entities.Parcela confirmation = parcelaRepository.CreateParcela(p);
+                // Dobar API treba da vrati lokator gde se taj resurs nalazi
+                string location = linkGenerator.GetPathByAction("GeParcelaById", "Parcela", new { parcelaID = confirmation.ParcelaID });
+                return Created(location, mapper.Map<ParcelaDto>(confirmation));
+>>>>>>> Stashed changes
             }
             catch
             {
@@ -91,7 +106,11 @@ namespace Parcela.Controllers
         }
 
         [HttpPut]
+<<<<<<< Updated upstream
         public ActionResult<ParcelaConfrimationDto> UpdateParcela(ParcelaUpdateDto parcela)
+=======
+        public ActionResult<ParcelaDto> UpdateParcela(ParcelaDto parcela)
+>>>>>>> Stashed changes
         {
             try
             {
@@ -101,8 +120,13 @@ namespace Parcela.Controllers
                     return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
                 }
                 Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
+<<<<<<< Updated upstream
                 ParcelaConfrimation confirmation = parcelaRepository.UpdateParcela(p);
                 return Ok(mapper.Map<ParceleConfrimationDto>(confirmation));
+=======
+                Parcela.Entities.Parcela confirmation = parcelaRepository.UpdateParcela(p);
+                return Ok(mapper.Map<ParcelaDto>(confirmation));
+>>>>>>> Stashed changes
             }
             catch (Exception)
             {

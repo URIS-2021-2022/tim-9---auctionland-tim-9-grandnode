@@ -49,7 +49,11 @@ namespace Parcela
             services.AddSingleton<IZasticenaZonaRepository, ZasticenaZonaRepository>();
 
             services.AddControllers();
+<<<<<<< Updated upstream
             
+=======
+
+>>>>>>> Stashed changes
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

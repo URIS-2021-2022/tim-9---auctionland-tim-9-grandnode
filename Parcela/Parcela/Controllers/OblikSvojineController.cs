@@ -12,6 +12,10 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/oblik-svojine")]
+<<<<<<< Updated upstream
+=======
+    [Produces("application/json")]
+>>>>>>> Stashed changes
     public class OblikSvojineController : ControllerBase
     {
         private readonly IOblikSvojineRepository oblikSvojineRepository;

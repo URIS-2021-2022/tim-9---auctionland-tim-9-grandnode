@@ -10,6 +10,10 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/auth")]
+<<<<<<< Updated upstream
+=======
+    [Produces("application/json")]
+>>>>>>> Stashed changes
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationHelper authenticationHelper;

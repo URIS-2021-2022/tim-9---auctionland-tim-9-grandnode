@@ -11,9 +11,14 @@ namespace Parcela.Data
     {
         List<Parcela.Entities.Parcela> GetParcelaList();
         Parcela.Entities.Parcela GetParcelaById(Guid parcelaId);
+<<<<<<< Updated upstream
 
         ParcelaConfrimation CreateParcela(Parcela.Entities.Parcela parcela);
         ParcelaConfrimation UpdateParcela(Parcela.Entities.Parcela parcela);
+=======
+        Parcela.Entities.Parcela CreateParcela(Parcela.Entities.Parcela parcela);
+        Parcela.Entities.Parcela UpdateParcela(Parcela.Entities.Parcela parcela);
+>>>>>>> Stashed changes
         void DeleteParcela(Guid parcelaId);
 
     }

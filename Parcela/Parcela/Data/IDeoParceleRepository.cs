@@ -11,8 +11,13 @@ namespace Parcela.Data
     {
         List<DeoParcele> GetDeoParceleList();
         DeoParcele GetDeoParcelaById(Guid deoParceleId);
+<<<<<<< Updated upstream
         DeoParceleConfirmation CreateDeoParcele(DeoParcele deoParcele);
         DeoParceleConfirmation UpdateDeoParcele(DeoParcele deoParcele);
+=======
+        DeoParcele CreateDeoParcele(DeoParcele deoParcele);
+        DeoParcele UpdateDeoParcele(DeoParcele deoParcele);
+>>>>>>> Stashed changes
         void DeleteDeoParcele(Guid deoParceleId);
     }
 }

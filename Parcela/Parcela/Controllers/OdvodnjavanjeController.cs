@@ -12,6 +12,10 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/odvodnjavanje")]
+<<<<<<< Updated upstream
+=======
+    [Produces("application/json")]
+>>>>>>> Stashed changes
     public class OdvodnjavanjeController : ControllerBase
     {
         private readonly IOdvodnjavanjeRepository odvodnjavanjeRepository;

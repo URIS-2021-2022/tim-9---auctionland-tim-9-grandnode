@@ -9,7 +9,11 @@ namespace Parcela.Data
 {
     public class ParcelaRepository : IParcelaRepository
     {
+<<<<<<< Updated upstream
         public ParcelaConfrimation CreateParcela(Entities.Parcela parcela)
+=======
+        public Parcela.Entities.Parcela CreateParcela(Entities.Parcela parcela)
+>>>>>>> Stashed changes
         {
             throw new NotImplementedException();
         }
@@ -29,7 +33,11 @@ namespace Parcela.Data
             throw new NotImplementedException();
         }
 
+<<<<<<< Updated upstream
         public ParcelaConfrimation UpdateParcela(Entities.Parcela parcela)
+=======
+        public Parcela.Entities.Parcela UpdateParcela(Entities.Parcela parcela)
+>>>>>>> Stashed changes
         {
             throw new NotImplementedException();
         }

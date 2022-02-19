@@ -13,8 +13,12 @@ namespace Parcela.Profiles
         public DeoParceleProfile()
         {
             CreateMap<DeoParcele, DeoParceleDto>();
+<<<<<<< Updated upstream
             CreateMap<DeoParcele, DeoParceleCreateDto>();
             CreateMap<DeoParcele, DeoParceleUpdateDto>();
+=======
+            CreateMap<DeoParceleDto, DeoParcele>();
+>>>>>>> Stashed changes
         }
     }
 }

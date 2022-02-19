@@ -29,15 +29,28 @@ namespace Parcela.Data
                 }
             }) ;
         }
+<<<<<<< Updated upstream
         public DeoParceleConfirmation CreateDeoParcele(DeoParcele deoParcele)
+=======
+        public DeoParcele CreateDeoParcele(DeoParcele deoParcele)
+>>>>>>> Stashed changes
         {
             deoParcele.DeoParceleID = Guid.NewGuid();
             DeoParceleLista.Add(deoParcele);
             DeoParcele dp = GetDeoParcelaById(deoParcele.DeoParceleID);
 
+<<<<<<< Updated upstream
             return new DeoParceleConfirmation
             {
                 DeoParceleID = dp.DeoParceleID
+=======
+            return new DeoParcele
+            {
+                DeoParceleID = dp.DeoParceleID,
+                ParcelaID = dp.ParcelaID,
+                IdealniDeoParcele = dp.IdealniDeoParcele,
+                StvarniDeoParcele = dp.StvarniDeoParcele
+>>>>>>> Stashed changes
             };
         }
 
@@ -56,6 +69,7 @@ namespace Parcela.Data
             return DeoParceleLista.ToList();
         }
 
+<<<<<<< Updated upstream
         public DeoParceleConfirmation UpdateDeoParcele(DeoParcele deoParcele)
         {
             DeoParcele dp = GetDeoParcelaById(deoParcele.DeoParceleID);
@@ -64,6 +78,19 @@ namespace Parcela.Data
             {
                 DeoParceleID = dp.DeoParceleID
             };
+=======
+        public DeoParcele UpdateDeoParcele(DeoParcele deoParcele)
+        {
+            DeoParcele dp = GetDeoParcelaById(deoParcele.DeoParceleID);
+
+            dp.DeoParceleID = deoParcele.DeoParceleID;
+            dp.IdealniDeoParcele = deoParcele.IdealniDeoParcele;
+            dp.ParcelaID = deoParcele.ParcelaID;
+            dp.StvarniDeoParcele = deoParcele.StvarniDeoParcele;
+
+            return dp;
+            
+>>>>>>> Stashed changes
 
         }
     }

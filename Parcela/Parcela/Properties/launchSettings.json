@@ -10,7 +10,11 @@
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
+<<<<<<< Updated upstream
       "commandName": "IISExpress",
+=======
+      "commandName": "Project",
+>>>>>>> Stashed changes
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

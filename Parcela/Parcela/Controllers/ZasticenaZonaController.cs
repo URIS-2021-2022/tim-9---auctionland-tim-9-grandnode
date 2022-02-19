@@ -12,6 +12,10 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/zona")]
+<<<<<<< Updated upstream
+=======
+    [Produces("application/json")]
+>>>>>>> Stashed changes
     public class ZasticenaZonaController : ControllerBase
     {
         private readonly IZasticenaZonaRepository zasticenaZonaRepository;

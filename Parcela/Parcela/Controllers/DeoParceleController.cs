@@ -15,6 +15,10 @@ namespace Parcela.Controllers
 {
     [ApiController]
     [Route("api/deoParcele")]
+<<<<<<< Updated upstream
+=======
+    [Produces("application/json", "application/xml")]
+>>>>>>> Stashed changes
     public class DeoParceleController : ControllerBase
     {
         private readonly IDeoParceleRepository deoParceleRepository;
@@ -53,19 +57,33 @@ namespace Parcela.Controllers
         }
 
         [HttpPost]
+<<<<<<< Updated upstream
         public ActionResult<ParceleConfrimationDto> CreateDeoParcele([FromBody] DeoParceleCreateDto deoParcele)
+=======
+        [Consumes("application/json")]
+        public ActionResult<DeoParceleDto> CreateDeoParcele([FromBody] DeoParceleDto deoParcele)
+>>>>>>> Stashed changes
         {
             try
             { 
 
                 DeoParcele dp = mapper.Map<DeoParcele>(deoParcele);
 
+<<<<<<< Updated upstream
                 DeoParceleConfirmation confirmation = deoParceleRepository.CreateDeoParcele(dp);
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
                 string location = linkGenerator.GetPathByAction("GetDeoParceleById", "DeoParcele", new { deoParceleID = confirmation.DeoParceleID });
                 return Created(location, mapper.Map<ParceleConfrimationDto>(confirmation));
             }
             catch
+=======
+                DeoParcele confirmation = deoParceleRepository.CreateDeoParcele(dp);
+                // Dobar API treba da vrati lokator gde se taj resurs nalazi
+                string location = linkGenerator.GetPathByAction("GetDeoParceleList", "DeoParcele", new { DeoParceleID = confirmation.DeoParceleID });
+                return Created(location, mapper.Map<DeoParceleDto>(confirmation));
+            }
+            catch (Exception)
+>>>>>>> Stashed changes
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
             }
@@ -92,7 +110,12 @@ namespace Parcela.Controllers
         }
 
         [HttpPut]
+<<<<<<< Updated upstream
         public ActionResult<ParceleConfrimationDto> UpdateDeoParcele(DeoParceleUpdateDto deoParcele)
+=======
+        [Consumes("application/json")]
+        public ActionResult<DeoParceleDto> UpdateDeoParcele(DeoParceleDto deoParcele)
+>>>>>>> Stashed changes
         {
             try
             {
@@ -102,8 +125,13 @@ namespace Parcela.Controllers
                     return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
                 }
                 DeoParcele dp = mapper.Map<DeoParcele>(deoParcele);
+<<<<<<< Updated upstream
                 DeoParceleConfirmation confirmation = deoParceleRepository.UpdateDeoParcele(dp);
                 return Ok(mapper.Map<ParceleConfrimationDto>(confirmation));
+=======
+                DeoParcele confirmation = deoParceleRepository.UpdateDeoParcele(dp);
+                return Ok(mapper.Map<DeoParceleDto>(confirmation));
+>>>>>>> Stashed changes
             }
             catch (Exception)
             {
