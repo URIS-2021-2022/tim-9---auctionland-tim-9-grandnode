@@ -60,7 +60,7 @@
             POST /api/licnost \
             {
                 "LicnostId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
-                "Ime": "Milutina",
+                "Ime": "Milutin",
                 "Prezime": "Milankovic",
                 "Funkcija": "Clan"
             }
