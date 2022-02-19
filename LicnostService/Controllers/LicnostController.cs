@@ -69,9 +69,9 @@ namespace LicnostService.Controllers
 
                 return Created(location, mapper.Map<LicnostDto>(licnost));
             }
-            catch 
+            catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Create error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u kreiranju: ");
             }
         }
 
@@ -92,11 +92,11 @@ namespace LicnostService.Controllers
 
                 licnostRepository.DeleteLicnost(licnostId);
                 licnostRepository.SaveChanges();
-                return NoContent();
+                return StatusCode(StatusCodes.Status200OK, "Uspesno brisanje!");
             }
             catch 
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Delete error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u brisanju!");
             }
         }
 
@@ -105,7 +105,7 @@ namespace LicnostService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<LicnostDto> UpdateLicnost(LicnostCUDto licnostDto)
+        public ActionResult<LicnostDto> UpdateLicnost([FromBody] LicnostCUDto licnostDto)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace LicnostService.Controllers
             }
             catch
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
             }
         }
 

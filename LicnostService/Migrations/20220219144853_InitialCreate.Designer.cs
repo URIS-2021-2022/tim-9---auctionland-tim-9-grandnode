@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicnostService.Migrations
 {
     [DbContext(typeof(LicnostContext))]
-    [Migration("20220218202640_InitialCreate")]
+    [Migration("20220219144853_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -8,7 +8,7 @@ namespace LicnostService.Entities
     public class Licnost
     {
 
-        public Guid LicnostId { get; set; }
+        public Guid LicnostId { get; set; } = Guid.NewGuid();
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Funkcija { get; set; }

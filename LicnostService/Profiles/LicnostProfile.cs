@@ -18,6 +18,7 @@ namespace LicnostService.Profiles
                 opt => opt.MapFrom(src => src.Ime + " " + src.Prezime));
             CreateMap<Licnost, LicnostCUDto>();
             CreateMap<Licnost, Licnost>();
+            CreateMap<LicnostCUDto, Licnost>();
         }
 
     }
