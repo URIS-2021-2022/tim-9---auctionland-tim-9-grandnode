@@ -40,7 +40,7 @@ namespace ZalbaService.Controllers
             {
                 return NoContent();
             }
-           // var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+            var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
             return Ok(mapper.Map<List<RadnjaDto>>(radnja));
         }
 
