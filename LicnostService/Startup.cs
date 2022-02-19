@@ -11,7 +11,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LicnostService
@@ -32,6 +34,19 @@ namespace LicnostService
             services.AddControllers();
             services.AddScoped<ILicnostRepository, LicnostRepository>(); //Nova instanca svaki put kad ide novi request, potrebno za bazu
             services.AddDbContextPool<LicnostContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LicnostDB"))); //Dodavanje konteksta za entity framework
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("LicnostOpenApiSpecification", new Microsoft.OpenApi.Models.OpenApiInfo()  //Definise naziv API-ja
+                { 
+                    Title = "API for operations with Licnost entity",
+                    Version = "1"
+                });
+
+                var xmlComments = $"{ Assembly.GetExecutingAssembly().GetName().Name }.xml";
+                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments);
+
+                setupAction.IncludeXmlComments(xmlCommentsPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +56,14 @@ namespace LicnostService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(setupAction => 
+            {
+                setupAction.SwaggerEndpoint("/swagger/LicnostOpenApiSpecification/swagger.json", "Licnost entity operations API");
+                setupAction.RoutePrefix = "";
+            });
 
             app.UseHttpsRedirection();
 

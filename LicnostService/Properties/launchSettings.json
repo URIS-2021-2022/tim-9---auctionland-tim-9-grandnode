@@ -2,16 +2,20 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost:55200",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:55872",
-      "sslPort": 44384
+      "applicationUrl": "http://localhost:55200",
+      "sslPort": 44372
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
-      "commandName": "Project",
-      "launchUrl": "LicnostService",
+      "commandName": "IISExpress",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

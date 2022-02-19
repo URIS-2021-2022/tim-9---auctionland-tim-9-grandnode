@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace LicnostService.Data
 {
+
+
     public class LicnostRepository : ILicnostRepository
     {
 

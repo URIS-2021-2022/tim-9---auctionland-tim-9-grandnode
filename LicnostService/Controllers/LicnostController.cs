@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace LicnostService.Controllers
 {
     [ApiController]
-    [Route("api/licnosti")]
+    [Route("api/licnost")]
     public class LicnostController : ControllerBase
     {
         private readonly ILicnostRepository licnostRepository;
@@ -27,7 +27,12 @@ namespace LicnostService.Controllers
             this.linkGenerator = linkGenerator;
         }
 
-        //Done
+        /// <summary>
+        /// Vraća sve ličnosti.
+        /// </summary>
+        /// <returns>Lista ličnosti</returns>
+        /// <response code="200">Vraća listu ličnosti</response>
+        /// <response code="204">Nije pronađen ni jedna ličnost u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -41,7 +46,13 @@ namespace LicnostService.Controllers
             return Ok(mapper.Map<List<LicnostDto>>(licnosti));
         }
 
-        //Done
+        /// <summary>
+        /// Vraća ličnost na osnovu identifikatora ličnost.
+        /// </summary>
+        /// <param name="licnostId">Identifikator licnosti (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Ličnost</returns>
+        /// <response code="200">Vraća ličnost koja je pronađena</response>
+        /// <response code="204">Ne postoji ličnost sa datim identifikatorom</response>
         [HttpGet("{licnostId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -54,7 +65,22 @@ namespace LicnostService.Controllers
             return mapper.Map<LicnostDto>(licnost);
         }
 
-        //Done
+        /// <summary>
+    /// Upisuje ličnost.
+    /// </summary>
+    /// <param name="licnostDto">Model ličnosti</param>
+    /// <returns>Podatke o ličnosti koja je upisana</returns>
+    /// <remarks>
+    /// Primer zahteva za upis ličnosti \
+    /// POST /api/licnost \
+    /// {
+    ///     "Ime": "Milutina",
+    ///     "Prezime": "Milankovic",
+    ///     "Funkcija": "Clan"
+    /// }
+    /// </remarks>
+    /// <response code="201">Vraća podatke o upisanoj ličnosti</response>
+    /// <response code="500">Postoji neki problem sa upisom</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -75,7 +101,14 @@ namespace LicnostService.Controllers
             }
         }
 
-        //Done
+        /// <summary>
+        /// Briše ličnost na osnovu identifikatora.
+        /// </summary>
+        /// <param name="licnostId">Identifikator licnosti (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>string</returns>
+        /// <response code="204">Vraća poruku o uspešnom brisanju</response>
+        /// <response code="404">Ne postoji ličnost sa tim identifikatorom</response>
+        /// <response code="500">Postoji problem sa brisanjem na serveru</response>
         [HttpDelete("{licnostId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -100,7 +133,24 @@ namespace LicnostService.Controllers
             }
         }
 
-        //Done
+        /// <summary>
+        /// Menja vrednosti obeležja ličnosti.
+        /// </summary>
+        /// <param name="licnostDto">Model ličnosti</param>
+        /// <returns>Podatke o ličnosti koja je upisana</returns>
+        ///     /// <remarks>
+        /// Primer zahteva za upis ličnosti \
+        /// POST /api/licnost \
+        /// {
+        ///     "LicnostId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
+        ///     "Ime": "Milutin",
+        ///     "Prezime": "Milankovic",
+        ///     "Funkcija": "Clan"
+        /// }
+        /// </remarks>
+        /// <response code="200">Vraća podatke o izmenjenoj ličnosti</response>
+        /// <response code="404">Ne postoji ličnost za koju je pokušana izmena</response>
+        /// <response code="500">Postoji neki problem sa izmenom</response>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -127,6 +177,9 @@ namespace LicnostService.Controllers
             }
         }
 
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         public IActionResult GetLicnostOptions()
         {

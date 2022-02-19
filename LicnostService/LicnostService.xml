@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LicnostService</name>
+    </assembly>
+    <members>
+        <member name="M:LicnostService.Controllers.LicnostController.GetLicnosti">
+            <summary>
+            Vraća sve ličnosti.
+            </summary>
+            <returns>Lista ličnosti</returns>
+            <response code="200">Vraća listu ličnosti</response>
+            <response code="204">Nije pronađen ni jedna ličnost u sistemu</response>
+        </member>
+        <member name="M:LicnostService.Controllers.LicnostController.GetLicnostById(System.Guid)">
+            <summary>
+            Vraća ličnost na osnovu identifikatora ličnost.
+            </summary>
+            <param name="licnostId">Identifikator licnosti (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Ličnost</returns>
+            <response code="200">Vraća ličnost koja je pronađena</response>
+            <response code="204">Ne postoji ličnost sa datim identifikatorom</response>
+        </member>
+        <member name="M:LicnostService.Controllers.LicnostController.CreateLicnost(LicnostService.Models.LicnostCUDto)">
+            <summary>
+            Upisuje ličnost.
+            </summary>
+            <param name="licnostDto">Model ličnosti</param>
+            <returns>Podatke o ličnosti koja je upisana</returns>
+            <remarks>
+            Primer zahteva za upis ličnosti \
+            POST /api/licnost \
+            {
+                "Ime": "Milutina",
+                "Prezime": "Milankovic",
+                "Funkcija": "Clan"
+            }
+            </remarks>
+            <response code="201">Vraća podatke o upisanoj ličnosti</response>
+            <response code="500">Postoji neki problem sa upisom</response>
+        </member>
+        <member name="M:LicnostService.Controllers.LicnostController.DeleteLicnost(System.Guid)">
+            <summary>
+            Briše ličnost na osnovu identifikatora.
+            </summary>
+            <param name="licnostId">Identifikator licnosti (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>string</returns>
+            <response code="204">Vraća poruku o uspešnom brisanju</response>
+            <response code="404">Ne postoji ličnost sa tim identifikatorom</response>
+            <response code="500">Postoji problem sa brisanjem na serveru</response>
+        </member>
+        <member name="M:LicnostService.Controllers.LicnostController.UpdateLicnost(LicnostService.Models.LicnostCUDto)">
+            <summary>
+            Menja vrednosti obeležja ličnosti.
+            </summary>
+            <param name="licnostDto">Model ličnosti</param>
+            <returns>Podatke o ličnosti koja je upisana</returns>
+                /// <remarks>
+            Primer zahteva za upis ličnosti \
+            POST /api/licnost \
+            {
+                "LicnostId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
+                "Ime": "Milutina",
+                "Prezime": "Milankovic",
+                "Funkcija": "Clan"
+            }
+            </remarks>
+            <response code="200">Vraća podatke o izmenjenoj ličnosti</response>
+            <response code="404">Ne postoji ličnost za koju je pokušana izmena</response>
+            <response code="500">Postoji neki problem sa izmenom</response>
+        </member>
+        <member name="M:LicnostService.Controllers.LicnostController.GetLicnostOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+        <member name="T:LicnostService.Entities.Licnost">
+            <summary>
+            Model ličnosti unutar sistema
+            </summary>
+        </member>
+        <member name="P:LicnostService.Entities.Licnost.LicnostId">
+            <summary>
+            Identifikator ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Entities.Licnost.Ime">
+            <summary>
+            Ime ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Entities.Licnost.Prezime">
+            <summary>
+            Prezime ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Entities.Licnost.Funkcija">
+            <summary>
+            Funkija na kojoj je ličnost
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.LicnostCUDto.LicnostId">
+            <summary>
+            Identifikator ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.LicnostCUDto.Ime">
+            <summary>
+            Ime ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.LicnostCUDto.Prezime">
+            <summary>
+            Prezime ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.LicnostCUDto.Funkcija">
+            <summary>
+            Funkija na kojoj je ličnost
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.LicnostDto.ImeLicnosti">
+            <summary>
+            Puno ime ličnosti
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.LicnostDto.Funkcija">
+            <summary>
+            Funkija na kojoj je ličnost
+            </summary>
+        </member>
+    </members>
+</doc>
