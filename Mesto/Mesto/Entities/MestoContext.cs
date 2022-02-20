@@ -29,10 +29,10 @@ namespace Mesto.Entities
                 {
                     AdresaId = Guid.Parse("814f8e70-0edf-4cf5-8729-5091f7590b68"),
                     Mesto = "SM",
-                    PostanskiBroj=2200,
-                    Ulica="SAve kovacevica 25"
+                    PostanskiBroj = 2200,
+                    Ulica = "SAve kovacevica 25"
                 }
-                );
+                ) ;
             modelBuilder.Entity<Drzava>()
                 .HasData(
                 new Drzava

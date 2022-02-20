@@ -17,5 +17,6 @@ namespace Mesto.Data
         void UpdateAdresa(Adresa adresa);
 
         void DeleteAdresa(Guid adresaId);
+        bool SaveChanges();
     }
 }

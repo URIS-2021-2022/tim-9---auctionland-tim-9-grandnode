@@ -4,6 +4,7 @@
         <name>Mesto</name>
     </assembly>
     <members>
+        <!-- Badly formed XML comment ignored for member "M:Mesto.Controllers.AdresaController.#ctor(Mesto.Data.IAdresaRepository,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper,Mesto.ServiceCalls.ILoggerService)" -->
         <member name="M:Mesto.Controllers.AuthController.Authenticate(Mesto.Models.Principal)">
             <summary>
             Sluzi za autentifikaciju korisnika
@@ -80,6 +81,26 @@
             Salt
             </summary>
         </member>
+        <member name="P:Mesto.Models.Message.ServiceName">
+            <summary>
+            Naziv servisa
+            </summary>
+        </member>
+        <member name="P:Mesto.Models.Message.Method">
+            <summary>
+            Metoda
+            </summary>
+        </member>
+        <member name="P:Mesto.Models.Message.Information">
+            <summary>
+            Detalji
+            </summary>
+        </member>
+        <member name="P:Mesto.Models.Message.Error">
+            <summary>
+            Greska
+            </summary>
+        </member>
         <member name="T:Mesto.Models.Principal">
             <summary>
             Predstavlja model za autentifikaciju
@@ -94,6 +115,24 @@
             <summary>
             Korisnička lozinka
             </summary>
+        </member>
+        <member name="M:Mesto.ServiceCalls.ILoggerService.CreateMessage(Mesto.Models.Message)">
+            <summary>
+            Metoda za kreiranje poruke logeru
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Mesto.ServiceCalls.LoggerService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Mesto.ServiceCalls.LoggerService.CreateMessage(Mesto.Models.Message)">
+            <summary>
+            Kreiranje poruke - metoda
+            </summary>
+            <param name="message"></param>
         </member>
     </members>
 </doc>

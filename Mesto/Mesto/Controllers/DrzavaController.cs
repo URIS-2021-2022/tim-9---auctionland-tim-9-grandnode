@@ -57,6 +57,7 @@ namespace Mesto.Controllers
         }
 
         [HttpPost]
+        [Produces("application/json")]
         public ActionResult<DrzavaDto> CreateDrzava([FromBody] DrzavaDto drzava)
         {
             try
@@ -86,6 +87,7 @@ namespace Mesto.Controllers
                 }
 
                 drzavaRepository.DeleteDrzava(drzavaId);
+                drzavaRepository.SaveChanges();
                 return NoContent();
             }
             catch
@@ -94,25 +96,30 @@ namespace Mesto.Controllers
             }
         }
 
-        //[HttpPut]
-        //public ActionResult<DrzavaDto> UpdateDrzava(Drzava drzava)
-        //{
-        //    try
-        //    {
-        //        if (drzavaRepository.GetDrzavaById(drzava.DrzavaId)==null)
-        //        {
-        //            return NotFound();
-        //        }
+        [HttpPut]
+        [Produces("application/json")]
+        public ActionResult<DrzavaDto> UpdateDrzava(Drzava drzava)
+        {
+            try
+            {
+                //Proveriti da li uopšte postoji prijava koju pokušavamo da ažuriramo.
+                var oldDrzava = drzavaRepository.GetDrzavaById(drzava.DrzavaId);
+                if (oldDrzava == null)
+                {
+                    return NotFound();
+                }
+                Drzava d = mapper.Map<Drzava>(drzava);
 
-        //        Drzava d = drzavaRepository.UpdateDrzava(drzava);
+                mapper.Map(d, oldDrzava); //Update objekta koji treba da sačuvamo u bazi                
 
-        //        return Ok(mapper.Map<DrzavaDto>(d));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom azuriranja drzave!");
-        //    }
-        //}
+                drzavaRepository.SaveChanges(); //Perzistiramo promene
+                return Ok(mapper.Map<DrzavaDto>(d));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
         [HttpOptions]
         public IActionResult GetDrzavaOptions()
         {

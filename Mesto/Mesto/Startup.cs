@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Mesto.ServiceCalls;
 
 namespace Mesto
 {
@@ -39,6 +40,8 @@ namespace Mesto
             services.AddControllers();
             services.AddScoped<IDrzavaRepository, DrzavaRepository>();
             services.AddScoped<IAdresaRepository, AdresaRepository>();
+            services.AddScoped<ILoggerService, LoggerService>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<MestoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MestoDB")));
             services.AddSwaggerGen(setupAction =>

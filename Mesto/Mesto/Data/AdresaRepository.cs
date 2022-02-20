@@ -24,6 +24,7 @@ namespace Mesto.Data
         public Adresa CreateAdresa(Adresa adresa)
         {
             var createdEntity = context.Add(adresa);
+            context.SaveChanges();
             return mapper.Map<Adresa>(createdEntity.Entity);
         }
 
@@ -31,6 +32,7 @@ namespace Mesto.Data
         {
             var adresa = GetAdresaById(adresaId);
             context.Remove(adresa);
+            context.SaveChanges();
         }
 
         public Adresa GetAdresaById(Guid adresaId)

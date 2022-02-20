@@ -17,5 +17,6 @@ namespace Mesto.Data
         void UpdateDrzava(Drzava drzava);
 
         void DeleteDrzava(Guid drzavaId);
+        bool SaveChanges();
     }
 }

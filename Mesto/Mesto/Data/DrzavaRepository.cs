@@ -23,6 +23,7 @@ namespace Mesto.Data
         public Drzava CreateDrzava(Drzava drzava)
         {
             var createdEntity = context.Add(drzava);
+            context.SaveChanges();
             return mapper.Map<Drzava>(createdEntity.Entity);
         }
 
@@ -30,6 +31,7 @@ namespace Mesto.Data
         {
             var drzava = GetDrzavaById(drzavaId);
             context.Remove(drzava);
+            context.SaveChanges();
         }
 
         public Drzava GetDrzavaById(Guid drzavaId)
