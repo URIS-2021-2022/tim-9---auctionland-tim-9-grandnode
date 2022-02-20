@@ -2,6 +2,7 @@
 using Kupac_SK.Data;
 using Kupac_SK.Entities;
 using Kupac_SK.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
@@ -41,11 +42,62 @@ namespace Kupac_SK.Controllers
 
             sviKupci.AddRange(temp); //objedinjena fizicka i pravna lica 
 
-            return NoContent();
+            return Ok(mapper.Map<List<KupacModelDto>>(sviKupci));
 
         }
 
+        [HttpGet("{kupacId}")]
 
+        public ActionResult<KupacModelDto> GetKupacById(Guid kupacId)
+        {
+            KupacModel kupac;
+
+            kupac = (KupacModel)fizickoLiceRepository.GetFizickoLiceById(kupacId); 
+
+            if(kupac == null)  kupac = (KupacModel)pravnoLiceRepository.GetPravnoLiceById(kupacId);
+            if(kupac == null) return NotFound();
+
+            return Ok(mapper.Map<KupacModelDto>(kupac));
+                 
+        }
+
+        [HttpDelete("{kupacId}")]
+
+        public IActionResult DeleteKupac(Guid kupacId)
+        {
+            try
+            {
+                KupacModel kupac;
+                kupac = (KupacModel)fizickoLiceRepository.GetFizickoLiceById(kupacId);
+
+                if (kupac == null) kupac = (KupacModel)pravnoLiceRepository.GetPravnoLiceById(kupacId);
+                if (kupac == null) return NotFound();
+
+                if(kupac.FizPravno == true)
+                {
+                    fizickoLiceRepository.DeleteFizickoLice(kupacId);
+                } else
+                {
+                    pravnoLiceRepository.DeletePravnoLice(kupacId);
+                }
+                return NoContent();
+
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
+            }
+        }
+
+
+        [HttpPut]
+        public ActionResult<KupacModelDto> UpdateKupac(KupacModelDto kupac)
+        {
+            return NoContent();
+            //do db
+        }
 
 
 

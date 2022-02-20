@@ -10,13 +10,13 @@ namespace Kupac_SK.Data
     public class KupacRepository : IKupacRepository
     {
         public static List<KupacModel> Kupci { get; set; } = new List<KupacModel>();
-
+        /*
         public KupacRepository()
         {
             FillData();
         }
-
-
+        */
+        /*
         private void FillData()
         {
             Kupci.AddRange(new List<KupacModel>
@@ -61,8 +61,8 @@ namespace Kupac_SK.Data
                 }
 
 
-            }); ;
-        }
+            }); */
+        
         public KupacConfirmation CreateKupac(KupacModel kupacModel)
         {
             throw new NotImplementedException();
