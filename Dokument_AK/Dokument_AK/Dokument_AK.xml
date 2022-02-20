@@ -1,0 +1,701 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dokument_AK</name>
+    </assembly>
+    <members>
+        <member name="M:Dokument_AK.Controllers.AuthenticationController.Authenticate(Dokument_AK.Models.Principal)">
+            <summary>
+            Sluzi za autentifikaciju korisnika
+            </summary>
+            <param name="principal">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.#ctor(Dokument_AK.Data.IDokumentRepository,AutoMapper.IMapper,Dokument_AK.ServiceCalls.ILoggerService,Microsoft.AspNetCore.Routing.LinkGenerator)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="dokumentRepository"></param>
+            <param name="mapper"></param>
+            <param name="loggerService"></param>
+            <param name="linkGenerator"></param>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.GetDokuments(System.String)">
+            <summary>
+            Vraca sve dokumente na osnovu prosledjenog filtera
+            </summary>
+            <param name="ZavodniBroj">Zavodni broj dokumenta</param>
+            <returns>Lista dokumenata</returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.GetDokumentByID(System.Guid)">
+            <summary>
+            Vraca dokument na osnovu IDja
+            </summary>
+            <param name="dokumentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.CreateDokument(Dokument_AK.Models.DokumentCreationDto)">
+            <summary>
+            Kreira dokument
+            </summary>
+            <param name="dokumentDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.DeleteDokument(System.Guid)">
+            <summary>
+            Brise dokument na osnovu IDja
+            </summary>
+            <param name="dokumentID">ID dokumenta</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.UpdateDokument(Dokument_AK.Entities.DokumentEnt)">
+            <summary>
+            Azurira postojeci dokument
+            </summary>
+            <param name="dokument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.DokumentController.GetDokumentOptions">
+            <summary>
+            Opcije
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.EksterniController.GetEksterniDokumentEnts(System.Boolean)">
+            <summary>
+            Vraca eksterne dokumente na osnovu filtera
+            </summary>
+            <param name="Izmenjen">Polje koje govori da li je dokument izmenjen</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.EksterniController.GetEskterniDokumentByID(System.Guid)">
+            <summary>
+            Vraca dokument na osnv=ovu IDja
+            </summary>
+            <param name="dokumentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.EksterniController.CreateEksterniDokument(Dokument_AK.Models.EksterniCreationDto)">
+            <summary>
+            Kreiranje dokumenta
+            </summary>
+            <param name="dokumentDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.EksterniController.DeleteEksterniDokument(System.Guid)">
+            <summary>
+            Brisanje dokumenta na osnovu IDja
+            </summary>
+            <param name="dokumentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.EksterniController.UpdateEksterniDokument(Dokument_AK.Entities.EksterniDokumentEnt)">
+            <summary>
+            Azuriranje postojeceg dokumenta
+            </summary>
+            <param name="dokument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.EksterniController.GetInterniOptions">
+            <summary>
+            Opcije
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.#ctor(Dokument_AK.Data.IInterniDokumentRepository,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="interniRepository"></param>
+            <param name="linkGenerator"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.GetInterniDokumentEnts(System.Boolean)">
+            <summary>
+            Vraca sve dokumente
+            </summary>
+            <param name="Izmenjen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.GetInterniDokumentByID(System.Guid)">
+            <summary>
+            Vraca dokumente na osnovu IDja
+            </summary>
+            <param name="dokumentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.CreateInterniDokument(Dokument_AK.Models.InterniCreationDto)">
+            <summary>
+            Kreiranje dokumenta
+            </summary>
+            <param name="dokumentDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.DeleteInterniDokument(System.Guid)">
+            <summary>
+            Brisanje dokumenta
+            </summary>
+            <param name="dokumentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.UpdateInterniDokument(Dokument_AK.Entities.InterniDokumentEnt)">
+            <summary>
+            Azuriranje dokumenta
+            </summary>
+            <param name="dokument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.InterniController.GetInterniOptions">
+            <summary>
+            Opcije
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.#ctor(Dokument_AK.Data.IStatusDokumentaRepository,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="statusDokRepository"></param>
+            <param name="linkGenerator"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.GetStatusDokumentaEnts(System.Boolean)">
+            <summary>
+            Vraca sve statuse dokumenata
+            </summary>
+            <param name="Usvojen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.GetStatusDokumentaByID(System.Guid)">
+            <summary>
+            Vraca status dokumenta na osnovu IDja
+            </summary>
+            <param name="statusDokID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.CreateStatusDokument(Dokument_AK.Models.StatusDokumentaCreationDto)">
+            <summary>
+            Kreira novi status dokumenta
+            </summary>
+            <param name="dokumentDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.DeleteStatusDokumenta(System.Guid)">
+            <summary>
+            Brise status dokumenta na osnovu IDja
+            </summary>
+            <param name="statusDokID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.UpdateStatusDokumenta(Dokument_AK.Entities.StatusDokumentaEnt)">
+            <summary>
+            Azuriranje postojeceg status dokumenta
+            </summary>
+            <param name="dokument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Controllers.StatusDokumentaController.GetStatusDokOptions">
+            <summary>
+            Opcije
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.DokumentRepository.GetDokuments(System.String)">
+            <summary>
+            Metoda koja vraca sve dokumente
+            </summary>
+            <param name="ZavodniBroj">Filter polje zavodni broj</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.DokumentRepository.GetDokumentByID(System.Guid)">
+            <summary>
+            Vraca dokument na osnovu IDja
+            </summary>
+            <param name="dokumentID">ID dokumenta</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.DokumentRepository.CreateDokument(Dokument_AK.Entities.DokumentEnt)">
+            <summary>
+            Metoda koja kreira dokument
+            </summary>
+            <param name="dokument">Potrebno je unedi telo dokumenta</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.DokumentRepository.UpdateDokument(Dokument_AK.Entities.DokumentEnt)">
+            <summary>
+            Azurira postojeci dokument
+            </summary>
+            <param name="dokument">Potrebno je unesti dokument</param>
+        </member>
+        <member name="M:Dokument_AK.Data.DokumentRepository.DeleteDokument(System.Guid)">
+            <summary>
+            Brise dokument
+            </summary>
+            <param name="dokumentID">ID dokumenta</param>
+        </member>
+        <member name="M:Dokument_AK.Data.EksterniDokumentRepository.GetEksterniDokumentEnts(System.Boolean)">
+            <summary>
+            Metoda koja vraca sve dokumente
+            </summary>
+            <param name="Izmenjen">Filter parametar izmenjen</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.EksterniDokumentRepository.GetEskterniDokumentByID(System.Guid)">
+            <summary>
+            Metoda koja vraca dokument na osnovu IDja
+            </summary>
+            <param name="dokumentID">ID dokumenta</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.EksterniDokumentRepository.CreateEksterniDokument(Dokument_AK.Entities.EksterniDokumentEnt)">
+            <summary>
+            Metoda koja kreira dokument
+            </summary>
+            <param name="dokument">Potrebno je proslediti telo dokumenta</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.EksterniDokumentRepository.UpdateEksterniDokument(Dokument_AK.Entities.EksterniDokumentEnt)">
+            <summary>
+            Metoda koja azurira postojeci dokument
+            </summary>
+            <param name="dokumentID">Vrsi se na osnovu IDja</param>
+        </member>
+        <member name="M:Dokument_AK.Data.EksterniDokumentRepository.DeleteEksterniDokument(System.Guid)">
+            <summary>
+            Brisanje dokumenta
+            </summary>
+            <param name="dokumentID">Potrebno je unedi ID dokumenta</param>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.#ctor(Dokument_AK.Entities.DokumentContext,AutoMapper.IMapper)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="context"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.SaveChanges">
+            <summary>
+            Cuva sve izmene
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.GetInterniDokumentEnts(System.Boolean)">
+            <summary>
+            Vraca sve dokumente
+            </summary>
+            <param name="Izmenjen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.GetInterniDokumentByID(System.Guid)">
+            <summary>
+            Vraca dokument na osnovu IDja
+            </summary>
+            <param name="dokumentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.CreateInterniDokument(Dokument_AK.Entities.InterniDokumentEnt)">
+            <summary>
+            Kreira dokument
+            </summary>
+            <param name="dokument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.UpdateInterniDokument(Dokument_AK.Entities.InterniDokumentEnt)">
+            <summary>
+            Azurira postojeci dokument
+            </summary>
+            <param name="dokument"></param>
+        </member>
+        <member name="M:Dokument_AK.Data.InterniDokumentRepository.DeleteInterniDokument(System.Guid)">
+            <summary>
+            Brise dokumetn na osnovu IDja
+            </summary>
+            <param name="dokumentID"></param>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.#ctor(Dokument_AK.Entities.DokumentContext,AutoMapper.IMapper)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="context"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.SaveChanges">
+            <summary>
+            Cuva sve izmene
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.GetStatusDokumentaEnts(System.Boolean)">
+            <summary>
+            Vraca sve statuse dokumenata
+            </summary>
+            <param name="Usvojen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.GetStatusDokumentaByID(System.Guid)">
+            <summary>
+            Vraca status dokumenta na osnovu IDja
+            </summary>
+            <param name="statusDokID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.CreateStatusDokument(Dokument_AK.Entities.StatusDokumentaEnt)">
+            <summary>
+            Krerira novi status dokumenta
+            </summary>
+            <param name="dokument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.UpdateStatusDokumenta(Dokument_AK.Entities.StatusDokumentaEnt)">
+            <summary>
+            Azurira postojeci status dokumenta
+            </summary>
+            <param name="dokument"></param>
+        </member>
+        <member name="M:Dokument_AK.Data.StatusDokumentaRepository.DeleteStatusDokumenta(System.Guid)">
+            <summary>
+            Brise status dokumenta na osnovu IDja
+            </summary>
+            <param name="statusDokID"></param>
+        </member>
+        <member name="M:Dokument_AK.Data.UserMockRepository.FillData">
+            <summary>
+            Metoda koja upisuje testne podatke
+            </summary>
+        </member>
+        <member name="M:Dokument_AK.Data.UserMockRepository.UserWithCredentialsExists(System.String,System.String)">
+            <summary>
+            Proverava da li postoji korisnik sa prosleđenim kredencijalima
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dokument_AK.Data.UserMockRepository.HashPassword(System.String)">
+            <summary>
+            Vrši hash-ovanje korisničke lozinke
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <returns>Generisan hash i salt</returns>
+        </member>
+        <member name="M:Dokument_AK.Data.UserMockRepository.VerifyPassword(System.String,System.String,System.String)">
+            <summary>
+            Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <param name="savedHash">Sačuvan hash</param>
+            <param name="savedSalt">Sačuvan salt</param>
+            <returns></returns>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentConfirmationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentConfirmationDto.StatusDokID">
+            <summary>
+            ID status dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentConfirmationDto.ZavodniBroj">
+            <summary>
+            Zavodni broj
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentConfirmationDto.Datum">
+            <summary>
+            Datum dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentConfirmationDto.DatumDonosenjaDokumenta">
+            <summary>
+            Datum donosenja dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentCreationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentCreationDto.StatusDokID">
+            <summary>
+            ID status dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentCreationDto.ZavodniBroj">
+            <summary>
+            Zavodni broj
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentCreationDto.Datum">
+            <summary>
+            Datum dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentCreationDto.DatumDonosenjaDokumenta">
+            <summary>
+            Datum donosenja dokumenta
+            </summary>
+        </member>
+        <member name="T:Dokument_AK.Models.DokumentDto">
+            <summary>
+            Predstavlja model dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentDto.ZavodniBroj">
+            <summary>
+            Savodni broj dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentDto.Datum">
+            <summary>
+            Datum kreiranja dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentDto.DatumDonosenjaDokumenta">
+            <summary>
+            Datum donosenja dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentUpdateDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentUpdateDto.StatusDokID">
+            <summary>
+            ID statusa dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentUpdateDto.ZavodniBroj">
+            <summary>
+            Zavodni broj
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentUpdateDto.Datum">
+            <summary>
+            Datum dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.DokumentUpdateDto.DatumDonosenjaDokumenta">
+            <summary>
+            Datum donosenja dokumenta
+            </summary>
+        </member>
+        <member name="M:Dokument_AK.Models.DokumentUpdateDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validiranje datuma dokumenta
+            </summary>
+            <param name="validationContext"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniConfirmationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniConfirmationDto.Izmenjen">
+            <summary>
+            Polje koje oznaca da li je dokument izmenjen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniCreationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniCreationDto.Izmenjen">
+            <summary>
+            Polje koje oznacava da li je izmenjen
+            </summary>
+        </member>
+        <member name="T:Dokument_AK.Models.EksterniDokumentDto">
+            <summary>
+            Predstavlja model eksternog dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniDokumentDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniDokumentDto.Izmenjen">
+            <summary>
+            Polje koje oznacava da li je dokument izmenjen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniUpdateDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.EksterniUpdateDto.Izmenjen">
+            <summary>
+            Polje koje oznacava  da li je dokument izmenjen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniConfirmationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniConfirmationDto.Izmenjen">
+            <summary>
+            Polje koje oznacava da li je dokument izmenjen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniCreationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniCreationDto.Izmenjen">
+            <summary>
+            Polje koje oznacava da li je dokument izmenjen
+            </summary>
+        </member>
+        <member name="T:Dokument_AK.Models.InterniDokumentDto">
+            <summary>
+            Predstavlja model internog dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniDokumentDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniDokumentDto.Izmenjen">
+            <summary>
+            Polje koje oznacava da li je dokument promenjen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniUpdateDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.InterniUpdateDto.Izmenjen">
+            <summary>
+            Polje koje oznacava da li je dokument izmenjen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.Message.ServiceName">
+            <summary>
+            Naziv servisa
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.Message.Method">
+            <summary>
+            Metoda
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.Message.Information">
+            <summary>
+            Detalji
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.Message.Error">
+            <summary>
+            Greska
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.Principal.Username">
+            <summary>
+            Korisnicko ime
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.Principal.Password">
+            <summary>
+            Sifra
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaConfirmationDto.StatusDokID">
+            <summary>
+            ID statusa dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaConfirmationDto.Usvojen">
+            <summary>
+            Polje koje govori da li je dokument usvojen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaConfirmationDto.Odbijen">
+            <summary>
+            Polje koje oznacava da li je dokumetn odbijen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaConfirmationDto.Otvoren">
+            <summary>
+            Polje koje oznacava da li je dokument otvoren
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaCreationDto.StatusDokID">
+            <summary>
+            ID statusa dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaCreationDto.Usvojen">
+            <summary>
+            Polje koje oznacava da li je dokument usvojen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaCreationDto.Odbijen">
+            <summary>
+            Polje koje oznacava da li je dokument odbijen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaCreationDto.Otvoren">
+            <summary>
+            Polje koje oznacava da li je dokument otvoren
+            </summary>
+        </member>
+        <member name="T:Dokument_AK.Models.StatusDokumentaDto">
+            <summary>
+            Predstavlja model statusa dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaDto.StatusDokID">
+            <summary>
+            ID statusa dokumenta
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaDto.Usvojen">
+            <summary>
+            Polje koje govori da li je dokument usvojen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaDto.Odbijen">
+            <summary>
+            Polje koje govori da li je dokument odbijen
+            </summary>
+        </member>
+        <member name="P:Dokument_AK.Models.StatusDokumentaDto.Otvoren">
+            <summary>
+            Polje koje govori da li je dokument otvoren
+            </summary>
+        </member>
+        <member name="M:Dokument_AK.ServiceCalls.ILoggerService.CreateMessage(Dokument_AK.Models.Message)">
+            <summary>
+            Metoda za kreiranje poruke logeru
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Dokument_AK.ServiceCalls.LoggerService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Dokument_AK.ServiceCalls.LoggerService.CreateMessage(Dokument_AK.Models.Message)">
+            <summary>
+            Kreiranje poruke - metoda
+            </summary>
+            <param name="message"></param>
+        </member>
+    </members>
+</doc>
