@@ -1,3 +1,4 @@
+using Kupac_SK.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,29 +28,62 @@ namespace Kupac_SK
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kupac_SK", Version = "v1" });
-            });
+            // services.AddControllers();
+            //  services.AddSwaggerGen(c =>
+            // {
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kupac_SK", Version = "v1" });
+            // });
+
+            services.AddControllers(setup =>
+                setup.ReturnHttpNotAcceptable = true
+            ).AddXmlDataContractSerializerFormatters();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSingleton<IKupacRepository, KupacRepository>();
+            services.AddSingleton<IPrioritetRepository, PrioritetRepository>();
+            services.AddSingleton<IKontaktOsobaRepository, KontakOsobaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /* public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+         {
+             if (env.IsDevelopment())
+             {
+                 app.UseDeveloperExceptionPage();
+                 app.UseSwagger();
+                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kupac_SK v1"));
+             }
+
+             app.UseHttpsRedirection();
+
+             app.UseRouting();
+
+             app.UseAuthorization();
+
+             app.UseEndpoints(endpoints =>
+             {
+                 endpoints.MapControllers();
+             });
+         }*/
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kupac_SK v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
             }
 
             app.UseHttpsRedirection();
 
+            // Omogucava definisanje ruta za pristup svakom API-u
             app.UseRouting();
 
+            // Trenutno ce to ukazivati da se koristi anonimna autentifikacija, ali je to kasnija podloga za definisanje nase
             app.UseAuthorization();
 
+            // Podrazumeva da ce svi endpoint-i koji su dostupni u kontrolerima biti dostupni za pristupanje
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
