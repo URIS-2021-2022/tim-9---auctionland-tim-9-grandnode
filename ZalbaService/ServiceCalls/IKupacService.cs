@@ -8,6 +8,6 @@ namespace ZalbaService.ServiceCalls
 {
     public interface IKupacService
     {
-        public bool PodnosenjeZalbe(KupacDto kupac);
+        public KupacDto PodnosenjeZalbe(Guid kupacId);
     }
 }

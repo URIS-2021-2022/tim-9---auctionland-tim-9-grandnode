@@ -53,6 +53,15 @@ namespace ZalbaService.Controllers
                 loggerService.CreateMessage(message);
                 return NoContent();
             }
+           /* ZalbaDto zalbaDto = new ZalbaDto();
+            var kupacInfo = mapper.Map<KupacDto>(zalba);
+            kupacInfo.KupacId = zalbaDto.PodnosilacZalbe;
+            KupacDto kupac = kupacService.PodnosenjeZalbe(kupacInfo.KupacId);
+            foreach(var z in zalba)
+            {
+                zalbaDto = mapper.Map<ZalbaDto>(z);
+                zalbaDto.PodnosilacZalbe = kupac.KupacId;
+            }*/
             message.Information = "Returned list of Zalba";
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<ZalbaDto>>(zalba));
@@ -95,9 +104,9 @@ namespace ZalbaService.Controllers
                 string lokacija = linkGenerator.GetPathByAction("GetZalba", "Zalba", new { zalbaId = confirmation.ZalbaId });
                 message.Information = zalba.ToString() + " | Zalba location: " + lokacija;
                 loggerService.CreateMessage(message);
-                var kupacInfo = mapper.Map<KupacDto>(zalba);
+                /*var kupacInfo = mapper.Map<KupacDto>(zalba);
                 kupacInfo.KupacId = _zalba.PodnosilacZalbe;
-                bool _licnost = kupacService.PodnosenjeZalbe(kupacInfo);
+                bool _licnost = kupacService.PodnosenjeZalbe(kupacInfo);*/
                 return Created(lokacija, mapper.Map<ZalbaConfirmationDto>(confirmation));
             }
             catch (Exception ex)

@@ -19,22 +19,23 @@ namespace ZalbaService.ServiceCalls
             this.configuration = configuration;
         }
 
-        public bool PodnosenjeZalbe(KupacDto kupac)
+        public KupacDto PodnosenjeZalbe(Guid kupacId)
         {
             using (HttpClient client = new HttpClient())
             {
                 var x = configuration["Services:KupacService"];
                 Uri url = new Uri($"{ configuration["Services:KupacService"] }api/kupac");
 
-                HttpContent content = new StringContent(JsonConvert.SerializeObject(kupac));
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(kupacId));
                 content.Headers.ContentType.MediaType = "application/json";
 
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    return false;
+                    
+                    return JsonConvert.DeserializeObject<KupacDto>(content.ToString());
                 }
-                return true;
+                return default;
             }
         }
     }
