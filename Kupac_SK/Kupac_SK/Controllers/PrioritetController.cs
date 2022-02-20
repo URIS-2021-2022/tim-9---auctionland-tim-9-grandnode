@@ -29,7 +29,7 @@ namespace Kupac_SK.Controllers
 
 
         [HttpGet]
-        // [HttpHead]
+        [HttpHead]
         public ActionResult<List<PrioritetModelDto>> GetPrioritetiList()
         {
             List<PrioritetModel> prioriteti = prioritetRepository.GetPrioriteti();
@@ -99,24 +99,7 @@ namespace Kupac_SK.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
             }
         }
-        /* public ActionResult<ExamRegistrationConfirmationDto> UpdateExamRegistration(ExamRegistrationUpdateDto examRegistration)
-        {
-            try
-            {
-                //Proveriti da li uopšte postoji prijava koju pokušavamo da ažuriramo.
-                if (examRegistrationRepository.GetExamRegistrationById(examRegistration.ExamRegistrationId) == null)
-                {
-                    return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
-                }
-                ExamRegistration examRegistrationEntity = mapper.Map<ExamRegistration>(examRegistration);
-                ExamRegistrationConfirmation confirmation = examRegistrationRepository.UpdateExamRegistration(examRegistrationEntity);
-                return Ok(mapper.Map<ExamRegistrationConfirmationDto>(confirmation));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
-            }
-        }*/
+        
         [HttpPut] 
         public ActionResult<PrioritetModelDto> UpdatePrioritet(PrioritetModelDto prioritet)
         {
@@ -138,6 +121,13 @@ namespace Kupac_SK.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
             } */
             return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetPrioritetOptions()
+        {
+            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            return Ok();
         }
 
 

@@ -29,6 +29,7 @@ namespace Kupac_SK.Controllers
         }
 
         [HttpGet]
+        [HttpHead]
 
         public ActionResult<List<KupacModelDto>> GetKupci()
         {
@@ -44,6 +45,20 @@ namespace Kupac_SK.Controllers
 
         }
 
-    
+
+
+
+
+
+
+        [HttpOptions]
+        public IActionResult GetKupacOptions()
+        {
+            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            return Ok();
+        }
+
+
+
     }
 }

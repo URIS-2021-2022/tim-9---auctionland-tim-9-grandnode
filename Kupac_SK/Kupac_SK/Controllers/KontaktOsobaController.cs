@@ -98,6 +98,13 @@ namespace Kupac_SK.Controllers
 
             }
         }
+
+        [HttpOptions]
+        public IActionResult GetKontaktOsobaOptions()
+        {
+            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            return Ok();
+        }
     }
 
 }

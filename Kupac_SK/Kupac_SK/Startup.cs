@@ -1,4 +1,5 @@
 using Kupac_SK.Data;
+using Kupac_SK.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Kupac_SK.Helper.IAutenthicationHelper;
 
 namespace Kupac_SK
 {
@@ -39,9 +41,27 @@ namespace Kupac_SK
             ).AddXmlDataContractSerializerFormatters();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //Konfigurisanje Jwt autentifikacije za projekat
+            //Registrujemo Jwt autentifikacionu shemu i definisemo sve potrebne Jwt opcije
+            /*
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });*/
             services.AddSingleton<IKupacRepository, KupacRepository>();
             services.AddSingleton<IPrioritetRepository, PrioritetRepository>();
             services.AddSingleton<IKontaktOsobaRepository, KontakOsobaRepository>();
+            services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
