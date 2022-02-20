@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UgovorService</name>
+    </assembly>
+    <members>
+        <member name="M:UgovorService.Controllers.AuthenticationController.Authenticate(UgovorService.Models.Principal)">
+            <summary>
+            Sluzi za autentifikaciju korisnika
+            </summary>
+            <param name="principal">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+            <returns></returns>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.FillData">
+            <summary>
+            Metoda koja upisuje testne podatke
+            </summary>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.UserWithCredentialsExists(System.String,System.String)">
+            <summary>
+            Proverava da li postoji korisnik sa prosleđenim kredencijalima
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.HashPassword(System.String)">
+            <summary>
+            Vrši hash-ovanje korisničke lozinke
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <returns>Generisan hash i salt</returns>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.VerifyPassword(System.String,System.String,System.String)">
+            <summary>
+            Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <param name="savedHash">Sačuvan hash</param>
+            <param name="savedSalt">Sačuvan salt</param>
+            <returns></returns>
+        </member>
+        <member name="P:UgovorService.Models.Principal.Username">
+            <summary>
+            Korisnicko ime
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.Principal.Password">
+            <summary>
+            Sifra
+            </summary>
+        </member>
+    </members>
+</doc>
