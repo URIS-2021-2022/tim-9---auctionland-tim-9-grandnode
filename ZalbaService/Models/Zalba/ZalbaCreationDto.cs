@@ -13,7 +13,7 @@ namespace ZalbaService.Models.Zalba
         [Required(ErrorMessage = "Obavezno uneti datum zalbe!")]
         public DateTime DatumZalbe { get; set; }
         [Required(ErrorMessage = "Obavezno uneti ime podnosioca zalbe!")]
-        public string PodnosilacZalbe { get; set; }
+        public Guid PodnosilacZalbe { get; set; }
         [Required(ErrorMessage = "Obavezno uneti razlog zalbe!")]
         public string Razlog { get; set; }
         [Required(ErrorMessage = "Obavezno uneti obrazlozenje zalbe!")]

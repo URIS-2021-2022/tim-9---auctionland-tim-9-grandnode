@@ -7,6 +7,7 @@ namespace ZalbaService.Models.StatusZalbe
 {
     public class StatusZalbeDto
     {
+        public Guid StatusZalbeId { get; set; }
         public string NazivStatusa { get; set; }
     }
 }

@@ -15,5 +15,9 @@ namespace ZalbaService.Entities
         [Required]
         public string NazivRadnje { get; set; }
 
+        public string ToString()
+        {
+            return "Radnja: { RadnjaId: " + this.RadnjaId + ", NazivRadnje: " + this.NazivRadnje + " }";
+        }
     }
 }

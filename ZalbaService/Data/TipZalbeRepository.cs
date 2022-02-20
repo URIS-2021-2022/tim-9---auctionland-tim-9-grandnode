@@ -25,7 +25,7 @@ namespace ZalbaService.Data
         {
             return zalbaContext.SaveChanges() > 0;
         }
-
+        /*
         public TipZalbe CreateTipZalbe(TipZalbe tipZalbe)
         {
             var createdEntity = zalbaContext.Add(tipZalbe);
@@ -38,7 +38,7 @@ namespace ZalbaService.Data
             zalbaContext.Remove(tipZalbe);
                 
         }
-
+        */
         public List<TipZalbe> GetAllTipZalbe(string NazivTipa = null)
         {
             return zalbaContext.TipZalbe
@@ -51,9 +51,6 @@ namespace ZalbaService.Data
             return zalbaContext.TipZalbe.FirstOrDefault(tz => tz.TipZalbeId == tipZalbeId);
         }
 
-        public void UpdateTipZalbe(TipZalbe tipZalbe)
-        {
-            
-        }
+
     }
 }

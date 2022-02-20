@@ -10,52 +10,77 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZalbaService.Data.Interfaces;
 using ZalbaService.Entities;
+using ZalbaService.Models;
 using ZalbaService.Models.Radnja;
+using ZalbaService.ServiceCalls;
 
 namespace ZalbaService.Controllers
 {
     [Route("api/radnja")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class RadnjaController : ControllerBase
     {
 
         private readonly IRadnjaRepository radnjaRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
+        private readonly ILoggerService loggerService;
+        private readonly string serviceName = "ZalbaService";
+        private Message message = new Message();
 
-        public RadnjaController(IRadnjaRepository radnjaRepository, LinkGenerator linkGenerator, IMapper mapper)
+        public RadnjaController(IRadnjaRepository radnjaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
         {
             this.radnjaRepository = radnjaRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+            this.loggerService = loggerService;
         }
 
         [HttpGet]
         [HttpHead]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<RadnjaDto>> GetAllRadnja(string NazivRadnje = null)
         {
             var radnja = radnjaRepository.GetAllRadnja(NazivRadnje);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (radnja == null || radnja.Count == 0)
             {
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
                 return NoContent();
             }
-            var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
+            message.Information = "Returned list of Radnja";
+            loggerService.CreateMessage(message);
+            //var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
             return Ok(mapper.Map<List<RadnjaDto>>(radnja));
         }
 
         [HttpGet("{radnjaId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<RadnjaDto> GetRadnja(Guid radnjaId)
         {
             var radnja =  radnjaRepository.GetRadnjaById(radnjaId);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (radnja == null)
             {
+
+                message.Information = "Not found";
+                message.Error = "There is no object of Radnja with identifier: " + radnjaId;
+                loggerService.CreateMessage(message);
                 return NotFound();
             }
+            message.Information = radnja.ToString();
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<RadnjaDto>(radnja));
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public  ActionResult<RadnjaDto> CreateRadnja([FromBody] RadnjaCreationDto radnja)
         {
             try
@@ -115,12 +140,12 @@ namespace ZalbaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja radnje!");
             }
         }
-
+        */
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetRadnjaOptions()
         {
-            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            Response.Headers.Add("Allow", "GET");
             return Ok();
         }
 

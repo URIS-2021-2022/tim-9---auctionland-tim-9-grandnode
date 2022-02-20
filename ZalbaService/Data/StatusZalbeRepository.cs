@@ -27,7 +27,7 @@ namespace ZalbaService.Data
             return zalbaContext.SaveChanges() > 0;
         }
 
-        public StatusZalbe CreateStatusZalbe(StatusZalbe statusZalbe)
+       /* public StatusZalbe CreateStatusZalbe(StatusZalbe statusZalbe)
         {
             var createdEntity = zalbaContext.Add(statusZalbe);
             return mapper.Map<StatusZalbe>(createdEntity.Entity);
@@ -38,7 +38,7 @@ namespace ZalbaService.Data
             var statusZalbe = GetStatusZalbeById(statusZalbeId);
             zalbaContext.Remove(statusZalbe);
         }
-
+       */
         public List<StatusZalbe> GetAllStatusZalbe(string NazivStatusa = null)
         {
             return zalbaContext.StatusZalbe
@@ -51,11 +51,6 @@ namespace ZalbaService.Data
             return zalbaContext.StatusZalbe.FirstOrDefault(sz => sz.StatusZalbeId == statusZalbeId);   
         }
 
-
-        public void UpdateStatusZalbe(StatusZalbe statusZalbe)
-        {
-            
-        }
 
     }
 }

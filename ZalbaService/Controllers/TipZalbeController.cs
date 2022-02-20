@@ -9,49 +9,73 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZalbaService.Data.Interfaces;
 using ZalbaService.Entities;
+using ZalbaService.Models;
 using ZalbaService.Models.TipZalbe;
+using ZalbaService.ServiceCalls;
 
 namespace ZalbaService.Controllers
 {
     [Route("api/tipzalbe")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TipZalbeController : ControllerBase
     {
         private readonly ITipZalbeRepository tipZalbeRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
+        private readonly ILoggerService loggerService;
+        private readonly string serviceName = "ZalbaService";
+        private Message message = new Message();
 
-        public TipZalbeController(ITipZalbeRepository tipZalbeRepository, LinkGenerator linkGenerator, IMapper mapper)
+        public TipZalbeController(ITipZalbeRepository tipZalbeRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
         {
             this.tipZalbeRepository = tipZalbeRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+            this.loggerService = loggerService;
         }
 
         [HttpGet]
         [HttpHead]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<TipZalbeDto>> GetAllTipZalbe(string NazivTipa)
         {
             var tipZalbe = tipZalbeRepository.GetAllTipZalbe(NazivTipa);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (tipZalbe == null || tipZalbe.Count == 0)
             {
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
                 return NoContent();
             }
+            message.Information = "Returned list of TipZalbe";
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<TipZalbeDto>>(tipZalbe));
         }
 
         [HttpGet("{tipZalbeId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<TipZalbeDto> GetTipZalbe(Guid tipZalbeId)
         {
             var tipZalbe =  tipZalbeRepository.GetTipZalbeById(tipZalbeId);
-            if(tipZalbe == null)
+            message.ServiceName = serviceName;
+            message.Method = "GET";
+            if (tipZalbe == null)
             {
+                message.Information = "Not found";
+                message.Error = "There is no object of TipZalbe with identifier: " + tipZalbeId;
+                loggerService.CreateMessage(message);
                 return NotFound();
             }
+            message.Information = tipZalbe.ToString();
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<TipZalbeDto>(tipZalbe));
         }
-
+        /*
         [HttpPost]
         public ActionResult<TipZalbeDto> CreateTipZalbe([FromBody] TipZalbeCreationDto tipZalbe)
         {
@@ -111,13 +135,13 @@ namespace ZalbaService.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja tipa zalbe!");
             }
-        }
+        }*/
 
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetTipZalbeOptions()
         {
-            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            Response.Headers.Add("Allow", "GET");
             return Ok();
         }
 

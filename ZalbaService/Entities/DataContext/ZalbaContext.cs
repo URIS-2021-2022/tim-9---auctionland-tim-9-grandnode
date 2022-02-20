@@ -86,7 +86,7 @@ namespace ZalbaService.Entities.DataContext
                   ZalbaId = Guid.Parse("007ed3b2-abb5-4bb8-90d5-f193907079ad"),
                   TipZalbe = Guid.Parse("cd155ba7-f573-4f24-b412-e41994ef8073"),
                   DatumZalbe = DateTime.Parse("2021-04-20T11:00:00"),
-                  PodnosilacZalbe = "Marko Markovic",
+                  PodnosilacZalbe = Guid.Parse(""),
                   Razlog = "Krsenje pravilnika za javno nadmetanje",
                   Obrazlozenje = "Neispravnost prilikom dodeljivanja parcele",
                   DatumResenja = DateTime.Parse("2021-06-03T10:00:00"),

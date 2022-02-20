@@ -9,7 +9,7 @@ namespace ZalbaService.Models.Zalba
     {
         public Guid TipZalbe { get; set; }
         public DateTime DatumZalbe { get; set; }
-        public string PodnosilacZalbe { get; set; }
+        public Guid PodnosilacZalbe { get; set; }
         public string Razlog { get; set; }
         public string Obrazlozenje { get; set; }
         public DateTime DatumResenja { get; set; }

@@ -7,7 +7,7 @@ namespace ZalbaService.Models.Radnja
 {
     public class RadnjaDto
     {
-
+        public Guid RadnjaId { get; set; }
         public string NazivRadnje { get; set; }
 
     }

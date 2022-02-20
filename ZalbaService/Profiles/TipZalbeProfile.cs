@@ -13,9 +13,6 @@ namespace ZalbaService.Profiles
         public TipZalbeProfile()
         {
             CreateMap<TipZalbe, TipZalbeDto>();
-            CreateMap<TipZalbeUpdateDto, TipZalbe>();
-            CreateMap<TipZalbeCreationDto, TipZalbe>();
-            CreateMap<TipZalbe, TipZalbe>();
         }
     }
 }

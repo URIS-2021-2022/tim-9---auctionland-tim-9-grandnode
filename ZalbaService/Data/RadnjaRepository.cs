@@ -26,7 +26,7 @@ namespace ZalbaService.Data
             return context.SaveChanges() > 0;
         }
 
-        public Radnja CreateRadnja(Radnja radnja)
+       /* public Radnja CreateRadnja(Radnja radnja)
         {
             var createdEntity = context.Add(radnja);
             return mapper.Map<Radnja>(createdEntity.Entity);
@@ -36,7 +36,7 @@ namespace ZalbaService.Data
         {
             var radnja = GetRadnjaById(radnjaId);
             context.Remove(radnja);
-        }
+        }*/
 
         public List<Radnja> GetAllRadnja(string NazivRadnje = null)
         {
@@ -50,9 +50,6 @@ namespace ZalbaService.Data
             return context.Radnja.FirstOrDefault(r => r.RadnjaId == radnjaId);
         }
 
-        public void UpdateRadnja(Radnja radnja)
-        {
-            
-        }
+
     }
 }

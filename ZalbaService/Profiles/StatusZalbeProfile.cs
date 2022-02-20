@@ -13,9 +13,6 @@ namespace ZalbaService.Profiles
         public StatusZalbeProfile()
         {
             CreateMap<StatusZalbe, StatusZalbeDto>();
-            CreateMap<StatusZalbeUpdateDto, StatusZalbe>();
-            CreateMap<StatusZalbeCreationDto, StatusZalbe>();
-            CreateMap<StatusZalbe, StatusZalbe>();
         }
 
     }

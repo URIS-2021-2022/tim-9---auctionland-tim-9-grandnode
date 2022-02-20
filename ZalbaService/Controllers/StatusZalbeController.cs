@@ -9,50 +9,74 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZalbaService.Data.Interfaces;
 using ZalbaService.Entities;
+using ZalbaService.Models;
 using ZalbaService.Models.StatusZalbe;
+using ZalbaService.ServiceCalls;
 
 namespace ZalbaService.Controllers
 {
     [Route("api/statuszalbe")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class StatusZalbeController : ControllerBase
     {
         private readonly IStatusZalbeRepository statusZalbeRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
+        private readonly ILoggerService loggerService;
+        private readonly string serviceName = "ZalbaService";
+        private Message message = new Message();
 
 
-        public StatusZalbeController(IStatusZalbeRepository statusZalbeRepository, LinkGenerator linkGenerator, IMapper mapper)
+        public StatusZalbeController(IStatusZalbeRepository statusZalbeRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
         {
             this.statusZalbeRepository = statusZalbeRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+            this.loggerService = loggerService;
         }
 
         [HttpGet]
         [HttpHead]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<StatusZalbeDto>> GetAllStatusZalbe(string NazivStatusa)
         {
             var statusZalbe = statusZalbeRepository.GetAllStatusZalbe(NazivStatusa);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (statusZalbe == null || statusZalbe.Count == 0)
             {
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
                 return NoContent();
             }
+            message.Information = "Returned list of Radnja";
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<StatusZalbeDto>>(statusZalbe));
         }
 
         [HttpGet("{statusZalbeId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<StatusZalbeDto> GetStatusZalbe(Guid statusZalbeId)
         {
             var statusZalbe = statusZalbeRepository.GetStatusZalbeById(statusZalbeId);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (statusZalbe == null)
             {
+                message.Information = "Not found";
+                message.Error = "There is no object of StatusZalbe with identifier: " + statusZalbeId;
+                loggerService.CreateMessage(message);
                 return NotFound();
             }
+            message.Information = statusZalbe.ToString();
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<StatusZalbeDto>(statusZalbe));
         }
-
+        /*
         [HttpPost]
         public ActionResult<StatusZalbeDto> CreateStatusZalbe([FromBody] StatusZalbeCreationDto statusZalbe)
         {
@@ -112,12 +136,12 @@ namespace ZalbaService.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja statusa zalbe!");
             }
-        }
+        }*/
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetStatusZalbeOptions()
         {
-            Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");
+            Response.Headers.Add("Allow", "GET");
             return Ok();
         }
     }

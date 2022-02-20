@@ -14,13 +14,14 @@ namespace ZalbaService.Entities
         public Guid ZalbaId { get; set; } = Guid.NewGuid();
 
         [ForeignKey("TipZalbe")]
-        public Guid TipZalbe { get; set; }
+        public Guid TipZalbeId { get; set; }
+        public TipZalbe TipZalbe { get; set; }
 
         [Required]
         public DateTime DatumZalbe { get; set; }
 
         [Required]
-        public string PodnosilacZalbe { get; set; }
+        public Guid PodnosilacZalbe { get; set; }
 
         [Required]
         public string Razlog { get; set; }
@@ -35,12 +36,14 @@ namespace ZalbaService.Entities
         public string BrojResenja { get; set; }
 
         [ForeignKey("StatusZalbe")]
-        public Guid StatusZalbe { get; set; }
+        public Guid StatusZalbeId { get; set; }
+        public StatusZalbe StatusZalbe { get; set; }
 
         [Required]
         public string BrojOdluke { get; set; }
 
         [ForeignKey("Radnja")]
-        public Guid Radnja { get; set; }
+        public Guid RadnjaId { get; set; }
+        public Radnja Radnja { get; set; }
     }
 }

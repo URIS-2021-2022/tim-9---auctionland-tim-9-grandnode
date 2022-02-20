@@ -7,6 +7,7 @@ namespace ZalbaService.Models.TipZalbe
 {
     public class TipZalbeDto
     {
+        public Guid TipZalbeId { get; set; }
         public string NazivTipa { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using ZalbaService.Models;
 
 namespace ZalbaService.ServiceCalls
 {
-    interface IKupacService
+    public interface IKupacService
     {
         public bool PodnosenjeZalbe(KupacDto kupac);
     }

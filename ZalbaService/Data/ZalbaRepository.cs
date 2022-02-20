@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ZalbaService.Data.Interfaces;
 using ZalbaService.Entities;
 using ZalbaService.Entities.DataContext;
+using ZalbaService.Models.Zalba;
 
 namespace ZalbaService.Data
 {
@@ -27,10 +28,10 @@ namespace ZalbaService.Data
             return context.SaveChanges() > 0;
         }
 
-        public Zalba CreateZalba(Zalba zalba)
+        public ZalbaConfirmationDto CreateZalba(Zalba zalba)
         {
             var createdEntity = context.Add(zalba);
-            return mapper.Map<Zalba>(createdEntity.Entity);
+            return mapper.Map<ZalbaConfirmationDto>(createdEntity.Entity);
         }
 
         public void DeleteZalba(Guid zalbaId)

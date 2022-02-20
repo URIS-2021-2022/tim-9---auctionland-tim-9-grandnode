@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZalbaService.Entities;
-using ZalbaService.Models.Radnja;
+using ZalbaService.Models.Zalba;
 
 namespace ZalbaService.Profiles
 {
-    public class RadnjaProfile : Profile
+    public class ZalbaConfirmationProfile : Profile
     {
-
-        public RadnjaProfile()
+        public ZalbaConfirmationProfile()
         {
-            CreateMap<Radnja, RadnjaDto>();
+            CreateMap<Zalba, ZalbaConfirmationDto>();
         }
-
     }
 }

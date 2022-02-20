@@ -6,8 +6,8 @@ using ZalbaService.Models;
 
 namespace ZalbaService.ServiceCalls
 {
-    interface ILoggerService
+    public interface ILoggerService
     {
-        public bool CreateMessage(LogModel message);
+        void CreateMessage(Message message);
     }
 }
