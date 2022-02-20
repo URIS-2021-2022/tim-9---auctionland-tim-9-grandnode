@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UgovorService", "UgovorService\UgovorService.csproj", "{CF28DF3B-A197-40D4-AD60-560DA42511C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF28DF3B-A197-40D4-AD60-560DA42511C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF28DF3B-A197-40D4-AD60-560DA42511C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF28DF3B-A197-40D4-AD60-560DA42511C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF28DF3B-A197-40D4-AD60-560DA42511C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C21EE056-C351-466C-89B0-B09C57720E12}
+	EndGlobalSection
+EndGlobal
