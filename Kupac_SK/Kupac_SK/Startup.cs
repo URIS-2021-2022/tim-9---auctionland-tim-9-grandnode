@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -42,9 +43,14 @@ namespace Kupac_SK
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //Konfigurisanje Jwt autentifikacije za projekat
-            //Registrujemo Jwt autentifikacionu shemu i definisemo sve potrebne Jwt opcije
-            /*
+           
+            services.AddSingleton<IKupacRepository, KupacRepository>();
+            services.AddSingleton<IPrioritetRepository, PrioritetRepository>();
+            services.AddSingleton<IKontaktOsobaRepository, KontakOsobaRepository>();
+            services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
+            services.AddSingleton<IUserRepository, UserMockRepository>();
+
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -57,11 +63,7 @@ namespace Kupac_SK
                     ValidAudience = Configuration["Jwt:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
-            });*/
-            services.AddSingleton<IKupacRepository, KupacRepository>();
-            services.AddSingleton<IPrioritetRepository, PrioritetRepository>();
-            services.AddSingleton<IKontaktOsobaRepository, KontakOsobaRepository>();
-            services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
