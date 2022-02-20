@@ -26,8 +26,10 @@ namespace Kupac_SK.Controllers
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
         }
-
-
+        /// <summary>
+        /// Vraca listu prioriteta koji postoje evidentirani
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [HttpHead]
         public ActionResult<List<PrioritetModelDto>> GetPrioritetiList()

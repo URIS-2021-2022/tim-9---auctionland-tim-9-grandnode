@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Kupac_SK</name>
+    </assembly>
+    <members>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.GetPrioritetiList">
+            <summary>
+            Vraca listu prioriteta koji postoje evidentirani
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.FillData">
+            <summary>
+            Metoda koja upisuje testne podatke
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.UserWithCredentialsExists(System.String,System.String)">
+            <summary>
+            Proverava da li postoji korisnik sa prosleđenim kredencijalima
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.HashPassword(System.String)">
+            <summary>
+            Vrši hash-ovanje korisničke lozinke
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <returns>Generisan hash i salt</returns>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.VerifyPassword(System.String,System.String,System.String)">
+            <summary>
+            Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <param name="savedHash">Sačuvan hash</param>
+            <param name="savedSalt">Sačuvan salt</param>
+            <returns></returns>
+        </member>
+        <member name="P:Kupac_SK.Entities.Principal.Username">
+            <summary>
+            Korisnicko ime
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.Principal.Password">
+            <summary>
+            Sifra
+            </summary>
+        </member>
+        <member name="T:Kupac_SK.Entities.User">
+            <summary>
+            Predstavlja model korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Id">
+            <summary>
+            Id korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.FirstName">
+            <summary>
+            Ime korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.LastName">
+            <summary>
+            Prezime korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.UserName">
+            <summary>
+            Korisničko ime
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Email">
+            <summary>
+            Email korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Password">
+            <summary>
+            Hash-ovana šifra korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Salt">
+            <summary>
+            Salt
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Helper.AuthenticationHelper.AuthenticatePrincipal(Kupac_SK.Entities.Principal)">
+            <summary>
+            Vrši autentifikaciju principala
+            </summary>
+            <param name="principal">Principal za autentifikaciju</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Helper.AuthenticationHelper.GenerateJwt(Kupac_SK.Entities.Principal)">
+            <summary>
+            Generiše novi token za autentifikovanog principala
+            </summary>
+            <param name="principal">Autentifikovani principal</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

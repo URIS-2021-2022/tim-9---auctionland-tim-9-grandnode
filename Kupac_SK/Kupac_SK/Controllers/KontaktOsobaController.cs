@@ -15,6 +15,8 @@ namespace Kupac_SK.Controllers
     [ApiController]
     [Route("api/kontaktOsobe")]
 
+   
+
     public class KontaktOsobaController : ControllerBase 
     {
         
@@ -30,9 +32,15 @@ namespace Kupac_SK.Controllers
 
         }
 
-
+        /// <summary>
+        /// izlistavanje kontakt osoba 
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        //[HttpHead]
+        [HttpHead]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
         public ActionResult<List<KontaktOsobaDto>> GetKontaktOsobe()
         {
@@ -45,9 +53,16 @@ namespace Kupac_SK.Controllers
             return Ok(mapper.Map<List<KontaktOsobaDto>>(kontaktOsobe));
     
     }
-
+        
+        
+        /// <summary>
+        /// pronadjite osobu na osnovu id-ja
+        /// </summary>
+        /// <param name="kontaktOsobaId"></param>
+        /// <returns></returns>
         [HttpGet("{kontaktOsobaId}")]
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<KontaktOsobaDto> GetKontaktOsobaById(Guid kontaktOsobaId)
         {
             KontaktOsobaModel kontaktOsobaModel = kontaktOsobaRepository.GetKontaktOsobaById(kontaktOsobaId);
@@ -57,7 +72,15 @@ namespace Kupac_SK.Controllers
             }
             return Ok(mapper.Map<KontaktOsobaDto>(kontaktOsobaModel));
         }
-
+        /// <summary>
+        /// izbrisite osobu
+        /// </summary>
+        /// <param name="kontaktOsobaId"></param>
+        /// <returns></returns>
+        
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{kontaktOsobaId}")]
 
         public IActionResult DeleteKontaktOsoba(Guid kontaktOsobaId)
@@ -79,9 +102,16 @@ namespace Kupac_SK.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kontaktOsoba"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult<KontaktOsobaDto> UpdateKontaktOsoba(KontaktOsobaDto kontaktOsoba)
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<KontaktOsobaDto> CreateKontaktOsoba(KontaktOsobaDto kontaktOsoba)
         {
             try
             {
@@ -98,7 +128,10 @@ namespace Kupac_SK.Controllers
 
             }
         }
-
+        /// <summary>
+        /// Opcije omogucene za Kontakt Osobu
+        /// </summary>
+        /// <returns></returns>
         [HttpOptions]
         public IActionResult GetKontaktOsobaOptions()
         {
