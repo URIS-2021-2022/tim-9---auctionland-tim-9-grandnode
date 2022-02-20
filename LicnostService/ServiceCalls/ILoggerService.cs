@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LicnostService.ServiceCalls
 {
-    interface ILoggerService
+    public interface ILoggerService
     {
         void CreateMessage(Message message);
     }

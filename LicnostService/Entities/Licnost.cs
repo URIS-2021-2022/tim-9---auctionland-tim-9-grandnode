@@ -34,5 +34,11 @@ namespace LicnostService.Entities
         [Required(ErrorMessage = "Obavezno je uneti funkciju ličnosti")]
         public string Funkcija { get; set; }
 
+        override
+        public string ToString() 
+        {
+            return "Licnost: { Ime: " + this.Ime + ", Prezime: " + this.Prezime + ", Funkcija: " + this.Funkcija + " }";
+        }
+
     }
 }

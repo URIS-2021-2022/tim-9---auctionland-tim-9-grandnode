@@ -2,6 +2,7 @@
 using LicnostService.Data;
 using LicnostService.Entities;
 using LicnostService.Models;
+using LicnostService.ServiceCalls;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -18,12 +19,17 @@ namespace LicnostService.Controllers
     {
         private readonly ILicnostRepository licnostRepository;
         private readonly IMapper mapper;
+        private readonly ILoggerService loggerService;
         private readonly LinkGenerator linkGenerator;
+        private readonly string serviceName = "LicnostService";
+        private Message message = new Message();
 
-        public LicnostController(ILicnostRepository licnostRepository, IMapper mapper, LinkGenerator linkGenerator) 
+
+        public LicnostController(ILicnostRepository licnostRepository, IMapper mapper, ILoggerService loggerService,LinkGenerator linkGenerator) 
         {
             this.licnostRepository = licnostRepository;
             this.mapper = mapper;
+            this.loggerService = loggerService;
             this.linkGenerator = linkGenerator;
         }
 
@@ -40,9 +46,18 @@ namespace LicnostService.Controllers
         public ActionResult<List<LicnostDto>> GetLicnosti() 
         {
             List<Licnost> licnosti = licnostRepository.GetLicnosti();
+            message.ServiceName = serviceName;
+            message.Method = "GET";
 
-            if (licnosti.Count == 0) { return NoContent();  }
-
+            if (licnosti.Count == 0) 
+            {
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
+                return NoContent(); 
+            }
+            message.Information = "Returned list of Licnost";
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<LicnostDto>>(licnosti));
         }
 
@@ -59,9 +74,19 @@ namespace LicnostService.Controllers
         public ActionResult<LicnostDto> GetLicnostById(Guid licnostId) 
         {
             Licnost licnost = licnostRepository.GetLicnostById(licnostId);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
 
-            if (licnost == null) { return NotFound(); }
+            if (licnost == null) 
+            {
+                message.Information = "Not found";
+                message.Error = "There is no object of Licnost with identifier: " + licnostId;
+                loggerService.CreateMessage(message);
+                return NotFound();
+            }
 
+            message.Information = licnost.ToString();
+            loggerService.CreateMessage(message);
             return mapper.Map<LicnostDto>(licnost);
         }
 
@@ -87,6 +112,9 @@ namespace LicnostService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<LicnostDto> CreateLicnost([FromBody] LicnostCUDto licnostDto) 
         {
+            message.ServiceName = serviceName;
+            message.Method = "POST";
+
             try
             {
                 Licnost licnost = mapper.Map<Licnost>(licnostDto);
@@ -94,11 +122,16 @@ namespace LicnostService.Controllers
                 licnostRepository.SaveChanges();
                 string location = linkGenerator.GetPathByAction("GetLicnostById", "Licnost", new { licnostId = licnost.LicnostId });
 
+                message.Information = licnost.ToString() + " | Licnost location: " + location;
+                loggerService.CreateMessage(message);
                 return Created(location, mapper.Map<LicnostDto>(licnost));
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u kreiranju: ");
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Creation error!");
             }
         }
 
@@ -116,21 +149,32 @@ namespace LicnostService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteLicnost(Guid licnostId) 
         {
+            message.ServiceName = serviceName;
+            message.Method = "DELETE";
+
             try
             {
             
                 if (licnostRepository.GetLicnostById(licnostId) == null)
                 {
+                    message.Information = "Not found";
+                    message.Error = "There is no object of Licnost with identifier: " + licnostId;
+                    loggerService.CreateMessage(message);
                     return NotFound();
                 }
 
+                Licnost licnost = licnostRepository.GetLicnostById(licnostId);
                 licnostRepository.DeleteLicnost(licnostId);
                 licnostRepository.SaveChanges();
-                return StatusCode(StatusCodes.Status200OK, "Uspesno brisanje!");
+                message.Information = "Successfully deleted " + licnost.ToString();
+                return StatusCode(StatusCodes.Status200OK, "You have successfully deleted " + licnost.ToString());
             }
-            catch 
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u brisanju!");
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Deletion error!");
             }
         }
 
@@ -159,11 +203,17 @@ namespace LicnostService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<LicnostDto> UpdateLicnost([FromBody] LicnostCUDto licnostDto)
         {
+            message.ServiceName = serviceName;
+            message.Method = "PUT";
+
             try
             {
                 Licnost staraLicnost = licnostRepository.GetLicnostById(licnostDto.LicnostId);
                 if (staraLicnost == null)
                 {
+                    message.Information = "Not found";
+                    message.Error = "There is no object of Licnost with identifier: " + licnostDto.LicnostId;
+                    loggerService.CreateMessage(message);
                     return NotFound();
                 }
 
@@ -171,10 +221,15 @@ namespace LicnostService.Controllers
                 mapper.Map(licnost, staraLicnost);
 
                 licnostRepository.SaveChanges();
+                message.Information = staraLicnost.ToString();
+                loggerService.CreateMessage(message);
                 return Ok(mapper.Map<LicnostDto>(staraLicnost));
             }
-            catch
+            catch (Exception ex)
             {
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
             }
         }

@@ -1,5 +1,6 @@
 using LicnostService.Data;
 using LicnostService.Entities;
+using LicnostService.ServiceCalls;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,7 @@ namespace LicnostService
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
+            services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<ILicnostRepository, LicnostRepository>(); //Nova instanca svaki put kad ide novi request, potrebno za bazu
             services.AddDbContextPool<LicnostContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LicnostDB"))); //Dodavanje konteksta za entity framework
             services.AddSwaggerGen(setupAction =>
