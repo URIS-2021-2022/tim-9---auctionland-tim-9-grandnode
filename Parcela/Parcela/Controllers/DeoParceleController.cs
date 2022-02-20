@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Parcela.ServiceCalls;
 
 namespace Parcela.Controllers
 {
@@ -23,7 +24,7 @@ namespace Parcela.Controllers
         private readonly LinkGenerator linkGenerator; 
         private readonly IMapper mapper;
 
-        
+
         public DeoParceleController(IDeoParceleRepository deoParceleRepository, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.deoParceleRepository = deoParceleRepository;
@@ -51,6 +52,7 @@ namespace Parcela.Controllers
             {
                 return NotFound();
             }
+
             return Ok(mapper.Map<DeoParceleDto>(deoParceleModel));
         }
 
@@ -97,22 +99,29 @@ namespace Parcela.Controllers
 
         [HttpPut]
         [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<DeoParceleDto> UpdateDeoParcele(DeoParceleDto deoParcele)
         {
             try
             {
                 //Proveriti da li uopšte postoji prijava koju pokušavamo da ažuriramo.
-                if (deoParceleRepository.GetDeoParcelaById(deoParcele.DeoParceleID) == null)
+                var oldDeoParcele = deoParceleRepository.GetDeoParcelaById(deoParcele.DeoParceleID);
+                if (oldDeoParcele == null)
                 {
-                    return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
+                    return NotFound();
                 }
-                DeoParcele dp = mapper.Map<DeoParcele>(deoParcele);
-                DeoParcele confirmation = deoParceleRepository.UpdateDeoParcele(dp);
-                return Ok(mapper.Map<DeoParceleDto>(confirmation));
+                DeoParcele newDeoParcele = mapper.Map<DeoParcele>(deoParcele);
+
+                mapper.Map(newDeoParcele, oldDeoParcele); //Update objekta koji treba da sačuvamo u bazi                
+
+                deoParceleRepository.SaveChanges(); //Perzistiramo promene
+                return Ok(mapper.Map<DeoParceleDto>(newDeoParcele));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
             }
         }
 

@@ -12,7 +12,8 @@ namespace Parcela.Data
         List<DeoParcele> GetDeoParceleList();
         DeoParcele GetDeoParcelaById(Guid deoParceleId);
         DeoParcele CreateDeoParcele(DeoParcele deoParcele);
-        DeoParcele UpdateDeoParcele(DeoParcele deoParcele);
+        void UpdateDeoParcele(DeoParcele deoParcele);
         void DeleteDeoParcele(Guid deoParceleId);
+        bool SaveChanges();
     }
 }

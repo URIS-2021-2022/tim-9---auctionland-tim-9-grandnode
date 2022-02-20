@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Parcela.Data;
+using Parcela.Entities;
+using Parcela.Helper;
+using Parcela.ServiceCalls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,18 +42,22 @@ namespace Parcela
         {
             services.AddHttpClient();
 
-            services.AddSingleton<IDeoParceleRepository, DeoParceleRepository>();
-            services.AddSingleton<IParcelaRepository, ParcelaRepository>();
-            services.AddSingleton<IKatastarskaOpstinaRepository, KatastarskaOpstinaRepository>();
-            services.AddSingleton<IKlasaRepository, KlasaRepository>();
-            services.AddSingleton<IKulturaRepository, KulturaRepository>();
-            services.AddSingleton<IOblikSvojineRepository, OblikSvojineRepository>();
-            services.AddSingleton<IObradivostRepository, ObradivostRepository>();
-            services.AddSingleton<IOdvodnjavanjeRepository, OdvodnjavanjeRepository>();
-            services.AddSingleton<IZasticenaZonaRepository, ZasticenaZonaRepository>();
+            services.AddScoped<IDeoParceleRepository, DeoParceleRepository>();
+            services.AddScoped<IParcelaRepository, ParcelaRepository>();
+            services.AddScoped<IKatastarskaOpstinaRepository, KatastarskaOpstinaRepository>();
+            services.AddScoped<IKlasaRepository, KlasaRepository>();
+            services.AddScoped<IKulturaRepository, KulturaRepository>();
+            services.AddScoped<IOblikSvojineRepository, OblikSvojineRepository>();
+            services.AddScoped<IObradivostRepository, ObradivostRepository>();
+            services.AddScoped<IOdvodnjavanjeRepository, OdvodnjavanjeRepository>();
+            services.AddScoped<IZasticenaZonaRepository, ZasticenaZonaRepository>();
+            services.AddScoped<IUserRepository, UserMockRepository>();
+            services.AddScoped<ILoggerService, LoggerService>();
+            services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddDbContext<ParcelaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ParcelaDB")));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

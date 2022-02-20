@@ -13,6 +13,7 @@ namespace Parcela.Profiles
         public KatastarskaOpstinaProfile()
         {
             CreateMap<KatastarskaOpstina, KatastarskaOpstinaDto>();
+            CreateMap<KatastarskaOpstinaDto, KatastarskaOpstina>();
         }
     }
 }

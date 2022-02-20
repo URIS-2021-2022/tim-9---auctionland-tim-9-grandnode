@@ -33,5 +33,43 @@
             <param name="savedSalt">Sačuvan salt</param>
             <returns></returns>
         </member>
+        <member name="P:Parcela.Models.Message.ServiceName">
+            <summary>
+            Naziv servisa
+            </summary>
+        </member>
+        <member name="P:Parcela.Models.Message.Method">
+            <summary>
+            Metoda
+            </summary>
+        </member>
+        <member name="P:Parcela.Models.Message.Information">
+            <summary>
+            Detalji
+            </summary>
+        </member>
+        <member name="P:Parcela.Models.Message.Error">
+            <summary>
+            Greska
+            </summary>
+        </member>
+        <member name="M:Parcela.ServiceCalls.ILoggerService.CreateMessage(Parcela.Models.Message)">
+            <summary>
+            Metoda za kreiranje poruke logeru
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Parcela.ServiceCalls.LoggerService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Konstruktor
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Parcela.ServiceCalls.LoggerService.CreateMessage(Parcela.Models.Message)">
+            <summary>
+            Kreiranje poruke - metoda
+            </summary>
+            <param name="message"></param>
+        </member>
     </members>
 </doc>

@@ -1,4 +1,5 @@
-﻿using Parcela.Entities;
+﻿using AutoMapper;
+using Parcela.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,26 @@ namespace Parcela.Data
 {
     public class KulturaRepository : IKulturaRepository
     {
+        private readonly ParcelaContext context;
+        private readonly IMapper mapper;
+        public KulturaRepository(ParcelaContext context, IMapper mapper)
+        {
+            this.context = context;
+            this.mapper = mapper;
+        }
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
+        }
         public Kultura GetKulturaById(Guid kulturaId)
         {
-            throw new NotImplementedException();
+            return context.Kultura.FirstOrDefault(k => k.KulturaID == kulturaId);
+
         }
 
         public List<Kultura> GetKulturaList()
         {
-            throw new NotImplementedException();
+            return context.Kultura.ToList();
         }
     }
 }

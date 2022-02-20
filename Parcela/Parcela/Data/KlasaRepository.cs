@@ -1,4 +1,5 @@
-﻿using Parcela.Entities;
+﻿using AutoMapper;
+using Parcela.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,30 +9,25 @@ namespace Parcela.Data
 {
     public class KlasaRepository : IKlasaRepository
     {
-        public static List<Klasa> KlasaLista { get; set; } = new List<Klasa>();
-        public KlasaRepository()
+        private readonly ParcelaContext context;
+        private readonly IMapper mapper;
+        public KlasaRepository(ParcelaContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
         }
-        private void FillData()
+        public bool SaveChanges()
         {
-            KlasaLista.AddRange(new List<Klasa>
-            {
-                new Klasa
-                {
-                    KlasaID = Guid.Parse("6a411c13-a195-48f7-8dbd-67596c3974c0"),
-                    NazivKlase = "Prva klasa"
-                }
-            });
+            return context.SaveChanges() > 0;
         }
         public Klasa GetKlasaById(Guid klasaId)
         {
-            return KlasaLista.FirstOrDefault(k => k.KlasaID == klasaId);
+            return context.Klasa.FirstOrDefault(k => k.KlasaID == klasaId);
         }
 
         public List<Klasa> GetKlasaList()
         {
-            return KlasaLista;
+            return context.Klasa.ToList();
         }
     }
 }

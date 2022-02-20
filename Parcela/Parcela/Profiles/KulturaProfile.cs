@@ -13,6 +13,7 @@ namespace Parcela.Profiles
         public KulturaProfile()
         {
             CreateMap<Kultura, KulturaDto>();
+            CreateMap<KulturaDto, Kultura>();
         }
     }
 }

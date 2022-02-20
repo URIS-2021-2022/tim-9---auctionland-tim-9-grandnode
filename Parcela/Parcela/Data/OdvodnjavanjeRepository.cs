@@ -1,4 +1,5 @@
-﻿using Parcela.Entities;
+﻿using AutoMapper;
+using Parcela.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,25 @@ namespace Parcela.Data
 {
     public class OdvodnjavanjeRepository : IOdvodnjavanjeRepository
     {
+        private readonly ParcelaContext context;
+        private readonly IMapper mapper;
+        public OdvodnjavanjeRepository(ParcelaContext context, IMapper mapper)
+        {
+            this.context = context;
+            this.mapper = mapper;
+        }
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
+        }
         public Odvodnjavanje GetOdvodnjavanjeById(Guid odvodnjavanjeId)
         {
-            throw new NotImplementedException();
+            return context.Odvodnjavanje.FirstOrDefault(o => o.OdvodnjavanjeID == odvodnjavanjeId);
         }
 
         public List<Odvodnjavanje> GetOdvodnjavanjeList()
         {
-            throw new NotImplementedException();
+            return context.Odvodnjavanje.ToList();
         }
     }
 }

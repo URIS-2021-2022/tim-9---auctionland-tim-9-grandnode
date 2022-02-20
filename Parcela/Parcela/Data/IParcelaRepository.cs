@@ -15,5 +15,7 @@ namespace Parcela.Data
         Parcela.Entities.Parcela UpdateParcela(Parcela.Entities.Parcela parcela);
         void DeleteParcela(Guid parcelaId);
 
+        bool SaveChanges();
+
     }
 }

@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Parcela.Profiles
 {
-    public class ParcelaConfirmationPorfile : Profile
+    public class OdvodnjavanjeProfile : Profile
     {
-        public ParcelaConfirmationPorfile()
+        public OdvodnjavanjeProfile()
         {
-            CreateMap<ParcelaConfrimation, ParcelaConfrimationDto>();
+            CreateMap<Odvodnjavanje,OdvodnjavanjeDto>();
+            CreateMap<OdvodnjavanjeDto,Odvodnjavanje>();
         }
     }
 }

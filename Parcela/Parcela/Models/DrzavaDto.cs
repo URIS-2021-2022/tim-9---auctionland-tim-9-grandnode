@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Parcela.Models
 {
-    public class ParcelaConfrimationDto
+    public class DrzavaDto
     {
-        public Guid ParcelaID { get; set; }
+        public Guid DrzavaId { get; set; }
+        public string Naziv { get; set; }
     }
 }

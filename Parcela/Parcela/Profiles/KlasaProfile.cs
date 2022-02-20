@@ -13,6 +13,7 @@ namespace Parcela.Profiles
         public KlasaProfile()
         {
             CreateMap<Klasa, KlasaDto>();
+            CreateMap<KlasaDto, Klasa>();
         }
     }
 }

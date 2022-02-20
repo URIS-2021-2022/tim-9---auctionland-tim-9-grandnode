@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Parcela.ServiceCalls;
 
 namespace Parcela.Controllers
 {
@@ -21,23 +22,39 @@ namespace Parcela.Controllers
         private readonly LinkGenerator linkGenerator; //Služi za generisanje putanje do neke akcije (videti primer u metodu CreateExamRegistration)
         private readonly IMapper mapper;
 
-        //Pomoću dependency injection-a dodajemo potrebne zavisnosti
-        public ParcelaController(IParcelaRepository parcelaRepository, LinkGenerator linkGenerator, IMapper mapper)
+        private readonly ILoggerService loggerService;
+        private readonly string serviceName = "Parcela";
+        private Message message = new Message();
+
+
+        public ParcelaController(IParcelaRepository parcelaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
         {
             this.parcelaRepository = parcelaRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
+            this.loggerService = loggerService;
+
         }
+
 
         [HttpGet]
         [HttpHead]
         public ActionResult<List<ParcelaDto>> GetParcelasList()
         {
             List<Parcela.Entities.Parcela> parcelaLista = parcelaRepository.GetParcelaList();
+
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (parcelaLista == null || parcelaLista.Count == 0)
             {
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
                 return NoContent();
             }
+            message.Information = "Returned list of Parcela";
+            loggerService.CreateMessage(message);
+
             return Ok(mapper.Map<List<ParcelaDto>>(parcelaLista));
         }
 
@@ -45,68 +62,120 @@ namespace Parcela.Controllers
         public ActionResult<ParcelaDto> GetParcelaById(Guid parcelaId)
         {
             Parcela.Entities.Parcela parcelaModel = parcelaRepository.GetParcelaById(parcelaId);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (parcelaModel == null)
             {
+                message.Information = "Not found";
+                message.Error = "There is no object of Parcela with identifier: " + parcelaId;
+                loggerService.CreateMessage(message);
                 return NotFound();
             }
+            message.Information = parcelaModel.ToString();
+            loggerService.CreateMessage(message);
+
             return Ok(mapper.Map<ParcelaDto>(parcelaModel));
         }
 
         [HttpPost]
+        [Consumes("application/json")]
         public ActionResult<ParcelaDto> CreateParcela([FromBody] ParcelaDto parcela)
         {
+            message.ServiceName = serviceName;
+            message.Method = "POST";
+
             try
             {
 
                 Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
                 Parcela.Entities.Parcela confirmation = parcelaRepository.CreateParcela(p);
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
+                
                 string location = linkGenerator.GetPathByAction("GeParcelaById", "Parcela", new { parcelaID = confirmation.ParcelaID });
+
+                message.Information = parcela.ToString() + " | Parcela location: " + location;
+                loggerService.CreateMessage(message);
+
                 return Created(location, mapper.Map<ParcelaDto>(confirmation));
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpDelete("{parcelaId}")]
         public IActionResult DeleteParcela(Guid parcelaId)
         {
+            message.ServiceName = serviceName;
+            message.Method = "DELETE";
             try
             {
-                Parcela.Entities.Parcela parcelaModel = parcelaRepository.GetParcelaById(parcelaId);
-                if (parcelaId == null)
+                Parcela.Entities.Parcela p = parcelaRepository.GetParcelaById(parcelaId);
+                if (p == null)
                 {
+                    message.Information = "Not found";
+                    message.Error = "There is no object of Parcela with identifier: " + parcelaId;
+                    loggerService.CreateMessage(message);
+
                     return NotFound();
                 }
+
+
                 parcelaRepository.DeleteParcela(parcelaId);
+                parcelaRepository.SaveChanges();
+
                 // Status iz familije 2xx koji se koristi kada se ne vraca nikakav objekat, ali naglasava da je sve u redu
-                return NoContent();
+                message.Information = "Successfully deleted " + p.ToString();
+                return StatusCode(StatusCodes.Status200OK, "You have successfully deleted " + p.ToString());
             }
-            catch
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Deletion error!");
             }
         }
 
         [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<ParcelaDto> UpdateParcela(ParcelaDto parcela)
         {
+            message.ServiceName = serviceName;
+            message.Method = "PUT";
             try
             {
                 //Proveriti da li uopšte postoji prijava koju pokušavamo da ažuriramo.
-                if (parcelaRepository.GetParcelaById(parcela.ParcelaID) == null)
+                var oldParcela = parcelaRepository.GetParcelaById(parcela.ParcelaID);
+                if (oldParcela == null)
                 {
-                    return NotFound(); //Ukoliko ne postoji vratiti status 404 (NotFound).
+                    message.Information = "Not found";
+                    message.Error = "There is no object of Parcela with identifier: " + parcela.ParcelaID;
+                    loggerService.CreateMessage(message);
+                    return NotFound();
                 }
-                Parcela.Entities.Parcela p = mapper.Map<Parcela.Entities.Parcela>(parcela);
-                Parcela.Entities.Parcela confirmation = parcelaRepository.UpdateParcela(p);
-                return Ok(mapper.Map<ParcelaDto>(confirmation));
+               Parcela.Entities.Parcela newParcela = mapper.Map<Parcela.Entities.Parcela>(parcela);
+
+                mapper.Map(newParcela,oldParcela) ; //Update objekta koji treba da sačuvamo u bazi                
+
+                parcelaRepository.SaveChanges(); //Perzistiramo promene
+                message.Information = oldParcela.ToString();
+                loggerService.CreateMessage(message);
+                return Ok(mapper.Map<ParcelaDto>(oldParcela));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
             }
         }
 
