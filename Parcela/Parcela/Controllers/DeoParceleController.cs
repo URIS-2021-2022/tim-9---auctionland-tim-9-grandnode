@@ -60,10 +60,9 @@ namespace Parcela.Controllers
         [Consumes("application/json")]
         public ActionResult<DeoParceleDto> CreateDeoParcele([FromBody] DeoParceleDto deoParcele)
 
-        {
+        { 
             try
             { 
-
                 DeoParcele dp = mapper.Map<DeoParcele>(deoParcele);
                 DeoParcele confirmation = deoParceleRepository.CreateDeoParcele(dp);
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
