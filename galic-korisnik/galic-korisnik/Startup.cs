@@ -1,3 +1,4 @@
+using galic_korisnik.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,8 @@ namespace galic_korisnik
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //singleton je zivotni ciklus onoga sto prosledjujemo (jednom koristimo instancu)
+            services.AddSingleton<IKorisnikRepository, KorisnikRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
