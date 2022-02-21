@@ -17,5 +17,7 @@ namespace ZalbaService.Models.Zalba
         public Guid StatusZalbe { get; set; }
         public string BrojOdluke { get; set; }
         public Guid Radnja { get; set; }
+
+        public KupacDto Kupac { get; set; }
     }
 }

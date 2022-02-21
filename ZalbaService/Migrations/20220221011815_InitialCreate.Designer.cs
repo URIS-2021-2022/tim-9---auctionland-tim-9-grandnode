@@ -10,7 +10,7 @@ using ZalbaService.Entities.DataContext;
 namespace ZalbaService.Migrations
 {
     [DbContext(typeof(ZalbaContext))]
-    [Migration("20220218174337_InitialCreate")]
+    [Migration("20220221011815_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,24 +141,29 @@ namespace ZalbaService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PodnosilacZalbe")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("PodnosilacZalbe")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Radnja")
+                    b.Property<Guid>("RadnjaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Razlog")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("StatusZalbe")
+                    b.Property<Guid>("StatusZalbeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TipZalbe")
+                    b.Property<Guid>("TipZalbeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ZalbaId");
+
+                    b.HasIndex("RadnjaId");
+
+                    b.HasIndex("StatusZalbeId");
+
+                    b.HasIndex("TipZalbeId");
 
                     b.ToTable("Zalba");
 
@@ -171,12 +176,39 @@ namespace ZalbaService.Migrations
                             DatumResenja = new DateTime(2021, 6, 3, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             DatumZalbe = new DateTime(2021, 4, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             Obrazlozenje = "Neispravnost prilikom dodeljivanja parcele",
-                            PodnosilacZalbe = "Marko Markovic",
-                            Radnja = new Guid("3eeede02-9e9e-46d2-8034-d21125e45b43"),
+                            PodnosilacZalbe = new Guid("bb14ca98-fcc0-4063-8a2b-341c3f38cdc4"),
+                            RadnjaId = new Guid("3eeede02-9e9e-46d2-8034-d21125e45b43"),
                             Razlog = "Krsenje pravilnika za javno nadmetanje",
-                            StatusZalbe = new Guid("212b6e83-ab50-49ec-bd95-92cd5e8f8a25"),
-                            TipZalbe = new Guid("cd155ba7-f573-4f24-b412-e41994ef8073")
+                            StatusZalbeId = new Guid("212b6e83-ab50-49ec-bd95-92cd5e8f8a25"),
+                            TipZalbeId = new Guid("cd155ba7-f573-4f24-b412-e41994ef8073")
                         });
+                });
+
+            modelBuilder.Entity("ZalbaService.Entities.Zalba", b =>
+                {
+                    b.HasOne("ZalbaService.Entities.Radnja", "Radnja")
+                        .WithMany()
+                        .HasForeignKey("RadnjaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZalbaService.Entities.StatusZalbe", "StatusZalbe")
+                        .WithMany()
+                        .HasForeignKey("StatusZalbeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZalbaService.Entities.TipZalbe", "TipZalbe")
+                        .WithMany()
+                        .HasForeignKey("TipZalbeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Radnja");
+
+                    b.Navigation("StatusZalbe");
+
+                    b.Navigation("TipZalbe");
                 });
 #pragma warning restore 612, 618
         }

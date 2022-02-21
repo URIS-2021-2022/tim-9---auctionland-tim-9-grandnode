@@ -35,6 +35,12 @@ namespace ZalbaService.Controllers
             this.loggerService = loggerService;
         }
 
+        /// <summary>
+        /// Vraća sve tipove zalbi.
+        /// </summary>
+        /// <returns>Lista tipova zalbi</returns>
+        /// <response code="200">Vraća listu tipova zalbi</response>
+        /// <response code="204">Nije pronađen ni jedan tip zalbe u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -55,7 +61,13 @@ namespace ZalbaService.Controllers
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<TipZalbeDto>>(tipZalbe));
         }
-
+        /// <summary>
+        /// Vraća tip zalbe na osnovu identifikatora tipa zalbe.
+        /// </summary>
+        /// <param name="tipZalbeId">Identifikator tip zalbe (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Tip Zalbe</returns>
+        /// <response code="200">Vraća tip zalbe koji je pronađen</response>
+        /// <response code="204">Ne postoji tip zalbe sa datim identifikatorom</response>
         [HttpGet("{tipZalbeId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -137,6 +149,9 @@ namespace ZalbaService.Controllers
             }
         }*/
 
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetTipZalbeOptions()

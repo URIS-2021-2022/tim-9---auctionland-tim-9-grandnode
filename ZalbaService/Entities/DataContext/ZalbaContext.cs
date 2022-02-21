@@ -84,16 +84,16 @@ namespace ZalbaService.Entities.DataContext
               .HasData(new
               {
                   ZalbaId = Guid.Parse("007ed3b2-abb5-4bb8-90d5-f193907079ad"),
-                  TipZalbe = Guid.Parse("cd155ba7-f573-4f24-b412-e41994ef8073"),
+                  TipZalbeId = Guid.Parse("cd155ba7-f573-4f24-b412-e41994ef8073"),
                   DatumZalbe = DateTime.Parse("2021-04-20T11:00:00"),
-                  PodnosilacZalbe = Guid.Parse(""),
+                  PodnosilacZalbe = Guid.Parse("bb14ca98-fcc0-4063-8a2b-341c3f38cdc4"),
                   Razlog = "Krsenje pravilnika za javno nadmetanje",
                   Obrazlozenje = "Neispravnost prilikom dodeljivanja parcele",
                   DatumResenja = DateTime.Parse("2021-06-03T10:00:00"),
                   BrojResenja = "1035",
-                  StatusZalbe = Guid.Parse("212b6e83-ab50-49ec-bd95-92cd5e8f8a25"),
+                  StatusZalbeId = Guid.Parse("212b6e83-ab50-49ec-bd95-92cd5e8f8a25"),
                   BrojOdluke = "1221",
-                  Radnja = Guid.Parse("3eeede02-9e9e-46d2-8034-d21125e45b43")
+                  RadnjaId = Guid.Parse("3eeede02-9e9e-46d2-8034-d21125e45b43")
               }
               );
         }

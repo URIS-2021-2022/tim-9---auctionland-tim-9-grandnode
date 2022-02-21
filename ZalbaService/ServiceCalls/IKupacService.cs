@@ -8,6 +8,6 @@ namespace ZalbaService.ServiceCalls
 {
     public interface IKupacService
     {
-        public KupacDto PodnosenjeZalbe(Guid kupacId);
+        Task<KupacDto> GetPodnosiocaZalbe(Guid kupacId);
     }
 }

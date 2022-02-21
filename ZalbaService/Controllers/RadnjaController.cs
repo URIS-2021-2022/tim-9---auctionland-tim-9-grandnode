@@ -36,7 +36,12 @@ namespace ZalbaService.Controllers
             this.mapper = mapper;
             this.loggerService = loggerService;
         }
-
+        /// <summary>
+        /// Vraća sve radnje na osnovu zalbe.
+        /// </summary>
+        /// <returns>Lista radnji na osnovu zalbe</returns>
+        /// <response code="200">Vraća listu radnji na osnovu zalbe</response>
+        /// <response code="204">Nije pronađena ni jedna radnja na osnovu zalbe u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,7 +63,13 @@ namespace ZalbaService.Controllers
             //var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
             return Ok(mapper.Map<List<RadnjaDto>>(radnja));
         }
-
+        /// <summary>
+        /// Vraća radnju na osnovu identifikatora radnje na osnovu zalbe.
+        /// </summary>
+        /// <param name="radnjaId">Identifikator radnja (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Radnja na osnovu zalbe</returns>
+        /// <response code="200">Vraća radnju na osnovu zalbe koja je pronađena</response>
+        /// <response code="204">Ne postoji radnja na osnovu zalbe sa datim identifikatorom</response>
         [HttpGet("{radnjaId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -141,6 +152,9 @@ namespace ZalbaService.Controllers
             }
         }
         */
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetRadnjaOptions()

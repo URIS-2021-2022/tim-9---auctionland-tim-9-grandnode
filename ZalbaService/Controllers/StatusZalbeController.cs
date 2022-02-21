@@ -36,6 +36,12 @@ namespace ZalbaService.Controllers
             this.loggerService = loggerService;
         }
 
+        /// <summary>
+        /// Vraća sve statuse zalbi.
+        /// </summary>
+        /// <returns>Lista statusa zalbi</returns>
+        /// <response code="200">Vraća listu statusa zalbi</response>
+        /// <response code="204">Nije pronađen ni jedan status zalbe u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -56,7 +62,13 @@ namespace ZalbaService.Controllers
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<StatusZalbeDto>>(statusZalbe));
         }
-
+        /// <summary>
+        /// Vraća status zalbe na osnovu identifikatora status zalbe.
+        /// </summary>
+        /// <param name="statusZalbeId">Identifikator status zalbe (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Status Zalbe</returns>
+        /// <response code="200">Vraća status zalbe koji je pronađen</response>
+        /// <response code="204">Ne postoji status zalbe sa datim identifikatorom</response>
         [HttpGet("{statusZalbeId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -137,6 +149,10 @@ namespace ZalbaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja statusa zalbe!");
             }
         }*/
+
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetStatusZalbeOptions()

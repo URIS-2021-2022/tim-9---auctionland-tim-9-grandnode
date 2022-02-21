@@ -48,20 +48,38 @@ namespace ZalbaService.Migrations
                 columns: table => new
                 {
                     ZalbaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TipZalbe = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TipZalbeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DatumZalbe = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PodnosilacZalbe = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PodnosilacZalbe = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Razlog = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Obrazlozenje = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DatumResenja = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BrojResenja = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StatusZalbe = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StatusZalbeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrojOdluke = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Radnja = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    RadnjaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Zalba", x => x.ZalbaId);
+                    table.ForeignKey(
+                        name: "FK_Zalba_Radnja_RadnjaId",
+                        column: x => x.RadnjaId,
+                        principalTable: "Radnja",
+                        principalColumn: "RadnjaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Zalba_StatusZalbe_StatusZalbeId",
+                        column: x => x.StatusZalbeId,
+                        principalTable: "StatusZalbe",
+                        principalColumn: "StatusZalbeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Zalba_TipZalbe_TipZalbeId",
+                        column: x => x.TipZalbeId,
+                        principalTable: "TipZalbe",
+                        principalColumn: "TipZalbeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -96,12 +114,30 @@ namespace ZalbaService.Migrations
 
             migrationBuilder.InsertData(
                 table: "Zalba",
-                columns: new[] { "ZalbaId", "BrojOdluke", "BrojResenja", "DatumResenja", "DatumZalbe", "Obrazlozenje", "PodnosilacZalbe", "Radnja", "Razlog", "StatusZalbe", "TipZalbe" },
-                values: new object[] { new Guid("007ed3b2-abb5-4bb8-90d5-f193907079ad"), "1221", "1035", new DateTime(2021, 6, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 4, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), "Neispravnost prilikom dodeljivanja parcele", "Marko Markovic", new Guid("3eeede02-9e9e-46d2-8034-d21125e45b43"), "Krsenje pravilnika za javno nadmetanje", new Guid("212b6e83-ab50-49ec-bd95-92cd5e8f8a25"), new Guid("cd155ba7-f573-4f24-b412-e41994ef8073") });
+                columns: new[] { "ZalbaId", "BrojOdluke", "BrojResenja", "DatumResenja", "DatumZalbe", "Obrazlozenje", "PodnosilacZalbe", "RadnjaId", "Razlog", "StatusZalbeId", "TipZalbeId" },
+                values: new object[] { new Guid("007ed3b2-abb5-4bb8-90d5-f193907079ad"), "1221", "1035", new DateTime(2021, 6, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 4, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), "Neispravnost prilikom dodeljivanja parcele", new Guid("bb14ca98-fcc0-4063-8a2b-341c3f38cdc4"), new Guid("3eeede02-9e9e-46d2-8034-d21125e45b43"), "Krsenje pravilnika za javno nadmetanje", new Guid("212b6e83-ab50-49ec-bd95-92cd5e8f8a25"), new Guid("cd155ba7-f573-4f24-b412-e41994ef8073") });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Zalba_RadnjaId",
+                table: "Zalba",
+                column: "RadnjaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Zalba_StatusZalbeId",
+                table: "Zalba",
+                column: "StatusZalbeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Zalba_TipZalbeId",
+                table: "Zalba",
+                column: "TipZalbeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Zalba");
+
             migrationBuilder.DropTable(
                 name: "Radnja");
 
@@ -110,9 +146,6 @@ namespace ZalbaService.Migrations
 
             migrationBuilder.DropTable(
                 name: "TipZalbe");
-
-            migrationBuilder.DropTable(
-                name: "Zalba");
         }
     }
 }
