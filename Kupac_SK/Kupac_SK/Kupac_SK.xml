@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Kupac_SK</name>
+    </assembly>
+    <members>
+        <member name="T:Kupac_SK.Controllers.AuthenticationController">
+            <summary>
+            kontroler autentifikacije
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Controllers.AuthenticationController.#ctor(Kupac_SK.Helper.IAutenthicationHelper.IAuthenticationHelper)">
+             <summary>
+             
+            autentifikacija
+             </summary>
+             <param name="authenticationHelper"></param>
+        </member>
+        <member name="M:Kupac_SK.Controllers.AuthenticationController.Authenticate(Kupac_SK.Entities.Principal)">
+            <summary>
+            
+            </summary>
+            <param name="principal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KontaktOsobaController.GetKontaktOsobe">
+            <summary>
+            izlistavanje kontakt osoba 
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KontaktOsobaController.GetKontaktOsobaById(System.Guid)">
+            <summary>
+            pronadjite osobu na osnovu id-ja
+            </summary>
+            <param name="kontaktOsobaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KontaktOsobaController.DeleteKontaktOsoba(System.Guid)">
+            <summary>
+            izbrisite osobu
+            </summary>
+            <param name="kontaktOsobaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KontaktOsobaController.CreateKontaktOsoba(Kupac_SK.Models.KontaktOsobaDto)">
+            <summary>
+            
+            </summary>
+            <param name="kontaktOsoba"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KontaktOsobaController.UpdateKontaktOsoba(Kupac_SK.Models.KontaktOsobaDto)">
+            <summary>
+            Opcije omogucene za Kontakt Osobu
+            </summary>
+            <returns></returns>
+            
+        </member>
+        <member name="T:Kupac_SK.Controllers.KupacController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KupacController.#ctor(Kupac_SK.Data.IFizickoLiceRepository,Kupac_SK.Data.IPravnoLiceRepository,Kupac_SK.ServiceCalls_.ILoggerService,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="fizickoLiceRepository"></param>
+            <param name="pravnoLiceRepository"></param>
+            <param name="loggerService"></param>
+            <param name="linkGenerator"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KupacController.GetKupci">
+            <summary>
+            lista svih kupaca 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KupacController.GetKupacById(System.Guid)">
+            <summary>
+            Izbor jednog kupca na osnovu id-ja
+            </summary>
+            <param name="kupacId">unesite id kupca</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KupacController.DeleteKupac(System.Guid)">
+            <summary>
+            brisanje kupca na osnovu id-ja
+            </summary>
+            <param name="kupacId">unesite id kupca</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.KupacController.GetKupacOptions">
+            <summary>
+            opcije dostupne za kupca
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Kupac_SK.Controllers.PrioritetController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.#ctor(Kupac_SK.Data.IPrioritetRepository,Kupac_SK.ServiceCalls_.ILoggerService,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="prioritetRepository"></param>
+            <param name="loggerService"></param>
+            <param name="linkGenerator"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.GetPrioritetiList">
+            <summary>
+            Vraca listu prioriteta koji postoje evidentirani
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.GetPrioritetById(System.Guid)">
+            <summary>
+            vraca prioritet na osnovu prosledjenog id-ja
+            </summary>
+            <param name="prioritetId">unesite validan id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.DeletePrioritet(System.Guid)">
+            <summary>
+            brisanje prioriteta 
+            </summary>
+            <param name="prioritetId">unesite validan id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.CreatePrioritet(Kupac_SK.Models.PrioritetModelDto)">
+            <summary>
+            unos novog prioriteta
+            </summary>
+            <param name="prioritet">popunite ispravno</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.UpdatePrioritet(Kupac_SK.Models.PrioritetModelDto)">
+            <summary>
+            
+            </summary>
+            <param name="prioritet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Controllers.PrioritetController.GetPrioritetOptions">
+            <summary>
+            ponudjene opcije za kupca
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.FillData">
+            <summary>
+            Metoda koja upisuje testne podatke
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.UserWithCredentialsExists(System.String,System.String)">
+            <summary>
+            Proverava da li postoji korisnik sa prosleđenim kredencijalima
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.HashPassword(System.String)">
+            <summary>
+            Vrši hash-ovanje korisničke lozinke
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <returns>Generisan hash i salt</returns>
+        </member>
+        <member name="M:Kupac_SK.Data.UserMockRepository.VerifyPassword(System.String,System.String,System.String)">
+            <summary>
+            Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <param name="savedHash">Sačuvan hash</param>
+            <param name="savedSalt">Sačuvan salt</param>
+            <returns></returns>
+        </member>
+        <member name="P:Kupac_SK.Entities.Principal.Username">
+            <summary>
+            Korisnicko ime
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.Principal.Password">
+            <summary>
+            Sifra
+            </summary>
+        </member>
+        <member name="T:Kupac_SK.Entities.User">
+            <summary>
+            Predstavlja model korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Id">
+            <summary>
+            Id korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.FirstName">
+            <summary>
+            Ime korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.LastName">
+            <summary>
+            Prezime korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.UserName">
+            <summary>
+            Korisničko ime
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Email">
+            <summary>
+            Email korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Password">
+            <summary>
+            Hash-ovana šifra korisnika
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Entities.User.Salt">
+            <summary>
+            Salt
+            </summary>
+        </member>
+        <member name="M:Kupac_SK.Helper.AuthenticationHelper.AuthenticatePrincipal(Kupac_SK.Entities.Principal)">
+            <summary>
+            Vrši autentifikaciju principala
+            </summary>
+            <param name="principal">Principal za autentifikaciju</param>
+            <returns></returns>
+        </member>
+        <member name="M:Kupac_SK.Helper.AuthenticationHelper.GenerateJwt(Kupac_SK.Entities.Principal)">
+            <summary>
+            Generiše novi token za autentifikovanog principala
+            </summary>
+            <param name="principal">Autentifikovani principal</param>
+            <returns></returns>
+        </member>
+        <member name="P:Kupac_SK.Models.Message.ServiceName">
+            <summary>
+            Naziv servisa
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Models.Message.Method">
+            <summary>
+            Metoda
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Models.Message.Information">
+            <summary>
+            Detalji
+            </summary>
+        </member>
+        <member name="P:Kupac_SK.Models.Message.Error">
+            <summary>
+            Greska
+            </summary>
+        </member>
+    </members>
+</doc>
