@@ -14,6 +14,7 @@ namespace Mesto.Controllers
 {
     [ApiController]
     [Route("api/drzava")]
+    [Produces("application/json", "application/xml")]
 
     public class DrzavaController : ControllerBase
     {
