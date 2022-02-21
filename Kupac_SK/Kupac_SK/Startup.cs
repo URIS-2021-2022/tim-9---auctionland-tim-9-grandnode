@@ -37,12 +37,6 @@ namespace Kupac_SK
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // services.AddControllers();
-            //  services.AddSwaggerGen(c =>
-            // {
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kupac_SK", Version = "v1" });
-            // });
-
             services.AddControllers(setup =>
                 setup.ReturnHttpNotAcceptable = true
             ).AddXmlDataContractSerializerFormatters();
@@ -95,38 +89,6 @@ namespace Kupac_SK
             });
 
 
-            /*      services.AddSwaggerGen(setupAction =>
-            {
-                setupAction.SwaggerDoc("DokumentOpenApiSpecification",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Dokument API",
-                        Version = "1",
-                        
-                        Description = "Pomoću ovog API-ja može da se vrši dodavanje dokumenata i izmenje njihovih stanja, kao i njihov pregled",
-                        Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                        {
-                            Name = "Aleksa Komosar",
-                            Email = "aleksakomosar@gmail.com",
-                            Url = new Uri("http://www.ftn.uns.ac.rs/")
-                        },
-                        License = new Microsoft.OpenApi.Models.OpenApiLicense
-                        {
-                            Name = "FTN licence",
-                            Url = new Uri("http://www.ftn.uns.ac.rs/")
-                        },
-                        TermsOfService = new Uri("http://www.ftn.uns.ac.rs/examRegistrationTermsOfService")
-                    });
-
-                
-                var xmlComments = $"{ Assembly.GetExecutingAssembly().GetName().Name }.xml";
-
-                
-                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments);
-
-                setupAction.IncludeXmlComments(xmlCommentsPath);
-            });*/
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -141,52 +103,7 @@ namespace Kupac_SK
                 };
             });
         }
-        /*
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-         {
-             if (env.IsDevelopment())
-             {
-                 app.UseDeveloperExceptionPage();
-                 app.UseSwagger();
-                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kupac_SK v1"));
-             }
-
-             app.UseHttpsRedirection();
-
-             app.UseRouting();
-
-             app.UseAuthorization();
-
-             app.UseEndpoints(endpoints =>
-             {
-                 endpoints.MapControllers();
-             });
-         }*/
-        /*
-            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApplication1 v1"));
-            }
-
-            app.UseHttpsRedirection();
-
-            // Omogucava definisanje ruta za pristup svakom API-u
-            app.UseRouting();
-
-            // Trenutno ce to ukazivati da se koristi anonimna autentifikacija, ali je to kasnija podloga za definisanje nase
-            app.UseAuthorization();
-
-            // Podrazumeva da ce svi endpoint-i koji su dostupni u kontrolerima biti dostupni za pristupanje
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }*/
+       
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -212,7 +129,7 @@ namespace Kupac_SK
             app.UseRouting();
 
 
-         //   app.UseAuthorization();
+         app.UseAuthorization();
 
             app.UseSwagger();
             

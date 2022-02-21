@@ -11,7 +11,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kupac_SK.Controllers
-{
+{/// <summary>
+/// 
+/// </summary>
     [ApiController]
     [Route("api/prioriteti")]
     public class PrioritetController : ControllerBase
@@ -19,7 +21,12 @@ namespace Kupac_SK.Controllers
         private readonly IPrioritetRepository prioritetRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prioritetRepository"></param>
+        /// <param name="linkGenerator"></param>
+        /// <param name="mapper"></param>
         public PrioritetController(IPrioritetRepository prioritetRepository, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.prioritetRepository = prioritetRepository;
@@ -42,7 +49,11 @@ namespace Kupac_SK.Controllers
 
             return Ok(mapper.Map<List<PrioritetModelDto>>(prioriteti));
         }
-
+        /// <summary>
+        /// vraca prioritet na osnovu prosledjenog id-ja
+        /// </summary>
+        /// <param name="prioritetId">unesite validan id</param>
+        /// <returns></returns>
         [HttpGet("{prioritetId}")]
         public ActionResult<PrioritetModelDto> GetPrioritetById(Guid prioritetId)
         {
@@ -54,7 +65,11 @@ namespace Kupac_SK.Controllers
             }
             return Ok(mapper.Map<PrioritetModelDto>(prioritetModel));
         }
-       
+       /// <summary>
+       /// brisanje prioriteta 
+       /// </summary>
+       /// <param name="prioritetId">unesite validan id</param>
+       /// <returns></returns>
         [HttpDelete("{prioritetId}")]
         public IActionResult DeletePrioritet(Guid prioritetId)
         {
@@ -75,7 +90,11 @@ namespace Kupac_SK.Controllers
             }
 
         }
-
+        /// <summary>
+        /// unos novog prioriteta
+        /// </summary>
+        /// <param name="prioritet">popunite ispravno</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult<PrioritetModelDto> CreatePrioritet([FromBody] PrioritetModelDto prioritet) 
         {
@@ -84,11 +103,9 @@ namespace Kupac_SK.Controllers
 
             try
             {
-               // Console.Write("ulaz na pocetak");
+               
                 PrioritetModel prior = mapper.Map<PrioritetModel>(prioritet);
-              //  Console.Write("ulaz2");
                 PrioritetModel prioritetCreate = prioritetRepository.CreatePrioritet(prior);
-              //  Console.Write("ulaz3");
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
                 string location = linkGenerator.GetPathByAction("GetPrioritetById", "Prioritet", new { prioritetId = prior.PrioritetID });
                 Console.Write(location);
@@ -101,8 +118,16 @@ namespace Kupac_SK.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
             }
         }
-        
-        [HttpPut] 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prioritet"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<PrioritetModelDto> UpdatePrioritet(PrioritetModelDto prioritet)
         {
             //TO-DO
@@ -124,7 +149,10 @@ namespace Kupac_SK.Controllers
             } */
             return NoContent();
         }
-
+        /// <summary>
+        /// ponudjene opcije za kupca
+        /// </summary>
+        /// <returns></returns>
         [HttpOptions]
         public IActionResult GetPrioritetOptions()
         {

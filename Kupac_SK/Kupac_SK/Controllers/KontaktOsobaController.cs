@@ -132,6 +132,19 @@ namespace Kupac_SK.Controllers
         /// Opcije omogucene za Kontakt Osobu
         /// </summary>
         /// <returns></returns>
+        /// 
+
+     
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<KontaktOsobaDto> UpdateKontaktOsoba(KontaktOsobaDto kontaktOsoba)
+        {
+            //baza
+            return NoContent();
+        }
         [HttpOptions]
         public IActionResult GetKontaktOsobaOptions()
         {

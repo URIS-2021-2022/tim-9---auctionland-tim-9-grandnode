@@ -11,7 +11,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Kupac_SK.Controllers
-{
+{/// <summary>
+/// 
+/// </summary>
     [ApiController]
     [Route("api/kupci")]
     public class KupacController : ControllerBase 
@@ -20,7 +22,13 @@ namespace Kupac_SK.Controllers
         private readonly IPravnoLiceRepository pravnoLiceRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fizickoLiceRepository"></param>
+        /// <param name="pravnoLiceRepository"></param>
+        /// <param name="linkGenerator"></param>
+        /// <param name="mapper"></param>
         public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.fizickoLiceRepository = fizickoLiceRepository;
@@ -28,7 +36,10 @@ namespace Kupac_SK.Controllers
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
         }
-
+        /// <summary>
+        /// lista svih kupaca 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [HttpHead]
 
@@ -45,7 +56,11 @@ namespace Kupac_SK.Controllers
             return Ok(mapper.Map<List<KupacModelDto>>(sviKupci));
 
         }
-
+        /// <summary>
+        /// Izbor jednog kupca na osnovu id-ja
+        /// </summary>
+        /// <param name="kupacId">unesite id kupca</param>
+        /// <returns></returns>
         [HttpGet("{kupacId}")]
 
         public ActionResult<KupacModelDto> GetKupacById(Guid kupacId)
@@ -60,7 +75,11 @@ namespace Kupac_SK.Controllers
             return Ok(mapper.Map<KupacModelDto>(kupac));
                  
         }
-
+        /// <summary>
+        /// brisanje kupca na osnovu id-ja
+        /// </summary>
+        /// <param name="kupacId">unesite id kupca</param>
+        /// <returns></returns>
         [HttpDelete("{kupacId}")]
 
         public IActionResult DeleteKupac(Guid kupacId)
@@ -93,6 +112,11 @@ namespace Kupac_SK.Controllers
 
 
         [HttpPut]
+        [HttpPut]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<KupacModelDto> UpdateKupac(KupacModelDto kupac)
         {
             return NoContent();
@@ -101,7 +125,10 @@ namespace Kupac_SK.Controllers
 
 
 
-
+        /// <summary>
+        /// opcije dostupne za kupca
+        /// </summary>
+        /// <returns></returns>
 
         [HttpOptions]
         public IActionResult GetKupacOptions()
