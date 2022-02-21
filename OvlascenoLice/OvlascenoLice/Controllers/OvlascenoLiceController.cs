@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using OvlascenoLice.Data;
 using OvlascenoLice.Entities;
 using OvlascenoLice.Models;
+using OvlascenoLice.ServiceCalls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,15 @@ namespace OvlascenoLice.Controllers
         private readonly IOvlascenoLiceRepository ovlascenoLiceRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-       // private Message message = new Message();
+        private readonly ILoggerService loggerService;
+        private Message message = new Message();
         private readonly string serviceName = "OvlascenoLiceService";
         
-        public OvlascenoLiceController(IOvlascenoLiceRepository ovlascenoLiceRepository, LinkGenerator linkGenerator, IMapper mapper)
+        public OvlascenoLiceController(IOvlascenoLiceRepository ovlascenoLiceRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.ovlascenoLiceRepository = ovlascenoLiceRepository;
             this.linkGenerator = linkGenerator;
+            this.loggerService = loggerService;
             this.mapper = mapper;
         }
 
@@ -41,11 +44,21 @@ namespace OvlascenoLice.Controllers
         public ActionResult<List<OvlascenoLiceDto>> GetOvlascenaLica()
         {
             List<OvlascenoLiceModel> lica = ovlascenoLiceRepository.GetOvlascenaLica();
-            if(lica == null || lica.Count ==0) { return NoContent(); }
+            message.ServiceName = serviceName;
+            message.Method = "GET";
+            if (lica == null || lica.Count ==0) {
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
+                return NoContent(); 
+            }
 
-
+            message.Information = "Returned list of ovlascena lica";
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<OvlascenoLiceDto>>(lica));
         }
+
+
         /// <summary>
         /// Vracanje samo jednog ovlascenog lica sa zadatim id-jem
         /// </summary>
@@ -55,44 +68,71 @@ namespace OvlascenoLice.Controllers
         public ActionResult<OvlascenoLiceDto> GetOvlascenoLiceById(Guid ovlascenoLiceId )
         {
             OvlascenoLiceModel lice = ovlascenoLiceRepository.GetOvlascenoLiceById(ovlascenoLiceId);
-            if(lice == null)
+           
+            message.ServiceName = serviceName;
+            message.Method = "GET";
+
+            if (lice == null)
             {
+                message.Information = "Not found";
+                message.Error = "There is no object of Licnost with identifier: " + ovlascenoLiceId;
+                loggerService.CreateMessage(message);
                 return NotFound();
 
             }
+
+            message.Information = lice.ToString();
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<OvlascenoLiceDto>(lice));
         }
+
+
+
         /// <summary>
         /// Brisanje ovlascenog lica sa zadatim id-jem
         /// </summary>
         /// <param name="ovlascenoLiceId"></param>
         /// <returns></returns>
         /// 
-
         [HttpDelete("{ovlascenoLiceId}")]
         public IActionResult DeleteOvlascenoLice(Guid ovlascenoLiceId)
         {
+
+            message.ServiceName = serviceName;
+            message.Method = "DELETE";
+
+
             try
             {
                 OvlascenoLiceModel lice = ovlascenoLiceRepository.GetOvlascenoLiceById(ovlascenoLiceId);
                 if (lice == null)
                 {
+                    message.Information = "Not found";
+                    message.Error = "There is no object of ovlasceno lice with identifier: " + ovlascenoLiceId;
+                    loggerService.CreateMessage(message);
                     return NotFound();
 
                 }
 
                 ovlascenoLiceRepository.DeleteOvlascenoLice(ovlascenoLiceId);
                 ovlascenoLiceRepository.SaveChanges();
-                //message logger
-                return NoContent();
+
+                message.Information = "Successfully deleted " + ovlascenoLiceId.ToString();
+                return StatusCode(StatusCodes.Status200OK, "You have successfully deleted " + ovlascenoLiceId.ToString());
+
             }
-            catch
+            catch (Exception ex)
             {
-                //message logger
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
 
             }
         }
+        
+        
+        
         /// <summary>
         /// Dodavanje novog ovlascenog lica
         /// </summary>
@@ -101,6 +141,11 @@ namespace OvlascenoLice.Controllers
         [HttpPost]
         public ActionResult<OvlascenoLiceDto> CreateOvlascenoLice([FromBody] OvlascenoLiceDto ovlascenoLice)
         {
+
+            message.ServiceName = serviceName;
+            message.Method = "POST";
+
+
             try
             {
                 OvlascenoLiceModel lice1 = mapper.Map<OvlascenoLiceModel>(ovlascenoLice);
@@ -108,15 +153,25 @@ namespace OvlascenoLice.Controllers
                 ovlascenoLiceRepository.SaveChanges();
 
                 string location = linkGenerator.GetPathByAction("GetOvlascenoLiceById", "OvlascenoLice", new { ovlascenoLiceId = lice1.OvlascenoLiceID});
+
+                message.Information = ovlascenoLice.ToString() + " | Ovlasceno lice location: " + location;
+                loggerService.CreateMessage(message);
+
+
                 return Created(location, mapper.Map<OvlascenoLiceModel>(createLice));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                message.Information = "Server error";
+                message.Error = e.Message;
+                loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "create Error");
 
             }
         }
+       
+        
+        
         /// <summary>
         /// Azuriranje 
         /// </summary>
@@ -129,14 +184,17 @@ namespace OvlascenoLice.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<OvlascenoLiceDto> UpdateOvlascenoLice(OvlascenoLiceDto ovlascenoLice)
         {
-            // message.ServiceName = serviceName;
-            // message.Method = "PUT";
+             message.ServiceName = serviceName;
+             message.Method = "PUT";
+
             try
             {
                 OvlascenoLiceModel staroLice = ovlascenoLiceRepository.GetOvlascenoLiceById(ovlascenoLice.OvlascenoLiceID);
                 if (staroLice == null)
                 {
-                    //message logger
+                    message.Information = "Not found";
+                    message.Error = "There is no object of Licnost with identifier: " + ovlascenoLice.OvlascenoLiceID;
+                    loggerService.CreateMessage(message);
                     return NotFound();
                 }
 
@@ -145,16 +203,16 @@ namespace OvlascenoLice.Controllers
 
                 ovlascenoLiceRepository.SaveChanges();
 
-                //message.Information = staroLice.ToString();
-                //logerService.CreateMessage(message);
+                message.Information = staroLice.ToString();
+                loggerService.CreateMessage(message);
                 return Ok(mapper.Map<OvlascenoLiceDto>(staroLice));
             }
-            catch
+            catch (Exception ex)
             {
-                /*
+                
                 message.Information = "Server error";
                 message.Error = ex.Message;
-                loggerService.CreateMessage(message); */
+                loggerService.CreateMessage(message); 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
             }
         }
