@@ -43,7 +43,7 @@ namespace OvlascenoLice
            ).AddXmlDataContractSerializerFormatters();
 
            
-            //services.AddSingleton<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
+   
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
             services.AddScoped<IUserRepository, UserMockRepository>();
             services.AddScoped<ILoggerService, LoggerService>(); 
