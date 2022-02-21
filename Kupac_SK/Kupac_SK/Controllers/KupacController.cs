@@ -77,6 +77,10 @@ namespace Kupac_SK.Controllers
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "error");
+            }
 
             message.Information = "Returned list of kupci";
                  loggerService.CreateMessage(message);
