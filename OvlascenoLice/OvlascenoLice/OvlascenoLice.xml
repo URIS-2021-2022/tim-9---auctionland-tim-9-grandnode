@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OvlascenoLice</name>
+    </assembly>
+    <members>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.GetOvlascenaLica">
+            <summary>
+            Sva ovlascena lica 
+            </summary>
+                /// <response code="200">Vraća listu ličnosti</response>
+            <response code="204">Nije pronađen ni jedna ličnost u sistemu</response>
+        </member>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.GetOvlascenoLiceById(System.Guid)">
+            <summary>
+            Vracanje samo jednog ovlascenog lica sa zadatim id-jem
+            </summary>
+            <param name="ovlascenoLiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.DeleteOvlascenoLice(System.Guid)">
+            <summary>
+            Brisanje ovlascenog lica sa zadatim id-jem
+            </summary>
+            <param name="ovlascenoLiceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.GetPrioritetOptions">
+            <summary>
+            Opcije dostupne za Ovlasceno lice
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OvlascenoLice.Data.UserMockRepository.FillData">
+            <summary>
+            Metoda koja upisuje testne podatke
+            </summary>
+        </member>
+        <member name="M:OvlascenoLice.Data.UserMockRepository.UserWithCredentialsExists(System.String,System.String)">
+            <summary>
+            Proverava da li postoji korisnik sa prosleđenim kredencijalima
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OvlascenoLice.Data.UserMockRepository.HashPassword(System.String)">
+            <summary>
+            Vrši hash-ovanje korisničke lozinke
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <returns>Generisan hash i salt</returns>
+        </member>
+        <member name="M:OvlascenoLice.Data.UserMockRepository.VerifyPassword(System.String,System.String,System.String)">
+            <summary>
+            Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <param name="savedHash">Sačuvan hash</param>
+            <param name="savedSalt">Sačuvan salt</param>
+            <returns></returns>
+        </member>
+        <member name="P:OvlascenoLice.Entities.OvlascenoLiceModel.AdresaID">
+            <summary>
+            adresa ovlascenog lica koju preuzima iz vo
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.Principal.Username">
+            <summary>
+            Korisnicko ime
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.Principal.Password">
+            <summary>
+            Sifra
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.User.Id">
+            <summary>
+            Id korisnika
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.User.FirstName">
+            <summary>
+            Ime korisnika
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.User.LastName">
+            <summary>
+            Prezime korisnika
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.User.UserName">
+            <summary>
+            Korisničko ime
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:OvlascenoLice.Entities.User.Email" -->
+        <member name="P:OvlascenoLice.Entities.User.Password">
+            <summary>
+            Hash-ovana šifra korisnika
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Entities.User.Salt">
+            <summary>
+            Salt
+            </summary>
+        </member>
+        <member name="M:OvlascenoLice.Helper.AuthenticationHelper.AuthenticatePrincipal(OvlascenoLice.Entities.Principal)">
+            <summary>
+            Vrši autentifikaciju principala
+            </summary>
+            <param name="principal">Principal za autentifikaciju</param>
+            <returns></returns>
+        </member>
+        <member name="M:OvlascenoLice.Helper.AuthenticationHelper.GenerateJwt(OvlascenoLice.Entities.Principal)">
+            <summary>
+            Generiše novi token za autentifikovanog principala
+            </summary>
+            <param name="principal">Autentifikovani principal</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
