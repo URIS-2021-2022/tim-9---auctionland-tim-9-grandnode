@@ -1,0 +1,138 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>galic-korisnik</name>
+  </assembly>
+  <members>
+    <!-- Badly formed XML comment ignored for member "M:Mesto.Controllers.KorisnikController.#ctor(Mesto.Data.IKorisnikRepository,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper,Mesto.ServiceCalls.ILoggerService)" -->
+    <member name="M:galic-korisnik.Controllers.AuthController.Authenticate(galic-korisnik.Models.Principal)">
+      <summary>
+        Sluzi za autentifikaciju korisnika
+      </summary>
+      <param name="principal">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+      <returns></returns>
+    </member>
+    <member name="M:galic-korisnik.Data.UserMockRepository.FillData">
+      <summary>
+        Metoda koja upisuje testne podatke
+      </summary>
+    </member>
+    <member name="M:galic-korisnik.Data.KorisnikController.UserWithCredentialsExists(System.String,System.String)">
+      <summary>
+        Proverava da li postoji korisnik sa prosleđenim kredencijalima
+      </summary>
+      <param name="korisnickoIme"></param>
+      <param name="lozinka"></param>
+      <returns></returns>
+    </member>
+    <member name="M:galic-korisnik.Data.KorisnikRepository.HashPassword(System.String)">
+      <summary>
+        Vrši hash-ovanje korisničke lozinke
+      </summary>
+      <param name="lozinka">Korisnička lozinka</param>
+      <returns>Generisan hash i salt</returns>
+    </member>
+    <member name="M:galic-korisnik.Data.KorisnikRepository.VerifyPassword(System.String,System.String,System.String)">
+      <summary>
+        Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+      </summary>
+      <param name="lozinka">Korisnička lozinka</param>
+      <param name="savedHash">Sačuvan hash</param>
+      <param name="savedSalt">Sačuvan salt</param>
+      <returns></returns>
+    </member>
+    <member name="T:galic-korisnik.Entities.Korisnik">
+      <summary>
+        Predstavlja model korisnika
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.korisnikId">
+      <summary>
+        Id korisnika
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.tipKorisnikId">
+      <summary>
+        Id tipa korisnika
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.FirstName">
+      <summary>
+        Ime korisnika
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.LastName">
+      <summary>
+        Prezime korisnika
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.UserName">
+      <summary>
+        Korisničko ime
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.lozinka">
+      <summary>
+        Hash-ovana šifra korisnika
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Entities.Korisnik.Salt">
+      <summary>
+        Salt
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Models.Message.ServiceName">
+      <summary>
+        Naziv servisa
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Models.Message.Method">
+      <summary>
+        Metoda
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Models.Message.Information">
+      <summary>
+        Detalji
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Models.Message.Error">
+      <summary>
+        Greska
+      </summary>
+    </member>
+    <member name="T:galic-korisnik.Models.Principal">
+      <summary>
+        Predstavlja model za autentifikaciju
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Models.Principal.Username">
+      <summary>
+        Korisničko ime
+      </summary>
+    </member>
+    <member name="P:galic-korisnik.Models.Principal.Password">
+      <summary>
+        Korisnička lozinka
+      </summary>
+    </member>
+    <member name="M:galic-korisnik.ServiceCalls.ILoggerService.CreateMessage(galic-korisnik.Models.Message)">
+      <summary>
+        Metoda za kreiranje poruke logeru
+      </summary>
+      <param name="message"></param>
+    </member>
+    <member name="M:galic-korisnik.ServiceCalls.LoggerService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+      <summary>
+        Konstruktor
+      </summary>
+      <param name="configuration"></param>
+    </member>
+    <member name="M:galic-korisnik.ServiceCalls.LoggerService.CreateMessage(galic-korisnik.Models.Message)">
+      <summary>
+        Kreiranje poruke - metoda
+      </summary>
+      <param name="message"></param>
+    </member>
+  </members>
+</doc>
