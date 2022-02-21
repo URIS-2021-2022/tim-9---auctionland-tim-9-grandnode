@@ -55,6 +55,8 @@ namespace ZalbaService
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -87,12 +89,33 @@ namespace ZalbaService
                         },
                         TermsOfService = new Uri("http://www.ftn.uns.ac.rs/examRegistrationTermsOfService")
                     });
+                setupAction.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+                });
+                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme {
+                        Reference = new OpenApiReference {
+                            Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                        }
+                    },
+                    new string[] {}
+                }
+                });
                 var xmlComments = $"{ Assembly.GetExecutingAssembly().GetName().Name }.xml";
 
                 var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlComments);
 
                 setupAction.IncludeXmlComments(xmlCommentsPath);
             });
+
             services.AddDbContext<ZalbaContext>();
         }
 

@@ -28,10 +28,10 @@ namespace ZalbaService.Data
                 new User
                 {
                     Id = Guid.Parse("CFD7FA84-8A27-4119-B6DB-5CFC1B0C94E1"),
-                    FirstName = "Petar",
-                    LastName = "Petrovic",
-                    UserName = "petar.petrovic",
-                    Email = "petar.petrovic@testmail.com",
+                    FirstName = "Milica",
+                    LastName = "Tomanovic",
+                    UserName = "milicatomanovic",
+                    Email = "milica.tomanovic@gmail.com",
                     Password = user1.Item1,
                     Salt = user1.Item2
                 }

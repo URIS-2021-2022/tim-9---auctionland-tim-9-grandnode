@@ -18,7 +18,7 @@ namespace ZalbaService.Controllers
 {
     [Route("api/radnja")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class RadnjaController : ControllerBase
     {
 
@@ -60,7 +60,6 @@ namespace ZalbaService.Controllers
             }
             message.Information = "Returned list of Radnja";
             loggerService.CreateMessage(message);
-            //var token = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
             return Ok(mapper.Map<List<RadnjaDto>>(radnja));
         }
         /// <summary>

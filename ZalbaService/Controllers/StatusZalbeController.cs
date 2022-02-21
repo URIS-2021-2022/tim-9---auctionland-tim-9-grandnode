@@ -17,7 +17,7 @@ namespace ZalbaService.Controllers
 {
     [Route("api/statuszalbe")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class StatusZalbeController : ControllerBase
     {
         private readonly IStatusZalbeRepository statusZalbeRepository;

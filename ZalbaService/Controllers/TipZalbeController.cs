@@ -17,7 +17,7 @@ namespace ZalbaService.Controllers
 {
     [Route("api/tipzalbe")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TipZalbeController : ControllerBase
     {
         private readonly ITipZalbeRepository tipZalbeRepository;
