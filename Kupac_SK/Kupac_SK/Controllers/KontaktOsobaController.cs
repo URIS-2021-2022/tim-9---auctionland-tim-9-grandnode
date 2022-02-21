@@ -2,6 +2,7 @@
 using Kupac_SK.Data;
 using Kupac_SK.Entities;
 using Kupac_SK.Models;
+using Kupac_SK.ServiceCalls_;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -15,14 +16,15 @@ namespace Kupac_SK.Controllers
     [ApiController]
     [Route("api/kontaktOsobe")]
 
-   
-
     public class KontaktOsobaController : ControllerBase 
     {
         
         private readonly IKontaktOsobaRepository kontaktOsobaRepository;
         private readonly  LinkGenerator linkGenerator;
         private readonly IMapper mapper;
+        private readonly ILoggerService loggerService;
+        private Message message = new Message();
+        private readonly string serviceName = "KupacService";
 
         public KontaktOsobaController(IKontaktOsobaRepository kontaktOsobaRepository, LinkGenerator linkGenerator, IMapper mapper)
         {
@@ -45,11 +47,21 @@ namespace Kupac_SK.Controllers
         public ActionResult<List<KontaktOsobaDto>> GetKontaktOsobe()
         {
             List<KontaktOsobaModel> kontaktOsobe = kontaktOsobaRepository.GetKontaktOsobe();
-            if(kontaktOsobe == null || kontaktOsobe.Count == 0)
+
+            message.ServiceName = serviceName;
+            message.Method = "GET";
+
+            if (kontaktOsobe == null || kontaktOsobe.Count == 0)
             {
+
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message);
                 return NoContent();
             }
 
+            message.Information = "Returned list of prioriteti";
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<KontaktOsobaDto>>(kontaktOsobe));
     
     }
@@ -66,10 +78,20 @@ namespace Kupac_SK.Controllers
         public ActionResult<KontaktOsobaDto> GetKontaktOsobaById(Guid kontaktOsobaId)
         {
             KontaktOsobaModel kontaktOsobaModel = kontaktOsobaRepository.GetKontaktOsobaById(kontaktOsobaId);
-            if(kontaktOsobaModel == null)
+          
+            message.ServiceName = serviceName;
+            message.Method = "GET";
+
+            if (kontaktOsobaModel == null)
             {
+                message.Information = "Not found";
+                message.Error = "There is no object of kontakt osoba with identifier: " + kontaktOsobaId;
+                loggerService.CreateMessage(message);
                 return NotFound();
             }
+
+            message.Information = prioritetModel.ToString();
+            loggerService.CreateMessage(message);
             return Ok(mapper.Map<KontaktOsobaDto>(kontaktOsobaModel));
         }
         /// <summary>
@@ -85,20 +107,30 @@ namespace Kupac_SK.Controllers
 
         public IActionResult DeleteKontaktOsoba(Guid kontaktOsobaId)
         {
+            message.ServiceName = serviceName;
+            message.Method = "DELETE";
+
             try
             {
                 KontaktOsobaModel kontaktOsoba = kontaktOsobaRepository.GetKontaktOsobaById(kontaktOsobaId);
 
                 if(kontaktOsoba ==null)
                 {
+                    message.Information = "Not found";
+                    message.Error = "There is no object of kontakt osoba with identifier: " + kontaktOsobaId;
+                    loggerService.CreateMessage(message);
                     return NotFound();
                 }
 
                 kontaktOsobaRepository.DeleteKontaktOsoba(kontaktOsobaId);
+                message.Information = "Successfully deleted " + prioritetId.ToString();
                 return NoContent();
             }
-            catch
+            catch (Exception ex)
             {
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
             }
         }
@@ -113,17 +145,27 @@ namespace Kupac_SK.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<KontaktOsobaDto> CreateKontaktOsoba(KontaktOsobaDto kontaktOsoba)
         {
+            message.ServiceName = serviceName;
+            message.Method = "POST";
             try
             {
             
                 KontaktOsobaModel kont1 = mapper.Map<KontaktOsobaModel>(kontaktOsoba);
                 KontaktOsobaModel kontaktCreate = kontaktOsobaRepository.CreateKontaktOsoba(kont1);
+                kontaktOsobaRepository.SaveChanges();
 
                 string location = linkGenerator.GetPathByAction("GetKontaktOsobaById", "KontaktOsoba", new { kontaktOsobaId = kontaktCreate.KontaktOsobaID });
+
+                message.Information = kontaktOsoba.ToString() + " | kontakt osoba location: " + location;
+                loggerService.CreateMessage(message);
+
                 return Created(location, mapper.Map<KontaktOsobaModel>(kontaktOsoba));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
 
             }
@@ -142,8 +184,27 @@ namespace Kupac_SK.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<KontaktOsobaDto> UpdateKontaktOsoba(KontaktOsobaDto kontaktOsoba)
         {
-            //baza
-            return NoContent();
+            message.ServiceName = serviceName;
+            message.Method = "PUT";
+
+            KontaktOsobaModel stara = kontaktOsobaRepository.GetKontaktOsobaById(kontaktOsoba.KontaktOsobaID);
+            if(stara == null)
+            {
+                message.Information = "Not found";
+                message.Error = "There is no object of kontakt osoba with identifier: " + kontaktOsoba.KontaktOsobaID;
+                loggerService.CreateMessage(message);
+                return NotFound();
+            }
+
+            KontaktOsobaModel nova = mapper.Map<KontaktOsobaModel>(kontaktOsoba);
+            mapper.Map(nova, stara);
+
+            kontaktOsobaRepository.SaveChanges();
+
+            message.Information = stara.ToString();
+            loggerService.CreateMessage(message);
+            return Ok(mapper.Map<KontaktOsobaDto>(stara));
+
         }
         [HttpOptions]
         public IActionResult GetKontaktOsobaOptions()

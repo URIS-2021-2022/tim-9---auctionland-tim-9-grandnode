@@ -2,6 +2,7 @@
 using Kupac_SK.Data;
 using Kupac_SK.Entities;
 using Kupac_SK.Models;
+using Kupac_SK.ServiceCalls_;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -22,9 +23,9 @@ namespace Kupac_SK.Controllers
         private readonly IPravnoLiceRepository pravnoLiceRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-        /*  private readonly ILoggerService loggerService;
-      private Message message = new Message();
-      private readonly string serviceName = "KupacService";*/
+        private readonly ILoggerService loggerService;
+        private Message message = new Message();
+        private readonly string serviceName = "KupacService";
 
 
         /// <summary>
@@ -32,13 +33,15 @@ namespace Kupac_SK.Controllers
         /// </summary>
         /// <param name="fizickoLiceRepository"></param>
         /// <param name="pravnoLiceRepository"></param>
+        /// <param name="loggerService"></param>
         /// <param name="linkGenerator"></param>
         /// <param name="mapper"></param>
-        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, LinkGenerator linkGenerator, IMapper mapper)
+        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.fizickoLiceRepository = fizickoLiceRepository;
             this.pravnoLiceRepository = pravnoLiceRepository;
             this.linkGenerator = linkGenerator;
+            this.loggerService = loggerService;
             this.mapper = mapper;
         }
         /// <summary>
@@ -52,15 +55,15 @@ namespace Kupac_SK.Controllers
         {
             List<FizickoLice> fizickaLica = fizickoLiceRepository.GetFizickaLica();
             List<PravnoLice> pravnaLica = pravnoLiceRepository.getPravnaLica();
-            /*message.ServiceName = serviceName;
-        message.Method = "GET";*/
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             List<KupacModel> sviKupci = fizickaLica.ConvertAll(f => (KupacModel)f);
             List<KupacModel> temp = pravnaLica.ConvertAll(f => (KupacModel)f);
 
             sviKupci.AddRange(temp); //objedinjena fizicka i pravna lica 
 
-            /*       message.Information = "Returned list of ovlascena lica";
-                 loggerService.CreateMessage(message);*/
+            message.Information = "Returned list of kupci";
+                 loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<KupacModelDto>>(sviKupci));
 
         }
@@ -77,21 +80,21 @@ namespace Kupac_SK.Controllers
             KupacModel kupac;
 
 
-            /*   message.ServiceName = serviceName;
-            message.Method = "GET";*/
+            message.ServiceName = serviceName;
+            message.Method = "GET";
 
             kupac = (KupacModel)fizickoLiceRepository.GetFizickoLiceById(kupacId); 
 
             if(kupac == null)  kupac = (KupacModel)pravnoLiceRepository.GetPravnoLiceById(kupacId);
             if (kupac == null)
             {
-                /*   message.Information = "Not found";
-              message.Error = "There is no object of Licnost with identifier: " + ovlascenoLiceId;
-              loggerService.CreateMessage(message);*/
+              message.Information = "Not found";
+              message.Error = "There is no object of kupac with identifier: " + kupacId;
+              loggerService.CreateMessage(message);
                 return NotFound();
             }
-            /*   message.Information = lice.ToString();
-           loggerService.CreateMessage(message);*/
+           message.Information = kupac.ToString();
+           loggerService.CreateMessage(message);
             return Ok(mapper.Map<KupacModelDto>(kupac));
                  
         }
@@ -143,23 +146,82 @@ namespace Kupac_SK.Controllers
         }
 
 
-        [HttpPut]
-        [HttpPut]
+        [HttpPut("{KupacId}")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<KupacModelDto> UpdateKupac(KupacModelDto kupac)
         {
-            return NoContent();
-            //do db
+            message.ServiceName = serviceName;
+            message.Method = "PUT";
+
+            try
+            {
+                if(kupac.FizPravno == true)
+                {
+                    //fizicko lice menjamo
+                    var staroFL = fizickoLiceRepository.GetFizickoLiceById(kupac.KupacId);
+
+                    if(staroFL == null)
+                    {
+                        message.Information = "Not found";
+                        message.Error = "There is no object of kupac with identifier: " + kupac.KupacId;
+                        loggerService.CreateMessage(message);
+                        return NotFound();
+                    }
+
+                    //dodaj sta ako jeste
+                    FizickoLice novoFL = mapper.Map<FizickoLice>(kupac);
+                    mapper.Map(novoFL, staroFL);
+
+                    fizickoLiceRepository.SaveChanges();
+                    message.Information = staroFL.ToString();
+                    loggerService.CreateMessage(message);
+
+                    return Ok(mapper.Map<FizickoLiceDto>(novoFL));
+
+                }
+                else
+                {
+                    //pravno lice imamo 
+                    var staroPL = pravnoLiceRepository.GetPravnoLiceById(kupac.KupacId);
+                    if (staroPL == null)
+                    {
+                        message.Information = "Not found";
+                        message.Error = "There is no object of kupac with identifier: " + kupac.KupacId;
+                        loggerService.CreateMessage(message);
+                        return NotFound();
+                    }
+
+                    PravnoLice novoPL = mapper.Map<PravnoLice>(kupac);
+                    mapper.Map(novoPL, staroPL);
+
+                    pravnoLiceRepository.SaveChanges();
+                    message.Information = staroPL.ToString();
+                    loggerService.CreateMessage(message);
+
+                    return Ok(mapper.Map<PravnoLiceDto>(novoPL));
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
+            }
+
+
         }
 
         [HttpPost]
         public ActionResult<KupacModelDto> CreateKupac([FromBody] KupacModelDto kupac)
         {
-            //    message.ServiceName = serviceName;
-            //  message.Method = "POST";
+            message.ServiceName = serviceName;
+            message.Method = "POST";
 
             KupacModel k = mapper.Map<KupacModel>(kupac);
             KupacModel kupacCreated;
@@ -178,9 +240,9 @@ namespace Kupac_SK.Controllers
             }
 
             string location = linkGenerator.GetPathByAction("GetKupci", "Kupac", new { KupacID = k.KupacID });
-            /*
-                message.Information = ovlascenoLice.ToString() + " | Ovlasceno lice location: " + location;
-                loggerService.CreateMessage(message);*/
+            
+                message.Information = kupacCreated.ToString() + " | kupac location: " + location;
+                loggerService.CreateMessage(message);
             return Created(location, mapper.Map<KupacModel>(kupacCreated));
 
         }

@@ -15,6 +15,12 @@ namespace Kupac_SK.Entities
         public string Funkcija { get; set; }
         public string Telefon { get; set; }
 
+        public string ToString()
+        {
+            return "Kontakt osoba { KontaktOsobaID: " + this.KontaktOsobaID + ", ime " + this.Ime + ", " +
+                "Prezime: " + this.Prezime + ", funkcije: " + this.Funkcija +  ", telefon: "  + this.Telefon + ", }";
+        }
+
 
     }
 }

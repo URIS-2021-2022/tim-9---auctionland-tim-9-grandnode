@@ -12,5 +12,13 @@ namespace Kupac_SK.Entities
         [Key]
         public Guid PrioritetID { get; set; }
         public string OpisPrioriteta { get; set; }
+
+
+        override
+          public string ToString()
+        {
+            return "Prioritet: { PrioritetID: " + this.PrioritetID + ", opis prioriteta: " + this.OpisPrioriteta + "  }";
+        }
+
     }
 }
