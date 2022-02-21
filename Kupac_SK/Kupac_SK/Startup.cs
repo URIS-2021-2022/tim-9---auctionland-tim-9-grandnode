@@ -1,6 +1,7 @@
 ﻿using Kupac_SK.Data;
 using Kupac_SK.Entities;
 using Kupac_SK.Helper;
+using Kupac_SK.ServiceCalls_;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,6 +54,9 @@ namespace Kupac_SK
             services.AddScoped<IUserRepository, UserMockRepository>();
             services.AddScoped<IFizickoLiceRepository, FizickoLiceRepository>();
             services.AddScoped<IPravnoLiceRepository, PravnoLiceRepository>();
+            services.AddScoped<ILoggerService, LoggerService>();
+            services.AddScoped<IovlascenoliceService, ovlascenoliceService>();
+
             services.AddDbContext<KupacContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KupacDB")));
 
             services.AddSwaggerGen(setupAction =>

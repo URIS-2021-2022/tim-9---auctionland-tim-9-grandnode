@@ -19,7 +19,7 @@ namespace Kupac_SK.ServiceCalls_
         {
             this.configuration = configuration;
         }
-        public async Task<OvlascenoLiceDTO> GetOvlascenoLiceById(Guid OLiceID)
+        public async Task<OvlascenoLiceDTO> GetOvlascenoLiceById(Guid? OLiceID)
         {
             try
             {
@@ -45,5 +45,7 @@ namespace Kupac_SK.ServiceCalls_
             }
 
         }
+
+      
     }
 }

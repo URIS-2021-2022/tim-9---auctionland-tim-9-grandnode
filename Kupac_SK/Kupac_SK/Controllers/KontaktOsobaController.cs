@@ -26,10 +26,11 @@ namespace Kupac_SK.Controllers
         private Message message = new Message();
         private readonly string serviceName = "KupacService";
 
-        public KontaktOsobaController(IKontaktOsobaRepository kontaktOsobaRepository, LinkGenerator linkGenerator, IMapper mapper)
+        public KontaktOsobaController(IKontaktOsobaRepository kontaktOsobaRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.kontaktOsobaRepository = kontaktOsobaRepository;
             this.linkGenerator = linkGenerator;
+            this.loggerService = loggerService;
             this.mapper = mapper;
 
         }
@@ -159,7 +160,7 @@ namespace Kupac_SK.Controllers
                 message.Information = kontaktOsoba.ToString() + " | kontakt osoba location: " + location;
                 loggerService.CreateMessage(message);
 
-                return Created(location, mapper.Map<KontaktOsobaModel>(kontaktOsoba));
+                return Created(location, mapper.Map<KontaktOsobaDto>(kontaktOsoba));
             }
             catch (Exception ex)
             {
