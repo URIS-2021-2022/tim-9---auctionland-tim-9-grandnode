@@ -47,7 +47,7 @@ namespace ZalbaService
             services.AddScoped<IRadnjaRepository, RadnjaRepository>();
             services.AddScoped<IZalbaRepository, ZalbaRepository>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
-            services.AddSingleton<IUserRepository, UserMockRepository>();
+            services.AddScoped<IUserRepository, UserMockRepository>();
             services.AddScoped<IKupacService, KupacService>();
             services.AddScoped<ILoggerService, LoggerService>();
 
