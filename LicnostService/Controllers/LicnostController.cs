@@ -3,6 +3,7 @@ using LicnostService.Data;
 using LicnostService.Entities;
 using LicnostService.Models;
 using LicnostService.ServiceCalls;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -14,6 +15,8 @@ using System.Threading.Tasks;
 namespace LicnostService.Controllers
 {
     [ApiController]
+    [Authorize]
+    [Produces("application/json", "application/xml")]
     [Route("api/licnost")]
     public class LicnostController : ControllerBase
     {
@@ -230,7 +233,7 @@ namespace LicnostService.Controllers
                 message.Information = "Server error";
                 message.Error = ex.Message;
                 loggerService.CreateMessage(message);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error editing Licnost object");
             }
         }
 

@@ -4,6 +4,13 @@
         <name>LicnostService</name>
     </assembly>
     <members>
+        <member name="M:LicnostService.Controllers.AuthenticationController.Authenticate(LicnostService.Models.Principal)">
+            <summary>
+            Metoda za autentifikaciju korisnika
+            </summary>
+            <param name="principal">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+            <returns></returns>
+        </member>
         <member name="M:LicnostService.Controllers.LicnostController.GetLicnosti">
             <summary>
             Vraća sve ličnosti.
@@ -127,6 +134,21 @@
         <member name="P:LicnostService.Models.LicnostDto.Funkcija">
             <summary>
             Funkija na kojoj je ličnost
+            </summary>
+        </member>
+        <member name="T:LicnostService.Models.Principal">
+            <summary>
+            Model za autentifikaciju
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.Principal.Username">
+            <summary>
+            Ime korisnika za autentifikaciju
+            </summary>
+        </member>
+        <member name="P:LicnostService.Models.Principal.Password">
+            <summary>
+            Lozinka za autentifikaciju
             </summary>
         </member>
     </members>
