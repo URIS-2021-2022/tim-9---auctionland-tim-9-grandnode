@@ -676,6 +676,11 @@
             Status javnog nadmetanja.
             </summary>
         </member>
+        <member name="P:JavnoNadmetanje.Models.JavnoNadmetanjeDto.KupacID">
+            <summary>
+            ID najboljeg ponudjaca.
+            </summary>
+        </member>
         <member name="T:JavnoNadmetanje.Models.JavnoNadmetanjeUpdateDto">
             <summary>
             Model za azuriranje javnog nadmetanja
