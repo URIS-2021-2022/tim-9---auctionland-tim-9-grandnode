@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UgovorService</name>
+    </assembly>
+    <members>
+        <member name="M:UgovorService.Controllers.AuthenticationController.Authenticate(UgovorService.Models.Principal)">
+            <summary>
+            Sluzi za autentifikaciju korisnika
+            </summary>
+            <param name="principal">Model sa podacima na osnovu kojih se vrši autentifikacija</param>
+            <returns></returns>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.FillData">
+            <summary>
+            Metoda koja upisuje testne podatke
+            </summary>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.UserWithCredentialsExists(System.String,System.String)">
+            <summary>
+            Proverava da li postoji korisnik sa prosleđenim kredencijalima
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.HashPassword(System.String)">
+            <summary>
+            Vrši hash-ovanje korisničke lozinke
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <returns>Generisan hash i salt</returns>
+        </member>
+        <member name="M:UgovorService.Data.UserMockRepository.VerifyPassword(System.String,System.String,System.String)">
+            <summary>
+            Proverava validnost prosleđene lozinke sa prosleđenim hash-om
+            </summary>
+            <param name="password">Korisnička lozinka</param>
+            <param name="savedHash">Sačuvan hash</param>
+            <param name="savedSalt">Sačuvan salt</param>
+            <returns></returns>
+        </member>
+        <member name="P:UgovorService.Entities.TipGarancijeConfirmation.TipID">
+            <summary>
+            ID tip garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.TipGarancijeConfirmation.Tip">
+            <summary>
+            Naziv tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.TipGarancijeEnt.Tip">
+            <summary>
+            Naziv tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.UgovorID">
+            <summary>
+            ID ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.ZavodniBr">
+            <summary>
+            Zavodni broj ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.JavnoNadmetanjeID">
+            <summary>
+            ID nadmetanja
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.DatumZavo">
+            <summary>
+            Datum zavodjenja dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.KupacID">
+            <summary>
+            ID kupca
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.Rok">
+            <summary>
+            Rok ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.Mesto">
+            <summary>
+            Mesto potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorConfirmation.DatumPot">
+            <summary>
+            Datum potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.UgovorID">
+            <summary>
+            ID ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.ZavodniBr">
+            <summary>
+            Zavodni broj ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.JavnoNadmetanjeID">
+            <summary>
+            ID nadmetanja
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.DatumZavo">
+            <summary>
+            Datum zavodjenja dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.KupacID">
+            <summary>
+            ID kupca
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.Rok">
+            <summary>
+            Rok ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.Mesto">
+            <summary>
+            Mesto potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Entities.UgovorEnt.DatumPot">
+            <summary>
+            Datum potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.Principal.Username">
+            <summary>
+            Korisnicko ime
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.Principal.Password">
+            <summary>
+            Sifra
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.TipGarancijeConfirmationDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.TipGarancijeConfirmationDto.Tip">
+            <summary>
+            Naziv tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.TipGarancijeCreationDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.TipGarancijeCreationDto.Tip">
+            <summary>
+            Naziv tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.TipGarancijeDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.TipGarancijeDto.Tip">
+            <summary>
+            Naziv tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.UgovorID">
+            <summary>
+            ID ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.ZavodniBr">
+            <summary>
+            Zavodni broj ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.JavnoNadmetanjeID">
+            <summary>
+            ID nadmetanja
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.DatumZavo">
+            <summary>
+            Datum zavodjenja dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.KupacID">
+            <summary>
+            ID kupca
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.Rok">
+            <summary>
+            Rok ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.Mesto">
+            <summary>
+            Mesto potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorConfirmationDto.DatumPot">
+            <summary>
+            Datum potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.UgovorID">
+            <summary>
+            ID ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.ZavodniBr">
+            <summary>
+            Zavodni broj ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.JavnoNadmetanjeID">
+            <summary>
+            ID nadmetanja
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.DatumZavo">
+            <summary>
+            Datum zavodjenja dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.KupacID">
+            <summary>
+            ID kupca
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.Rok">
+            <summary>
+            Rok ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.Mesto">
+            <summary>
+            Mesto potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorCreationDto.DatumPot">
+            <summary>
+            Datum potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.UgovorID">
+            <summary>
+            ID ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.ZavodniBr">
+            <summary>
+            Zavodni broj ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.JavnoNadmetanjeID">
+            <summary>
+            ID nadmetanja
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.DatumZavo">
+            <summary>
+            Datum zavodjenja dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.KupacID">
+            <summary>
+            ID kupca
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.Rok">
+            <summary>
+            Rok ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.Mesto">
+            <summary>
+            Mesto potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorDto.DatumPot">
+            <summary>
+            Datum potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.UgovorID">
+            <summary>
+            ID ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.TipID">
+            <summary>
+            ID tipa garancije
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.DokumentID">
+            <summary>
+            ID dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.ZavodniBr">
+            <summary>
+            Zavodni broj ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.JavnoNadmetanjeID">
+            <summary>
+            ID nadmetanja
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.DatumZavo">
+            <summary>
+            Datum zavodjenja dokumenta
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.KupacID">
+            <summary>
+            ID kupca
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.Rok">
+            <summary>
+            Rok ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.Mesto">
+            <summary>
+            Mesto potpisivanja ugovora
+            </summary>
+        </member>
+        <member name="P:UgovorService.Models.UgovorUpdateDto.DatumPot">
+            <summary>
+            Datum potpisivanja ugovora
+            </summary>
+        </member>
+    </members>
+</doc>
