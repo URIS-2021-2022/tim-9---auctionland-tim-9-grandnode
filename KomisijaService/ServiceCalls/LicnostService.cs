@@ -17,22 +17,21 @@ namespace KomisijaService.ServiceCalls
         {
             this.configuration = configuration;
         }
-        public bool LicnostKomisije(LicnostDto licnost)
+        public async Task<LicnostDto> LicnostKomisije(Guid licnostId)
         {
             using (HttpClient client = new HttpClient())
             {
                 var x = configuration["Services:LicnostService"];
-                Uri url = new Uri($"{ configuration["Services:LicnostService"] }api/licnost");
+                Uri url = new Uri($"{ configuration["Services:LicnostService"] }api/licnost/{licnostId}");
 
-                HttpContent content = new StringContent(JsonConvert.SerializeObject(licnost));
+                HttpContent content = new StringContent(JsonConvert.SerializeObject(licnostId));
                 content.Headers.ContentType.MediaType = "application/json";
 
-                HttpResponseMessage response = client.PostAsync(url, content).Result;
-                if (!response.IsSuccessStatusCode)
-                {
-                    return false;
-                }
-                return true;
+                HttpResponseMessage response = client.GetAsync(url).Result;
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var l = JsonConvert.DeserializeObject<LicnostDto>(responseContent);
+
+                return l;
             }
         }
     }

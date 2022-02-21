@@ -28,6 +28,7 @@ namespace KomisijaService.Controllers
         private Message message = new Message();
         private readonly ILicnostService licnostService;
 
+
         public PredsednikController(IPredsednikRepository predsednikRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, ILicnostService licnostService)
         {
             this.predsednikRepository = predsednikRepository;
@@ -36,15 +37,22 @@ namespace KomisijaService.Controllers
             this.loggerService = loggerService;
             this.licnostService = licnostService;
         }
+        /// <summary>
+        /// Vraća sve predsednike komisije.
+        /// </summary>
+        /// <returns>Lista predsednika komisije</returns>
+        /// <response code="200">Vraća listu predsednika</response>
+        /// <response code="204">Nije pronađen ni jedan predsednik u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<PredsednikDto>> GetAllPredsednik()
         {
-            var predsednik = predsednikRepository.GetAllPredsednik();
+            //var predsednik = predsednikRepository.GetAllPredsednik();
             message.ServiceName = serviceName;
             message.Method = "GET";
+            List<Predsednik> predsednik = predsednikRepository.GetAllPredsednik();
             if (predsednik == null || predsednik.Count == 0)
             {
                 message.Information = "No content";
@@ -52,16 +60,31 @@ namespace KomisijaService.Controllers
                 loggerService.CreateMessage(message);
                 return NoContent();
             }
+            List<PredsednikDto> predsednikDto = mapper.Map<List<PredsednikDto>>(predsednik);
+
+            foreach (PredsednikDto p in predsednikDto)
+            {
+                p.Licnost = licnostService.LicnostKomisije(p.PredsednikId).Result;
+            }
+
             message.Information = "Returned list of Predsednik";
             loggerService.CreateMessage(message);
-            return Ok(mapper.Map<List<PredsednikDto>>(predsednik));
+            return Ok(predsednikDto);
+            //return Ok(mapper.Map<List<PredsednikDto>>(predsednik));
         }
+        /// <summary>
+        /// Vraća predsednika na osnovu identifikatora predsednik.
+        /// </summary>
+        /// <param name="predsednikId">Identifikator predsednika (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Predsednik</returns>
+        /// <response code="200">Vraća predsednika koji je pronađen</response>
+        /// <response code="204">Ne postoji predsednik sa datim identifikatorom</response>
         [HttpGet("{predsednikId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<PredsednikDto> GetPredsednik(Guid predsednikId)
         {
-            var predsednik = predsednikRepository.GetPredsednikById(predsednikId);
+            Predsednik predsednik = predsednikRepository.GetPredsednikById(predsednikId);
             message.ServiceName = serviceName;
             message.Method = "GET";
             if (predsednik == null)
@@ -71,10 +94,28 @@ namespace KomisijaService.Controllers
                 loggerService.CreateMessage(message);
                 return NotFound();
             }
+            PredsednikDto predsednikDto = mapper.Map<PredsednikDto>(predsednik);
+            predsednikDto.Licnost = licnostService.LicnostKomisije(predsednik.PredsednikId).Result;
             message.Information = predsednik.ToString();
             loggerService.CreateMessage(message);
-            return Ok(mapper.Map<PredsednikDto>(predsednik));
+            return Ok(predsednikDto);
+            //return Ok(mapper.Map<PredsednikDto>(predsednik));
         }
+        /// <summary>
+        /// Upisuje predsednika.
+        /// </summary>
+        /// <param name="predsednikDto">Model predsednika</param>
+        /// <returns>Podatke o predsedniku koji je upisan</returns>
+        /// <remarks>
+        /// Primer zahteva za upis predsednika \
+        /// POST /api/predsednik \
+        /// {
+        ///     "PredsednikId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+        ///     
+        /// }
+        /// </remarks>
+        /// <response code="201">Vraća podatke o upisanom predsedniku</response>
+        /// <response code="500">Postoji neki problem sa upisom</response>
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -92,9 +133,7 @@ namespace KomisijaService.Controllers
                 string lokacija = linkGenerator.GetPathByAction("GetPredsednik", "Predsednik", new { predsednikId = confirmation.PredsednikId });
                 message.Information = predsednik.ToString() + " | Predsednik location: " + lokacija;
                 loggerService.CreateMessage(message);
-                var licnostInfo = mapper.Map<LicnostDto>(predsednik);
-                licnostInfo.LicnostId = confirmation.PredsednikId;
-                bool _licnost = licnostService.LicnostKomisije(licnostInfo);
+          
                 return Created(lokacija, mapper.Map<PredsednikConfirmationDto>(confirmation));
             }
             catch (Exception ex)
@@ -106,7 +145,14 @@ namespace KomisijaService.Controllers
             }
         }
 
-  
+        /// <summary>
+        /// Briše predsednika na osnovu identifikatora.
+        /// </summary>
+        /// <param name="predsednikId">Identifikator predsednika (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>string</returns>
+        /// <response code="204">Vraća poruku o uspešnom brisanju</response>
+        /// <response code="404">Ne postoji predsednik sa tim identifikatorom</response>
+        /// <response code="500">Postoji problem sa brisanjem na serveru</response>
         [HttpDelete("{predsednikId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -139,6 +185,9 @@ namespace KomisijaService.Controllers
             }
         }
 
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetPredsednikOptions()

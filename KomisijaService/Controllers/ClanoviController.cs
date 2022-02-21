@@ -36,15 +36,22 @@ namespace KomisijaService.Controllers
             this.loggerService = loggerService;
             this.licnostService = licnostService;
         }
+        /// <summary>
+        /// Vraća sve clanove komisije.
+        /// </summary>
+        /// <returns>Lista clanova komisije</returns>
+        /// <response code="200">Vraća listu clanova</response>
+        /// <response code="204">Nije pronađen ni jedan clan u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ClanoviDto>> GetAllClanovi(Guid? komisijaId)
         {
-            var clanovi = clanoviRepository.GetAllClanovi(komisijaId);
+            //var clanovi = clanoviRepository.GetAllClanovi(komisijaId);
             message.ServiceName = serviceName;
             message.Method = "GET";
+            List<Clanovi> clanovi = clanoviRepository.GetAllClanovi();
             if (clanovi == null || clanovi.Count == 0)
             {
                 message.Information = "No content";
@@ -52,16 +59,32 @@ namespace KomisijaService.Controllers
                 loggerService.CreateMessage(message);
                 return NoContent();
             }
+            List<ClanoviDto> clanoviDto = mapper.Map<List<ClanoviDto>>(clanovi);
+
+            foreach (ClanoviDto p in clanoviDto)
+            {
+                
+                p.Licnost = licnostService.LicnostKomisije(p.ClanoviId).Result;
+                
+            }
             message.Information = "Returned list of Clanovi";
             loggerService.CreateMessage(message);
-            return Ok(mapper.Map<List<ClanoviDto>>(clanovi));
+            return Ok(clanoviDto);
+            // return Ok(mapper.Map<List<ClanoviDto>>(clanovi));
         }
+        /// <summary>
+        /// Vraća clana na osnovu identifikatora clan.
+        /// </summary>
+        /// <param name="clanId">Identifikator clana (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Clan</returns>
+        /// <response code="200">Vraća clana koji je pronađen</response>
+        /// <response code="204">Ne postoji clan sa datim identifikatorom</response>
         [HttpGet("{clanoviId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<ClanoviDto> GetClanovi(Guid clanoviId)
         {
-            var clanovi = clanoviRepository.GetClanoviById(clanoviId);
+            Clanovi clanovi = clanoviRepository.GetClanoviById(clanoviId);
             message.ServiceName = serviceName;
             message.Method = "GET";
             if (clanovi == null)
@@ -71,10 +94,29 @@ namespace KomisijaService.Controllers
                 loggerService.CreateMessage(message);
                 return NotFound();
             }
+            ClanoviDto clanoviDto = mapper.Map<ClanoviDto>(clanovi);
+            clanoviDto.Licnost = licnostService.LicnostKomisije(clanovi.ClanoviId).Result;
             message.Information = clanovi.ToString();
             loggerService.CreateMessage(message);
-            return Ok(mapper.Map<ClanoviDto>(clanovi));
+            return Ok(clanoviDto);
+            //return Ok(mapper.Map<ClanoviDto>(clanovi));
         }
+        /// <summary>
+        /// Upisuje clana.
+        /// </summary>
+        /// <param name="clanDto">Model clana</param>
+        /// <returns>Podatke o clanu koji je upisan</returns>
+        /// <remarks>
+        /// Primer zahteva za upis clana \
+        /// POST /api/clan \
+        /// {
+        ///     "ClanId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+        ///     "KomisijaId": "54a107-684d0d5-205-f724-08d9f3dcf86e"
+        ///     
+        /// }
+        /// </remarks>
+        /// <response code="201">Vraća podatke o upisanom clanu</response>
+        /// <response code="500">Postoji neki problem sa upisom</response>
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -93,9 +135,6 @@ namespace KomisijaService.Controllers
                 string lokacija = linkGenerator.GetPathByAction("GetClanovi", "Clanovi", new { clanoviId = confirmation.ClanoviId });
                 message.Information = clanovi.ToString() + " | Clan location: " + lokacija;
                 loggerService.CreateMessage(message);
-                var licnostInfo = mapper.Map<LicnostDto>(clanovi);
-                licnostInfo.LicnostId = confirmation.ClanoviId;
-                bool _licnost = licnostService.LicnostKomisije(licnostInfo);
                 return Created(lokacija, mapper.Map<ClanoviConfirmationDto>(confirmation));
             }
             catch (Exception ex)
@@ -106,6 +145,22 @@ namespace KomisijaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom kreiranja clana!");
             }
         }
+        /// <summary>
+        /// Menja vrednosti obeležja clan.
+        /// </summary>
+        /// <param name="clanDto">Model clana</param>
+        /// <returns>Podatke o clanu koji je upisan</returns>
+        ///     /// <remarks>
+        /// Primer zahteva za upis clana \
+        /// POST /api/clan \
+        /// {
+        ///     "ClanId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
+        ///     "KomisijaId": "5679b9eb-05d4-4010-6741-08d9f3bac53c"
+        /// }
+        /// </remarks>
+        /// <response code="200">Vraća podatke o izmenjenom clanu</response>
+        /// <response code="404">Ne postoji clan za koji je pokušana izmena</response>
+        /// <response code="500">Postoji neki problem sa izmenom</response>
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -141,6 +196,14 @@ namespace KomisijaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom izmene clana!");
             }
         }
+        /// <summary>
+        /// Briše clana na osnovu identifikatora.
+        /// </summary>
+        /// <param name="clanId">Identifikator clana (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>string</returns>
+        /// <response code="204">Vraća poruku o uspešnom brisanju</response>
+        /// <response code="404">Ne postoji clan sa tim identifikatorom</response>
+        /// <response code="500">Postoji problem sa brisanjem na serveru</response>
         [HttpDelete("{clanoviId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -172,7 +235,9 @@ namespace KomisijaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja clana!");
             }
         }
-
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetClanoviOptions()

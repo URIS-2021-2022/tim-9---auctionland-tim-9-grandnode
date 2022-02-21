@@ -8,6 +8,6 @@ namespace KomisijaService.ServiceCalls
 {
     public interface ILicnostService
     {
-        public bool LicnostKomisije(LicnostDto licnost);
+        Task<LicnostDto> LicnostKomisije(Guid licnostId);
     }
 }

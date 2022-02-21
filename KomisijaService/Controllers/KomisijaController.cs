@@ -34,6 +34,12 @@ namespace KomisijaService.Controllers
             this.mapper = mapper;
             this.loggerService = loggerService;
         }
+        /// <summary>
+        /// Vraća sve komisije.
+        /// </summary>
+        /// <returns>Lista komisija</returns>
+        /// <response code="200">Vraća listu komisija</response>
+        /// <response code="204">Nije pronađena ni jedna komisija u sistemu</response>
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -54,6 +60,13 @@ namespace KomisijaService.Controllers
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<KomisijaDto>>(komisija));
         }
+        /// <summary>
+        /// Vraća komisiju na osnovu identifikatora komisija.
+        /// </summary>
+        /// <param name="komisijaId">Identifikator komisije (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>Clan</returns>
+        /// <response code="200">Vraća komisiju koja je pronađena</response>
+        /// <response code="204">Ne postoji komisija sa datim identifikatorom</response>
         [HttpGet("{komisijaId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -73,6 +86,22 @@ namespace KomisijaService.Controllers
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<KomisijaDto>(komisija));
         }
+        /// <summary>
+        /// Upisuje komisiju.
+        /// </summary>
+        /// <param name="komisijaDto">Model komisije</param>
+        /// <returns>Podatke o komisiji koja je upisana</returns>
+        /// <remarks>
+        /// Primer zahteva za upis komisije \
+        /// POST /api/komisija \
+        /// {
+        ///     "KomisijaId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+        ///     "PredsednikId": "54a107-684d0d5-205-f724-08d9f3dcf86e"
+        ///     
+        /// }
+        /// </remarks>
+        /// <response code="201">Vraća podatke o upisanoj komisiji</response>
+        /// <response code="500">Postoji neki problem sa upisom</response>
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -100,6 +129,22 @@ namespace KomisijaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom kreiranja komisije!");
             }
         }
+        /// <summary>
+        /// Menja vrednosti obeležja komisija.
+        /// </summary>
+        /// <param name="komisijaDto">Model komisije</param>
+        /// <returns>Podatke o komisiji koja je upisana</returns>
+        ///     /// <remarks>
+        /// Primer zahteva za upis komisije \
+        /// POST /api/clan \
+        /// {
+        ///     "KomisijaId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
+        ///     "PredsednikId": "5679b9eb-05d4-4010-6741-08d9f3bac53c"
+        /// }
+        /// </remarks>
+        /// <response code="200">Vraća podatke o izmenjenoj komisiji</response>
+        /// <response code="404">Ne postoji komisija za koju je pokušana izmena</response>
+        /// <response code="500">Postoji neki problem sa izmenom</response>
         [HttpPut]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -134,6 +179,14 @@ namespace KomisijaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom izmene komisije!");
             }
         }
+        /// <summary>
+        /// Briše komisiju na osnovu identifikatora.
+        /// </summary>
+        /// <param name="komisijaId">Identifikator komisije (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+        /// <returns>string</returns>
+        /// <response code="204">Vraća poruku o uspešnom brisanju</response>
+        /// <response code="404">Ne postoji komisija sa tim identifikatorom</response>
+        /// <response code="500">Postoji problem sa brisanjem na serveru</response>
         [HttpDelete("{komisijaId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -165,7 +218,9 @@ namespace KomisijaService.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja komisije!");
             }
         }
-
+        /// <summary>
+        /// Prikazuje metode koje je moguće koristiti
+        /// </summary>
         [HttpOptions]
         [AllowAnonymous]
         public IActionResult GetKomisijaOptions()

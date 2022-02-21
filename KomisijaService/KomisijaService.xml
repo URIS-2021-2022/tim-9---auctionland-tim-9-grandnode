@@ -4,5 +4,190 @@
         <name>KomisijaService</name>
     </assembly>
     <members>
+        <member name="M:KomisijaService.Controllers.ClanoviController.GetAllClanovi(System.Nullable{System.Guid})">
+            <summary>
+            Vraća sve clanove komisije.
+            </summary>
+            <returns>Lista clanova komisije</returns>
+            <response code="200">Vraća listu clanova</response>
+            <response code="204">Nije pronađen ni jedan clan u sistemu</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.ClanoviController.GetClanovi(System.Guid)">
+            <summary>
+            Vraća clana na osnovu identifikatora clan.
+            </summary>
+            <param name="clanId">Identifikator clana (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Clan</returns>
+            <response code="200">Vraća clana koji je pronađen</response>
+            <response code="204">Ne postoji clan sa datim identifikatorom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.ClanoviController.CreateClanovi(KomisijaService.Models.Clanovi.ClanoviCreationDto)">
+            <summary>
+            Upisuje clana.
+            </summary>
+            <param name="clanDto">Model clana</param>
+            <returns>Podatke o clanu koji je upisan</returns>
+            <remarks>
+            Primer zahteva za upis clana \
+            POST /api/clan \
+            {
+                "ClanId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+                "KomisijaId": "54a107-684d0d5-205-f724-08d9f3dcf86e"
+                
+            }
+            </remarks>
+            <response code="201">Vraća podatke o upisanom clanu</response>
+            <response code="500">Postoji neki problem sa upisom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.ClanoviController.UpdateClanovi(KomisijaService.Models.Clanovi.ClanoviUpdateDto)">
+            <summary>
+            Menja vrednosti obeležja clan.
+            </summary>
+            <param name="clanDto">Model clana</param>
+            <returns>Podatke o clanu koji je upisan</returns>
+                /// <remarks>
+            Primer zahteva za upis clana \
+            POST /api/clan \
+            {
+                "ClanId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
+                "KomisijaId": "5679b9eb-05d4-4010-6741-08d9f3bac53c"
+            }
+            </remarks>
+            <response code="200">Vraća podatke o izmenjenom clanu</response>
+            <response code="404">Ne postoji clan za koji je pokušana izmena</response>
+            <response code="500">Postoji neki problem sa izmenom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.ClanoviController.DeleteClanovi(System.Guid)">
+            <summary>
+            Briše clana na osnovu identifikatora.
+            </summary>
+            <param name="clanId">Identifikator clana (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>string</returns>
+            <response code="204">Vraća poruku o uspešnom brisanju</response>
+            <response code="404">Ne postoji clan sa tim identifikatorom</response>
+            <response code="500">Postoji problem sa brisanjem na serveru</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.ClanoviController.GetClanoviOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+        <member name="M:KomisijaService.Controllers.KomisijaController.GetAllKomisija(System.Nullable{System.Guid})">
+            <summary>
+            Vraća sve komisije.
+            </summary>
+            <returns>Lista komisija</returns>
+            <response code="200">Vraća listu komisija</response>
+            <response code="204">Nije pronađena ni jedna komisija u sistemu</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.KomisijaController.GetKomisija(System.Guid)">
+            <summary>
+            Vraća komisiju na osnovu identifikatora komisija.
+            </summary>
+            <param name="komisijaId">Identifikator komisije (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Clan</returns>
+            <response code="200">Vraća komisiju koja je pronađena</response>
+            <response code="204">Ne postoji komisija sa datim identifikatorom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.KomisijaController.CreateKomisija(KomisijaService.Models.Komisija.KomisijaCreationDto)">
+            <summary>
+            Upisuje komisiju.
+            </summary>
+            <param name="komisijaDto">Model komisije</param>
+            <returns>Podatke o komisiji koja je upisana</returns>
+            <remarks>
+            Primer zahteva za upis komisije \
+            POST /api/komisija \
+            {
+                "KomisijaId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+                "PredsednikId": "54a107-684d0d5-205-f724-08d9f3dcf86e"
+                
+            }
+            </remarks>
+            <response code="201">Vraća podatke o upisanoj komisiji</response>
+            <response code="500">Postoji neki problem sa upisom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.KomisijaController.UpdateKomisija(KomisijaService.Models.Komisija.KomisijaUpdateDto)">
+            <summary>
+            Menja vrednosti obeležja komisija.
+            </summary>
+            <param name="komisijaDto">Model komisije</param>
+            <returns>Podatke o komisiji koja je upisana</returns>
+                /// <remarks>
+            Primer zahteva za upis komisije \
+            POST /api/clan \
+            {
+                "KomisijaId": "8d6ab9eb-05d4-4010-6741-08d9f3bac53c",
+                "PredsednikId": "5679b9eb-05d4-4010-6741-08d9f3bac53c"
+            }
+            </remarks>
+            <response code="200">Vraća podatke o izmenjenoj komisiji</response>
+            <response code="404">Ne postoji komisija za koju je pokušana izmena</response>
+            <response code="500">Postoji neki problem sa izmenom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.KomisijaController.DeleteKomisija(System.Guid)">
+            <summary>
+            Briše komisiju na osnovu identifikatora.
+            </summary>
+            <param name="komisijaId">Identifikator komisije (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>string</returns>
+            <response code="204">Vraća poruku o uspešnom brisanju</response>
+            <response code="404">Ne postoji komisija sa tim identifikatorom</response>
+            <response code="500">Postoji problem sa brisanjem na serveru</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.KomisijaController.GetKomisijaOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+        <member name="M:KomisijaService.Controllers.PredsednikController.GetAllPredsednik">
+            <summary>
+            Vraća sve predsednike komisije.
+            </summary>
+            <returns>Lista predsednika komisije</returns>
+            <response code="200">Vraća listu predsednika</response>
+            <response code="204">Nije pronađen ni jedan predsednik u sistemu</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.PredsednikController.GetPredsednik(System.Guid)">
+            <summary>
+            Vraća predsednika na osnovu identifikatora predsednik.
+            </summary>
+            <param name="predsednikId">Identifikator predsednika (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Predsednik</returns>
+            <response code="200">Vraća predsednika koji je pronađen</response>
+            <response code="204">Ne postoji predsednik sa datim identifikatorom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.PredsednikController.CreatePredsednik(KomisijaService.Models.Predsednik.PredsednikCreationDto)">
+            <summary>
+            Upisuje predsednika.
+            </summary>
+            <param name="predsednikDto">Model predsednika</param>
+            <returns>Podatke o predsedniku koji je upisan</returns>
+            <remarks>
+            Primer zahteva za upis predsednika \
+            POST /api/predsednik \
+            {
+                "PredsednikId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+                
+            }
+            </remarks>
+            <response code="201">Vraća podatke o upisanom predsedniku</response>
+            <response code="500">Postoji neki problem sa upisom</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.PredsednikController.DeletePredsednik(System.Guid)">
+            <summary>
+            Briše predsednika na osnovu identifikatora.
+            </summary>
+            <param name="predsednikId">Identifikator predsednika (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>string</returns>
+            <response code="204">Vraća poruku o uspešnom brisanju</response>
+            <response code="404">Ne postoji predsednik sa tim identifikatorom</response>
+            <response code="500">Postoji problem sa brisanjem na serveru</response>
+        </member>
+        <member name="M:KomisijaService.Controllers.PredsednikController.GetPredsednikOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
     </members>
 </doc>

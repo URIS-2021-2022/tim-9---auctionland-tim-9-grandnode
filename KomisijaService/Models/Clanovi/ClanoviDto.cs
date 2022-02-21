@@ -9,5 +9,7 @@ namespace KomisijaService.Models.Clanovi
     {
         public Guid ClanoviId { get; set; }
         public Guid KomisijaId { get; set; }
+
+        public LicnostDto Licnost { get; set; }
     }
 }
