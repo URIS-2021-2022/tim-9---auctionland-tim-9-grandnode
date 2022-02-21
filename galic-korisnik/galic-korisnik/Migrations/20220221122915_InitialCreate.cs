@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace galic_korisnik.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +12,12 @@ namespace galic_korisnik.Migrations
                 columns: table => new
                 {
                     korisnikId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    tipKorisnikaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    tipKorisnikaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ime = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     prezime = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     korisnickoIme = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    lozinka = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    lozinka = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -37,13 +38,13 @@ namespace galic_korisnik.Migrations
 
             migrationBuilder.InsertData(
                 table: "Korisnik",
-                columns: new[] { "korisnikId", "ime", "korisnickoIme", "lozinka", "prezime", "tipKorisnikaId" },
-                values: new object[] { new Guid("f7a20259-5aeb-3135-64ea-32cf7a96b98a"), "Petar", "PPetrovic", "123456", "Petrovic", new Guid("ce4a6a8a-b25d-d5d0-9364-3dee56521821") });
+                columns: new[] { "korisnikId", "Salt", "ime", "korisnickoIme", "lozinka", "prezime", "tipKorisnikaId" },
+                values: new object[] { new Guid("f7a20259-5aeb-3135-64ea-32cf7a96b98a"), null, "Petar", "PPetrovic", "123456", "Petrovic", new Guid("ce4a6a8a-b25d-d5d0-9364-3dee56521821") });
 
             migrationBuilder.InsertData(
                 table: "Korisnik",
-                columns: new[] { "korisnikId", "ime", "korisnickoIme", "lozinka", "prezime", "tipKorisnikaId" },
-                values: new object[] { new Guid("e8920f41-e035-da6d-27d1-ee8909f6271d"), "Marko", "MMarkovic", "123456", "Markovic", new Guid("22caf793-fbaa-a3f5-8266-7fc3dcc798dc") });
+                columns: new[] { "korisnikId", "Salt", "ime", "korisnickoIme", "lozinka", "prezime", "tipKorisnikaId" },
+                values: new object[] { new Guid("e8920f41-e035-da6d-27d1-ee8909f6271d"), null, "Marko", "MMarkovic", "123456", "Markovic", new Guid("22caf793-fbaa-a3f5-8266-7fc3dcc798dc") });
 
             migrationBuilder.InsertData(
                 table: "TipKorisnika",

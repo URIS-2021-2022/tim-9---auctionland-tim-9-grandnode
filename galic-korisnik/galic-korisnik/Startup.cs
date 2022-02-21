@@ -48,10 +48,10 @@ namespace galic_korisnik
             services.AddDbContext<KorisnikContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KorisnikDB")));
             services.AddSwaggerGen(setupAction =>
             {
-                setupAction.SwaggerDoc("AdresaOpenApiSpecification",
+                setupAction.SwaggerDoc("KorisnikOpenApiSpecification",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
-                        Title = "Adresa API",
+                        Title = "Korisnik API",
                         Version = "1"
 
                     });
@@ -93,7 +93,7 @@ namespace galic_korisnik
             app.UseSwaggerUI(setupAction =>
             {
                 //Podesavamo endpoint gde Swagger UI moze da pronadje OpenAPI specifikaciju
-                setupAction.SwaggerEndpoint("/swagger/AdresaOpenApiSpecification/swagger.json", "Adresa API");
+                setupAction.SwaggerEndpoint("/swagger/KorisnikOpenApiSpecification/swagger.json", "Korisnik API");
                 setupAction.RoutePrefix = ""; //Dokumentacija ce sada biti dostupna na root-u (ne mora da se pise /swagger)
             });
 

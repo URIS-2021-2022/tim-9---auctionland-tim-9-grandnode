@@ -10,8 +10,8 @@ using galic_korisnik.Entities;
 namespace galic_korisnik.Migrations
 {
     [DbContext(typeof(KorisnikContext))]
-    [Migration("20220220211550_InitialModel")]
-    partial class InitialModel
+    [Migration("20220221122915_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace galic_korisnik.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
 
@@ -39,7 +42,7 @@ namespace galic_korisnik.Migrations
                     b.Property<string>("prezime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("tipKorisnikaId")
+                    b.Property<Guid>("tipKorisnikaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("korisnikId");

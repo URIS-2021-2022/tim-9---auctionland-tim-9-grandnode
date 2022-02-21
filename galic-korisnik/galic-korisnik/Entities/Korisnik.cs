@@ -8,7 +8,7 @@ namespace galic_korisnik.Entities
     public class Korisnik
     {
         public Guid korisnikId { get; set; }
-        public Guid? tipKorisnikaId { get; set; }
+        public Guid tipKorisnikaId { get; set; }
         public string ime { get; set; }
         public string prezime { get; set; }
         public string korisnickoIme { get; set; }

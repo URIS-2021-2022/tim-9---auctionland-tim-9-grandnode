@@ -25,6 +25,9 @@ namespace galic_korisnik.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ime")
                         .HasColumnType("nvarchar(max)");
 
@@ -37,7 +40,7 @@ namespace galic_korisnik.Migrations
                     b.Property<string>("prezime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("tipKorisnikaId")
+                    b.Property<Guid>("tipKorisnikaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("korisnikId");
