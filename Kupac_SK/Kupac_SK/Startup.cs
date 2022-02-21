@@ -1,4 +1,5 @@
 ﻿using Kupac_SK.Data;
+using Kupac_SK.Entities;
 using Kupac_SK.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -44,13 +46,14 @@ namespace Kupac_SK
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
            
-            services.AddSingleton<IKupacRepository, KupacRepository>();
-            services.AddSingleton<IPrioritetRepository, PrioritetRepository>();
-            services.AddSingleton<IKontaktOsobaRepository, KontakOsobaRepository>();
+            services.AddScoped<IKupacRepository, KupacRepository>();
+            services.AddScoped<IPrioritetRepository, PrioritetRepository>();
+            services.AddScoped<IKontaktOsobaRepository, KontakOsobaRepository>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
-            services.AddSingleton<IUserRepository, UserMockRepository>();
-            services.AddSingleton<IFizickoLiceRepository, FizickoLiceRepository>();
-            services.AddSingleton<IPravnoLiceRepository, PravnoLiceRepository>();
+            services.AddScoped<IUserRepository, UserMockRepository>();
+            services.AddScoped<IFizickoLiceRepository, FizickoLiceRepository>();
+            services.AddScoped<IPravnoLiceRepository, PravnoLiceRepository>();
+            services.AddDbContext<KupacContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KupacDB")));
 
             services.AddSwaggerGen(setupAction =>
             {

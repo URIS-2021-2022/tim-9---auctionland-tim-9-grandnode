@@ -16,6 +16,7 @@ namespace Kupac_SK.Data
        void UpdatePrioritet(PrioritetModel prioritetModel);
 
         void DeletePrioritet(Guid prioritetId);
+        bool SaveChanges();
 
 
     }

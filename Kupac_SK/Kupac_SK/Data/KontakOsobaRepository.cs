@@ -1,4 +1,5 @@
-﻿using Kupac_SK.Entities;
+﻿using AutoMapper;
+using Kupac_SK.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,20 @@ namespace Kupac_SK.Data
 {
     public class KontakOsobaRepository : IKontaktOsobaRepository
     {
+        private readonly KupacContext context;
+        private readonly IMapper mapper;
+
         public static List<KontaktOsobaModel> KontaktOsobe { get; set; } = new List<KontaktOsobaModel>();
         
-        public KontakOsobaRepository()
+        public KontakOsobaRepository(KupacContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
+        }
+
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
         }
 
         private void FillData()
@@ -39,39 +49,29 @@ namespace Kupac_SK.Data
         }
         public KontaktOsobaModel CreateKontaktOsoba(KontaktOsobaModel kontaktOsoba)
         {
-            kontaktOsoba.KontaktOsobaID = Guid.NewGuid();
-            KontaktOsobe.Add(kontaktOsoba);
-            KontaktOsobaModel kontakt = GetKontaktOsobaById(kontaktOsoba.KontaktOsobaID);
-
-            return new KontaktOsobaModel
-            {
-                KontaktOsobaID = kontakt.KontaktOsobaID,
-                Ime = kontakt.Ime,
-                Prezime = kontakt.Prezime,
-                Funkcija = kontakt.Funkcija,
-                Telefon = kontakt.Telefon
-
-            };
+            var kontakt = context.Add(kontaktOsoba);
+            return mapper.Map<KontaktOsobaModel>(kontakt.Entity);
         }
-
+    
         public void DeleteKontaktOsoba(Guid koId)
         {
-            KontaktOsobe.Remove(KontaktOsobe.FirstOrDefault(e => e.KontaktOsobaID == koId));
+            var kontakt = GetKontaktOsobaById(koId);
+            context.Remove(kontakt);
         }
 
         public KontaktOsobaModel GetKontaktOsobaById(Guid koId)
         {
-            return KontaktOsobe.FirstOrDefault(e => e.KontaktOsobaID == koId);
+            return context.kontaktOsoba.FirstOrDefault(e => e.KontaktOsobaID == koId);
         }
 
         public List<KontaktOsobaModel> GetKontaktOsobe()
         {
-            return KontaktOsobe.ToList();
+            return context.kontaktOsoba.ToList();
         }
 
         public void UpdateKontaktOsoba(KontaktOsobaModel kontaktOsoba)
         {
-            
+            //
         }
     }
 }

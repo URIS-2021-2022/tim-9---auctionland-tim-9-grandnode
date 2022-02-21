@@ -13,6 +13,7 @@ namespace Kupac_SK.Data
         FizickoLice CreateFizickoLice(FizickoLice fizickoLice);
         void UpdateFizickoLice(FizickoLice fizickoLice);
         void DeleteFizickoLice(Guid flID);
+        bool SaveChanges();
 
 
     }

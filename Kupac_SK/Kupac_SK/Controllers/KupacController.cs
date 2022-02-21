@@ -22,6 +22,11 @@ namespace Kupac_SK.Controllers
         private readonly IPravnoLiceRepository pravnoLiceRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
+        /*  private readonly ILoggerService loggerService;
+      private Message message = new Message();
+      private readonly string serviceName = "KupacService";*/
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -47,31 +52,46 @@ namespace Kupac_SK.Controllers
         {
             List<FizickoLice> fizickaLica = fizickoLiceRepository.GetFizickaLica();
             List<PravnoLice> pravnaLica = pravnoLiceRepository.getPravnaLica();
-
+            /*message.ServiceName = serviceName;
+        message.Method = "GET";*/
             List<KupacModel> sviKupci = fizickaLica.ConvertAll(f => (KupacModel)f);
             List<KupacModel> temp = pravnaLica.ConvertAll(f => (KupacModel)f);
 
             sviKupci.AddRange(temp); //objedinjena fizicka i pravna lica 
 
+            /*       message.Information = "Returned list of ovlascena lica";
+                 loggerService.CreateMessage(message);*/
             return Ok(mapper.Map<List<KupacModelDto>>(sviKupci));
 
         }
+
+
         /// <summary>
         /// Izbor jednog kupca na osnovu id-ja
         /// </summary>
         /// <param name="kupacId">unesite id kupca</param>
         /// <returns></returns>
         [HttpGet("{kupacId}")]
-
         public ActionResult<KupacModelDto> GetKupacById(Guid kupacId)
         {
             KupacModel kupac;
 
+
+            /*   message.ServiceName = serviceName;
+            message.Method = "GET";*/
+
             kupac = (KupacModel)fizickoLiceRepository.GetFizickoLiceById(kupacId); 
 
             if(kupac == null)  kupac = (KupacModel)pravnoLiceRepository.GetPravnoLiceById(kupacId);
-            if(kupac == null) return NotFound();
-
+            if (kupac == null)
+            {
+                /*   message.Information = "Not found";
+              message.Error = "There is no object of Licnost with identifier: " + ovlascenoLiceId;
+              loggerService.CreateMessage(message);*/
+                return NotFound();
+            }
+            /*   message.Information = lice.ToString();
+           loggerService.CreateMessage(message);*/
             return Ok(mapper.Map<KupacModelDto>(kupac));
                  
         }
@@ -84,13 +104,22 @@ namespace Kupac_SK.Controllers
 
         public IActionResult DeleteKupac(Guid kupacId)
         {
+            /*message.ServiceName = serviceName;
+          message.Method = "DELETE";*/
+
             try
             {
                 KupacModel kupac;
                 kupac = (KupacModel)fizickoLiceRepository.GetFizickoLiceById(kupacId);
 
                 if (kupac == null) kupac = (KupacModel)pravnoLiceRepository.GetPravnoLiceById(kupacId);
-                if (kupac == null) return NotFound();
+                if (kupac == null)
+                {
+                    /*message.Information = "Not found";
+                    message.Error = "There is no object of ovlasceno lice with identifier: " + ovlascenoLiceId;
+                    loggerService.CreateMessage(message);*/
+                    return NotFound();
+                }
 
                 if(kupac.FizPravno == true)
                 {
@@ -99,13 +128,16 @@ namespace Kupac_SK.Controllers
                 {
                     pravnoLiceRepository.DeletePravnoLice(kupacId);
                 }
+                // message.Information = "Successfully deleted "
                 return NoContent();
 
 
             }
             catch (Exception)
             {
-
+                /*       message.Information = "Server error";
+               message.Error = ex.Message;
+               loggerService.CreateMessage(message);*/
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
             }
         }
@@ -123,7 +155,35 @@ namespace Kupac_SK.Controllers
             //do db
         }
 
+        [HttpPost]
+        public ActionResult<KupacModelDto> CreateKupac([FromBody] KupacModelDto kupac)
+        {
+            //    message.ServiceName = serviceName;
+            //  message.Method = "POST";
 
+            KupacModel k = mapper.Map<KupacModel>(kupac);
+            KupacModel kupacCreated;
+
+            if(k.FizPravno)
+            {
+                FizickoLice fizickoCreated = k as FizickoLice;
+                kupacCreated = fizickoLiceRepository.CreateFizickoLice(fizickoCreated);
+                fizickoLiceRepository.SaveChanges();
+            } 
+            else
+            {
+                PravnoLice pravnoCreated = k as PravnoLice;
+                kupacCreated = pravnoLiceRepository.CreatePravnoLice(pravnoCreated);
+                pravnoLiceRepository.SaveChanges();
+            }
+
+            string location = linkGenerator.GetPathByAction("GetKupci", "Kupac", new { KupacID = k.KupacID });
+            /*
+                message.Information = ovlascenoLice.ToString() + " | Ovlasceno lice location: " + location;
+                loggerService.CreateMessage(message);*/
+            return Created(location, mapper.Map<KupacModel>(kupacCreated));
+
+        }
 
         /// <summary>
         /// opcije dostupne za kupca

@@ -1,4 +1,5 @@
-﻿using Kupac_SK.Entities;
+﻿using AutoMapper;
+using Kupac_SK.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,20 @@ namespace Kupac_SK.Data
 {
     public class FizickoLiceRepository : IFizickoLiceRepository
     {
+        private readonly KupacContext context;
+        private readonly IMapper mapper;
+
         public static List<FizickoLice> Lica { get; set; } = new List<FizickoLice>();
 
-        public FizickoLiceRepository()
+        public FizickoLiceRepository(KupacContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
+        }
+
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
         }
 
         private void FillData()
@@ -45,27 +55,31 @@ namespace Kupac_SK.Data
         }
         public FizickoLice CreateFizickoLice(FizickoLice fizickoLice)
         {
-            throw new NotImplementedException();
+            var createdEntity = context.Add(fizickoLice);
+            return mapper.Map<FizickoLice>(createdEntity.Entity);
         }
 
         public void DeleteFizickoLice(Guid flID)
         {
-            Lica.Remove(Lica.FirstOrDefault(e => e.KupacID == flID));
+            var fizLice = GetFizickoLiceById(flID);
+            context.Remove(fizLice);
         }
 
         public List<FizickoLice> GetFizickaLica()
         {
-            return Lica.ToList();
+            return context.fizLica.ToList();
         }
 
         public FizickoLice GetFizickoLiceById(Guid flID)
         {
-            return Lica.FirstOrDefault(e => e.KupacID == flID);
+            return context.fizLica.FirstOrDefault(e => e.KupacID == flID);
         }
 
         public void UpdateFizickoLice(FizickoLice fizickoLice)
         {
             //
         }
+
+        
     }
 }

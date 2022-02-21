@@ -21,6 +21,11 @@ namespace Kupac_SK.Controllers
         private readonly IPrioritetRepository prioritetRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
+        /*  private readonly ILoggerService loggerService;
+        private Message message = new Message();
+        private readonly string serviceName = "KupacService";*/
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -33,6 +38,8 @@ namespace Kupac_SK.Controllers
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
         }
+
+
         /// <summary>
         /// Vraca listu prioriteta koji postoje evidentirani
         /// </summary>
@@ -42,13 +49,23 @@ namespace Kupac_SK.Controllers
         public ActionResult<List<PrioritetModelDto>> GetPrioritetiList()
         {
             List<PrioritetModel> prioriteti = prioritetRepository.GetPrioriteti();
+            /*message.ServiceName = serviceName;
+            message.Method = "GET";*/
             if (prioriteti == null || prioriteti.Count == 0)
             {
+                /*
+                message.Information = "No content";
+                message.Error = "There is no content in database!";
+                loggerService.CreateMessage(message); */
                 return NoContent();
             }
-
+            /*       message.Information = "Returned list of ovlascena lica";
+            loggerService.CreateMessage(message);*/
             return Ok(mapper.Map<List<PrioritetModelDto>>(prioriteti));
         }
+
+
+
         /// <summary>
         /// vraca prioritet na osnovu prosledjenog id-ja
         /// </summary>
@@ -58,11 +75,19 @@ namespace Kupac_SK.Controllers
         public ActionResult<PrioritetModelDto> GetPrioritetById(Guid prioritetId)
         {
             PrioritetModel prioritetModel = prioritetRepository.GetPrioritetById(prioritetId);
+           
+            /*   message.ServiceName = serviceName;
+            message.Method = "GET";*/
 
             if (prioritetModel == null)
             {
+                /*   message.Information = "Not found";
+                message.Error = "There is no object of Licnost with identifier: " + ovlascenoLiceId;
+                loggerService.CreateMessage(message);*/
                 return NotFound();
             }
+            /*   message.Information = lice.ToString();
+            loggerService.CreateMessage(message);*/
             return Ok(mapper.Map<PrioritetModelDto>(prioritetModel));
         }
        /// <summary>
@@ -73,23 +98,35 @@ namespace Kupac_SK.Controllers
         [HttpDelete("{prioritetId}")]
         public IActionResult DeletePrioritet(Guid prioritetId)
         {
+            /*message.ServiceName = serviceName;
+            message.Method = "DELETE";*/
             try
             {
                 PrioritetModel prioritetModel = prioritetRepository.GetPrioritetById(prioritetId);
                 if (prioritetModel == null)
                 {
+                    /*message.Information = "Not found";
+                    message.Error = "There is no object of ovlasceno lice with identifier: " + ovlascenoLiceId;
+                    loggerService.CreateMessage(message);*/
                     return NotFound();
                 }
                 prioritetRepository.DeletePrioritet(prioritetId);
                 return NoContent();
+
+                // message.Information = "Successfully deleted " + ovlascenoLiceId.ToString();
                 // Status iz familije 2xx koji se koristi kada se ne vraca nikakav objekat, ali naglasava da je sve u redu
             }
-            catch
+            catch (Exception ex)
             {
+                /*       message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);*/
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
             }
 
         }
+
+
         /// <summary>
         /// unos novog prioriteta
         /// </summary>
@@ -97,27 +134,37 @@ namespace Kupac_SK.Controllers
         /// <returns></returns>
         [HttpPost]
         public ActionResult<PrioritetModelDto> CreatePrioritet([FromBody] PrioritetModelDto prioritet) 
-        {
-            Console.Write("ulaz1");
-            //proveri
-
+        {/*
+            message.ServiceName = serviceName;
+            message.Method = "POST";*/
             try
             {
                
                 PrioritetModel prior = mapper.Map<PrioritetModel>(prioritet);
                 PrioritetModel prioritetCreate = prioritetRepository.CreatePrioritet(prior);
+                prioritetRepository.SaveChanges();
                 // Dobar API treba da vrati lokator gde se taj resurs nalazi
                 string location = linkGenerator.GetPathByAction("GetPrioritetById", "Prioritet", new { prioritetId = prior.PrioritetID });
-                Console.Write(location);
+               // Console.Write(location);
+
+                /*
+                message.Information = ovlascenoLice.ToString() + " | Ovlasceno lice location: " + location;
+                loggerService.CreateMessage(message);*/
+
                 return Created(location, mapper.Map<PrioritetModel>(prioritetCreate));
                 //map u dto 
 
             }
             catch
-            {
+            {/*
+                message.Information = "Server error";
+                message.Error = e.Message;
+                loggerService.CreateMessage(message);*/
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
             }
         }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -129,25 +176,39 @@ namespace Kupac_SK.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<PrioritetModelDto> UpdatePrioritet(PrioritetModelDto prioritet)
-        {
-            //TO-DO
-            /*
+        {/*
+            message.ServiceName = serviceName;
+            message.Method = "PUT";*/
+
             try
             {
-                //provera da li uopste postoji ovaj prioritet u pod
-                if (prioritetRepository.GetPrioritetById(prioritet.PrioritetID) == null)
+                PrioritetModel stariPr = prioritetRepository.GetPrioritetById(prioritet.PrioritetID);
+                if(stariPr ==null)
                 {
+                    /* message.Information = "Not found";
+                    message.Error = "There is no object of Licnost with identifier: " + ovlascenoLice.OvlascenoLiceID;
+                    loggerService.CreateMessage(message);*/
                     return NotFound();
                 }
-                PrioritetModel prioritetModel = mapper.Map<PrioritetModel>(prioritet);
-                PrioritetModel conf = prioritetRepository.UpdatePrioritet(prioritetModel);
-                return Ok(mapper.Map<PrioritetModelDto>(conf));
+
+                PrioritetModel noviPr = mapper.Map<PrioritetModel>(prioritet);
+                mapper.Map(noviPr, stariPr);
+
+                prioritetRepository.SaveChanges();
+                /*
+                message.Information = staroLice.ToString();
+                loggerService.CreateMessage(message);*/
+
+                return Ok(mapper.Map<PrioritetModelDto>(stariPr));
+
             }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
-            } */
-            return NoContent();
+            catch (Exception e)
+            { /*
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message);*/
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
+            }
         }
         /// <summary>
         /// ponudjene opcije za kupca

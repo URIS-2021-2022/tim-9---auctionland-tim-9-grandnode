@@ -12,7 +12,7 @@ namespace Kupac_SK.Data
         PravnoLice GetPravnoLiceById(Guid plID);
         PravnoLice CreatePravnoLice(PravnoLice pravnoLice);
         void DeletePravnoLice(Guid pravnoLice);
-        void UpdatePravnoLice(PravnoLice pravnoLice); 
-
+        void UpdatePravnoLice(PravnoLice pravnoLice);
+        bool SaveChanges();
     }
 }

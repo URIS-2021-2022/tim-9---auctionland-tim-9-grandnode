@@ -11,8 +11,6 @@ namespace Kupac_SK.Entities
         public string Naziv { get; set; }
         public string MatBr { get; set; }
         public string Faks { get; set; }
-
-        [ForeignKey("KontaktOsobaModel")]
         public Guid KontaktOsoba { get; set; }
     }
 }

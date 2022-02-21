@@ -13,7 +13,8 @@ namespace Kupac_SK.Data
         KontaktOsobaModel GetKontaktOsobaById(Guid koId);
         KontaktOsobaModel CreateKontaktOsoba(KontaktOsobaModel kontaktOsoba);
         void UpdateKontaktOsoba(KontaktOsobaModel kontaktOsoba);
-        void DeleteKontaktOsoba(Guid koId); 
+        void DeleteKontaktOsoba(Guid koId);
+        bool SaveChanges();
 
 
 

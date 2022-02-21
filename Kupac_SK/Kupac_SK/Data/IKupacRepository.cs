@@ -13,13 +13,13 @@ namespace Kupac_SK.Data
 
         KupacModel GetKupacById(Guid kupacId);
 
-        KupacConfirmation CreateKupac(KupacModel kupacModel);
+        KupacModel CreateKupac(KupacModel kupacModel);
 
         void UpdateKupac(KupacModel kupacModel);
 
         void DeleteKupac(Guid kupacId);
 
-        //bool SaveChanges();
+        bool SaveChanges();
 
     }
 }

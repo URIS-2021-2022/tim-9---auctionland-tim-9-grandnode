@@ -1,4 +1,5 @@
-﻿using Kupac_SK.Entities;
+﻿using AutoMapper;
+using Kupac_SK.Entities;
 using Kupac_SK.Models;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,18 @@ namespace Kupac_SK.Data
 {
     public class KupacRepository : IKupacRepository
     {
+        private readonly KupacContext context;
+        private readonly IMapper mapper;
+
         public static List<KupacModel> Kupci { get; set; } = new List<KupacModel>();
-        /*
-        public KupacRepository()
+
+        public KupacRepository(KupacContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
+
         }
-        */
+        
         /*
         private void FillData()
         {
@@ -63,14 +69,17 @@ namespace Kupac_SK.Data
 
             }); */
         
-        public KupacConfirmation CreateKupac(KupacModel kupacModel)
+        public KupacModel CreateKupac(KupacModel kupacModel)
         {
-            throw new NotImplementedException();
+            var kupac = context.Add(kupacModel);
+            return mapper.Map<KupacModel>(kupac.Entity);
         }
 
         public void DeleteKupac(Guid kupacId)
         {
-            Kupci.Remove(Kupci.FirstOrDefault(e => e.KupacID == kupacId));
+            var kupac = GetKupacById(kupacId);
+            context.Remove(kupac);
+
         }
 
         public KupacModel GetKupacById(Guid kupacId)
@@ -82,6 +91,11 @@ namespace Kupac_SK.Data
         public List<KupacModel> GetKupci()
         {
             return Kupci.ToList();
+        }
+
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateKupac(KupacModel kupacModel)

@@ -1,4 +1,5 @@
-﻿using Kupac_SK.Entities;
+﻿using AutoMapper;
+using Kupac_SK.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,20 @@ namespace Kupac_SK.Data
 {
     public class PravnoLiceRepository : IPravnoLiceRepository
     {
+        private readonly KupacContext context;
+        private readonly IMapper mapper;
+
         public static List<PravnoLice> Lica { get; set; } = new List<PravnoLice>();
 
-        public PravnoLiceRepository()
+        public PravnoLiceRepository(KupacContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
+        }
+
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
         }
 
         private void FillData()
@@ -45,27 +55,31 @@ namespace Kupac_SK.Data
         }
         public PravnoLice CreatePravnoLice(PravnoLice pravnoLice)
         {
-            throw new NotImplementedException();
+            var crt = context.Add(pravnoLice);
+            return mapper.Map<PravnoLice>(crt.Entity);
         }
 
         public void DeletePravnoLice(Guid pravnoLice)
         {
-            Lica.Remove(Lica.FirstOrDefault(e => e.KupacID == pravnoLice));
+            var pravno = GetPravnoLiceById(pravnoLice);
+            context.Remove(pravnoLice);
         }
 
         public List<PravnoLice> getPravnaLica()
         {
-            return Lica.ToList();
+            return context.pravnaLica.ToList();
         }
 
         public PravnoLice GetPravnoLiceById(Guid plID)
         {
-            return Lica.FirstOrDefault(e => e.KupacID == plID);
+            return context.pravnaLica.FirstOrDefault(e => e.KupacID == plID);
         }
 
         public void UpdatePravnoLice(PravnoLice pravnoLice)
         {
            //
         }
+
+       
     }
 }

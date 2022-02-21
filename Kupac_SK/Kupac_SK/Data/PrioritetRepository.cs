@@ -1,4 +1,5 @@
-﻿using Kupac_SK.Entities;
+﻿using AutoMapper;
+using Kupac_SK.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,22 @@ namespace Kupac_SK.Data
 {
     public class PrioritetRepository : IPrioritetRepository
     {
-        public static List<PrioritetModel> Prioriteti { get; set; } = new List<PrioritetModel>();
+        private readonly KupacContext context;
+        private readonly IMapper mapper;
 
-        public PrioritetRepository()
+      //  public static List<PrioritetModel> Prioriteti { get; set; } = new List<PrioritetModel>();
+
+        public PrioritetRepository(KupacContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
         }
 
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
+        }
+        /*
         private void FillData()
         {
             Prioriteti.AddRange(new List<PrioritetModel>
@@ -33,36 +43,31 @@ namespace Kupac_SK.Data
 
             });
         }
-
+        */
       
         public PrioritetModel CreatePrioritet(PrioritetModel prioritetmodel)
         {
-
-            prioritetmodel.PrioritetID = Guid.NewGuid(); //kreiramo novi kljuc 
-            Prioriteti.Add(prioritetmodel);
-            PrioritetModel prioritet = GetPrioritetById(prioritetmodel.PrioritetID);
-
-            return new PrioritetModel //OVDE PAZI JER NEMAS CONFIRMATION 
-            {
-                PrioritetID = prioritet.PrioritetID,
-                OpisPrioriteta = prioritet.OpisPrioriteta
-             };
+         
+            var prioritet = context.Add(prioritetmodel);
+            return mapper.Map<PrioritetModel>(prioritet.Entity);
         }
 
         public void DeletePrioritet(Guid prioritetId)
         {
-       
-            Prioriteti.Remove(Prioriteti.FirstOrDefault(e => e.PrioritetID == prioritetId)); 
+
+            // Prioriteti.Remove(Prioriteti.FirstOrDefault(e => e.PrioritetID == prioritetId)); 
+            var prioritet = GetPrioritetById(prioritetId);
+            context.Remove(prioritet);
         }
 
         public PrioritetModel GetPrioritetById(Guid prioritetId)
         {
-            return Prioriteti.FirstOrDefault(e => e.PrioritetID == prioritetId);
+            return context.prioriteti.FirstOrDefault(e => e.PrioritetID == prioritetId);
         }
 
         public List<PrioritetModel> GetPrioriteti()
         {
-            return Prioriteti.ToList();
+            return context.prioriteti.ToList();
          }
 
         public void UpdatePrioritet(PrioritetModel prioritetModel)
