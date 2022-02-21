@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "468af325-e00c-464e-b848-73fd1da8c9fa",
+		"name": "Uplata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetKursneListe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetKursnaLista",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe/f9d0d94c-a332-4437-a8d1-e2b64349e0ad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe",
+						"f9d0d94c-a332-4437-a8d1-e2b64349e0ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateKursnaLista",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"datum\": \"2022-02-10T00:00:00\",\r\n    \"valuta\": \"RSD\",\r\n    \"vrednost\": 5555\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateKursnaLista",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"kursnaListaID\": \"ab5d2607-714f-44d0-bef2-200698db7ad8\",\r\n    \"datum\": \"2022-02-10T00:00:00\",\r\n    \"valuta\": \"RSD\",\r\n    \"vrednost\": 4444\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteKursnaLista",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe/ab5d2607-714f-44d0-bef2-200698db7ad8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe",
+						"ab5d2607-714f-44d0-bef2-200698db7ad8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HeadKursnaLista",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetKursnaListaOptions",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/kursneListe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"kursneListe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUplate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/uplate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUplata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/uplate/556228f6-4afd-4a7a-9767-371b608abaab",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate",
+						"556228f6-4afd-4a7a-9767-371b608abaab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUplata",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brojRacuna\": \"236541\",\r\n    \"pozivNaBroj\": \"147852\",\r\n    \"iznos\": 9999,\r\n    \"svrhaUplate\": \"Uplata javnog nadmetanja\",\r\n    \"datum\": \"2022-02-20T00:00:00\",\r\n    \"kursnaListaID\": \"c8a3972c-ed80-4030-a6a3-61c37cc5b36d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:54169/api/uplate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUplata",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"uplataID\": \"7a3b1cc2-9db2-443a-ae58-effe3bc8fc30\",\r\n    \"brojRacuna\": \"236541\",\r\n    \"pozivNaBroj\": \"147852\",\r\n    \"iznos\": 9999,\r\n    \"svrhaUplate\": \"Uplata javnog nadmetanja\",\r\n    \"datum\": \"2022-02-20T00:00:00\",\r\n    \"kursnaListaID\": \"c8a3972c-ed80-4030-a6a3-61c37cc5b36d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:54169/api/uplate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUplata",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/uplate/7a3b1cc2-9db2-443a-ae58-effe3bc8fc30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate",
+						"7a3b1cc2-9db2-443a-ae58-effe3bc8fc30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HeadUplata",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/uplate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUplataOptions",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:54169/api/uplate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54169",
+					"path": [
+						"api",
+						"uplate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
