@@ -17,7 +17,7 @@ namespace KomisijaService.Controllers
 {
     [Route("api/komisija")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class KomisijaController : ControllerBase
     {
         private readonly IKomisijaRepository komisijaRepository;

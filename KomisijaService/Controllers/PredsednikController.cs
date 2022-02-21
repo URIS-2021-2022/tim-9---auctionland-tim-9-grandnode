@@ -17,7 +17,7 @@ namespace KomisijaService.Controllers
 {
     [Route("api/predsednik")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PredsednikController : ControllerBase
     {
         private readonly IPredsednikRepository predsednikRepository;

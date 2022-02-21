@@ -17,7 +17,7 @@ namespace KomisijaService.Controllers
 {
     [Route("api/clanovi")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ClanoviController : ControllerBase
     {
         private readonly IClanoviRepository clanoviRepository;
