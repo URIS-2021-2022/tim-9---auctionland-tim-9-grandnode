@@ -9,6 +9,6 @@ namespace UgovorService.ServiceCalls
 {
     public interface IDokument_AKService
     {
-        public Task<ActionResult<DokumentDto>> GetDokumentByID(Guid dokumentID);
+        public Task<DokumentDto> GetDokumentByID(Guid dokumentID);
     }
 }

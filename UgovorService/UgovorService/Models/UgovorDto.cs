@@ -63,6 +63,8 @@ namespace UgovorService.Models
         public string Mesto { get; set; }
 
 
+        public DokumentDto DokumentDto { get; set; }
+
         /// <summary>
         /// Datum potpisivanja ugovora
         /// </summary>

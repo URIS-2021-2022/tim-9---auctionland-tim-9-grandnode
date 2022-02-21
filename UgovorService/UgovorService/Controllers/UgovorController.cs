@@ -57,18 +57,12 @@ namespace UgovorService.Controllers
             {
                 foreach (UgovorEnt u in ugovori)
                 {
-                    try
-                    {
-                        DokumentDto dokument = dokument_AKService.GetDokumentByID(u.DokumentID).Result.Value;
+                    
+                        DokumentDto dokument = dokument_AKService.GetDokumentByID(u.DokumentID).Result;
                         if (dokument != null)
                         {
                             u.DokumentDto = dokument;
                         }
-                    }
-                    catch
-                    {
-                        return default;
-                    }
                 }
             }
             catch

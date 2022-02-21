@@ -19,7 +19,7 @@ namespace UgovorService.ServiceCalls
         {
             this.configuration = configuration;
         }
-        public async Task<ActionResult<DokumentDto>> GetDokumentByID(Guid dokumentID)
+        public async Task<DokumentDto> GetDokumentByID(Guid dokumentID)
         {
             try
             {

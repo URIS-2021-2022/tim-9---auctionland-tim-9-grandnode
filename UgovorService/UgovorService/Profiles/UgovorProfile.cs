@@ -15,6 +15,7 @@ namespace UgovorService.Profiles
             CreateMap<UgovorEnt, UgovorDto>();
             CreateMap<UgovorCreationDto, UgovorEnt>();
             CreateMap<UgovorEnt, UgovorUpdateDto>();
+            CreateMap<UgovorEnt, UgovorEnt>();
         }
     }
 }
