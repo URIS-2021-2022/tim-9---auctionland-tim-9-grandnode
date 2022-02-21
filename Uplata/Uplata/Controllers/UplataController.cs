@@ -24,14 +24,18 @@ namespace Uplata.Controllers
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "UplataService";
         private Message message = new Message();
+        private readonly IJavnoNadmetanjeService javnoNadmetanjeService;
+        private readonly IKupacService kupacService;
 
         //Pomocu dependency injection-a dodajemo potrebne zavisnosti
-        public UplataController(IUplataRepository uplataRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
+        public UplataController(IUplataRepository uplataRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, IJavnoNadmetanjeService javnoNadmetanjeService, IKupacService kupacService)
         {
             this.uplataRepository = uplataRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
             this.loggerService = loggerService;
+            this.javnoNadmetanjeService = javnoNadmetanjeService;
+            this.kupacService = kupacService;
         }
 
         /// <summary>
@@ -57,11 +61,21 @@ namespace Uplata.Controllers
                 loggerService.CreateMessage(message);
                 return NoContent();
             }
+
+            List<UplataDto> uplataDto = mapper.Map<List<UplataDto>>(uplate);
+
+            foreach (UplataDto u in uplataDto)
+            {
+                u.JavnoNadmetanje = javnoNadmetanjeService.GetJavnaNadmetanja(u.JavnoNadmetanjeID).Result;
+                u.Kupac = kupacService.GetUplatioca(u.KupacID).Result;
+            }
+
             message.Information = "Returned list of Uplata";
             loggerService.CreateMessage(message);
 
             //ukoliko smo pronasli neku uplatu vratiti status 200 i listu uplata
-            return Ok(mapper.Map<List<UplataDto>>(uplate));
+            //return Ok(mapper.Map<List<UplataDto>>(uplate));
+            return Ok(uplataDto);
         }
 
         /// <summary>
@@ -86,9 +100,14 @@ namespace Uplata.Controllers
                 loggerService.CreateMessage(message);
                 return NotFound();
             }
+            UplataDto uplataDto = mapper.Map<UplataDto>(uplata);
+            uplataDto.JavnoNadmetanje= javnoNadmetanjeService.GetJavnaNadmetanja(uplata.JavnoNadmetanjeID).Result;
+            uplataDto.Kupac = kupacService.GetUplatioca(uplata.KupacID).Result;
+
             message.Information = uplata.ToString();
             loggerService.CreateMessage(message);
-            return Ok(mapper.Map<UplataDto>(uplata));
+            //return Ok(mapper.Map<UplataDto>(uplata));
+            return Ok(uplataDto);
         }
 
         /// <summary>

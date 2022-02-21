@@ -39,5 +39,19 @@ namespace Uplata.Models
         /// Kursna lista.
         /// </summary>
         public Guid KursnaListaID { get; set; }
+
+        /// <summary>
+        /// ID javnog nadmetanja.
+        /// </summary>
+        public Guid JavnoNadmetanjeID { get; set; }
+
+        public JavnoNadmetanjeDto JavnoNadmetanje { get; set; }
+
+        /// <summary>
+        /// ID uplatilaca.
+        /// </summary>
+        public Guid KupacID { get; set; }
+
+        public KupacDto Kupac { get; set; }
     }
 }

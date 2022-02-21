@@ -285,6 +285,71 @@
             Salt.
             </summary>
         </member>
+        <member name="T:Uplata.Models.JavnoNadmetanjeDto">
+            <summary>
+            DTO za javno nadmetanje
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.Datum">
+            <summary>
+            Datum odrzavanja javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.VremePocetka">
+            <summary>
+            Vreme pocetka javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.VremeKraja">
+            <summary>
+            Vreme kraja javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.PocetnaCenaPoHektaru">
+            <summary>
+            Pocetna cena po hektaru.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.Izuzeto">
+            <summary>
+            Izuzetost.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.TipJavnogNadmetanjaID">
+            <summary>
+            Tip javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.IzlicitiranaCena">
+            <summary>
+            Izlicitirana cena.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.PeriodZakupa">
+            <summary>
+            Period zakupa.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.BrojUcesnika">
+            <summary>
+            Broj ucesnika javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.VisinaDopuneDepozita">
+            <summary>
+            Visina dopune depozita.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.Krug">
+            <summary>
+            Krug javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.JavnoNadmetanjeDto.StatusNadmetanjaID">
+            <summary>
+            Status javnog nadmetanja.
+            </summary>
+        </member>
         <member name="T:Uplata.Models.KursnaListaConfirmationDto">
             <summary>
             DTO za potvrdu kursne liste
@@ -483,6 +548,16 @@
         <member name="P:Uplata.Models.UplataDto.KursnaListaID">
             <summary>
             Kursna lista.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.UplataDto.JavnoNadmetanjeID">
+            <summary>
+            ID javnog nadmetanja.
+            </summary>
+        </member>
+        <member name="P:Uplata.Models.UplataDto.KupacID">
+            <summary>
+            ID uplatilaca.
             </summary>
         </member>
         <member name="T:Uplata.Models.UplataUpdateDto">
