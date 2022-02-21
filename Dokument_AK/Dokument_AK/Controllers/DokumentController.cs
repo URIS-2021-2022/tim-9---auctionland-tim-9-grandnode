@@ -56,6 +56,8 @@ namespace Dokument_AK.Controllers
         public ActionResult<List<DokumentDto>> GetDokuments(string ZavodniBroj)
         {
             List<DokumentEnt> dokumentEnts = dokumentRepository.GetDokuments(ZavodniBroj);
+            message.ServiceName = serviceName;
+            message.Method = "GET";
             if (dokumentEnts == null || dokumentEnts.Count == 0)
             {
                 message.Information = "No content";
@@ -63,7 +65,7 @@ namespace Dokument_AK.Controllers
                 loggerService.CreateMessage(message);
                 return NoContent();
             }
-            message.Information = "Returned list of Licnost";
+            message.Information = "Returned list of Dokument";
             loggerService.CreateMessage(message);
 
             return Ok(mapper.Map<List<DokumentDto>>(dokumentEnts)); 
