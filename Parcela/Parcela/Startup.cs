@@ -54,6 +54,7 @@ namespace Parcela
             services.AddScoped<IUserRepository, UserMockRepository>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
+            services.AddScoped<IKupac_SKService, Kupac_SKService>();
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

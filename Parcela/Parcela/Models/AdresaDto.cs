@@ -11,6 +11,5 @@ namespace Parcela.Models
         public string Ulica { get; set; }
         public string Mesto { get; set; }
         public string PostanskiBroj { get; set; }
-        public DrzavaDto Drzava { get; set; }
     }
 }

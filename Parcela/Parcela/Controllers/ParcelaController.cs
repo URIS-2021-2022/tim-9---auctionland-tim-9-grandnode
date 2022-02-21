@@ -21,18 +21,20 @@ namespace Parcela.Controllers
         private readonly IParcelaRepository parcelaRepository;
         private readonly LinkGenerator linkGenerator; //Služi za generisanje putanje do neke akcije (videti primer u metodu CreateExamRegistration)
         private readonly IMapper mapper;
+        private readonly IKupac_SKService kupac_SKService;
 
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "Parcela";
         private Message message = new Message();
 
 
-        public ParcelaController(IParcelaRepository parcelaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
+        public ParcelaController(IParcelaRepository parcelaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, IKupac_SKService kupac_SKService)
         {
             this.parcelaRepository = parcelaRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
             this.loggerService = loggerService;
+            this.kupac_SKService = kupac_SKService;
 
         }
 
@@ -43,6 +45,7 @@ namespace Parcela.Controllers
         {
             List<Parcela.Entities.Parcela> parcelaLista = parcelaRepository.GetParcelaList();
 
+
             message.ServiceName = serviceName;
             message.Method = "GET";
             if (parcelaLista == null || parcelaLista.Count == 0)
@@ -51,6 +54,21 @@ namespace Parcela.Controllers
                 message.Error = "There is no content in database!";
                 loggerService.CreateMessage(message);
                 return NoContent();
+            }
+            try
+            {
+                foreach (Parcela.Entities.Parcela p in parcelaLista)
+                {
+                    KupacDto kupac = kupac_SKService.GetKupacById(p.KorisnikParceleID).Result;
+                    if (kupac != null)
+                    {
+                        p.KupacDto = kupac;
+                    }
+                }
+            }
+            catch
+            {
+                return default;
             }
             message.Information = "Returned list of Parcela";
             loggerService.CreateMessage(message);

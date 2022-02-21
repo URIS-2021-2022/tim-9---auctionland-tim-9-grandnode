@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parcela.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,5 +35,13 @@ namespace Parcela.Entities
         public string ZasticenaZonaStvarnoStanje { get; set; }
         public string OdvodnjavanjeStvarnoStanje { get; set; }
         public List<DeoParcele> ListaDelova { get; set; }
+        [NotMapped]
+        public KupacDto KupacDto {get;set;}
+
+        override
+        public string ToString()
+        {
+            return "Parcela: {ID: " + this.ParcelaID;
+        }
     }
 }
