@@ -1,4 +1,6 @@
-﻿using OvlascenoLice.Entities;
+﻿using AutoMapper;
+using OvlascenoLice.Entities;
+using OvlascenoLice.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,20 @@ namespace OvlascenoLice.Data
     {
         public static List<OvlascenoLiceModel> Lica { get; set; } = new List<OvlascenoLiceModel>();
 
+        private readonly OvlascenoLiceContext context;
+        private readonly IMapper mapper;
 
-        public OvlascenoLiceRepository()
+
+        public OvlascenoLiceRepository(OvlascenoLiceContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
+        }
+        
+   
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
         }
 
         private void FillData()
@@ -44,35 +56,26 @@ namespace OvlascenoLice.Data
         }
         public OvlascenoLiceModel CreateOvlascenoLice(OvlascenoLiceModel ovlascenoLice)
         {
-            ovlascenoLice.OvlascenoLiceID = Guid.NewGuid();
-            Lica.Add(ovlascenoLice);
-            OvlascenoLiceModel olice = GetOvlascenoLiceById(ovlascenoLice.OvlascenoLiceID);
-
-            return new OvlascenoLiceModel
-            {
-                OvlascenoLiceID = ovlascenoLice.OvlascenoLiceID,
-                Ime = ovlascenoLice.Ime,
-                Prezime = ovlascenoLice.Prezime,
-                BrojDokumenta = ovlascenoLice.BrojDokumenta,
-                BrojTable = ovlascenoLice.BrojTable,
-                AdresaID = ovlascenoLice.AdresaID
-
-            };
+            var createdEntity = context.Add(ovlascenoLice);
+            return mapper.Map<OvlascenoLiceModel>(createdEntity.Entity);
         }
 
         public void DeleteOvlascenoLice(Guid OLiceID)
         {
-            Lica.Remove(Lica.FirstOrDefault(e => e.OvlascenoLiceID == OLiceID));
+            //Lica.Remove(Lica.FirstOrDefault(e => e.OvlascenoLiceID == OLiceID));
+            var ovlLice = GetOvlascenoLiceById(OLiceID);
+            context.Remove(ovlLice);
+
         }
 
         public List<OvlascenoLiceModel> GetOvlascenaLica()
         {
-            return Lica.ToList();
+            return context.OvlascenaLica.ToList();
         }
 
         public OvlascenoLiceModel GetOvlascenoLiceById(Guid OLiceID)
         {
-            return Lica.FirstOrDefault(e => e.OvlascenoLiceID == OLiceID);
+            return context.OvlascenaLica.FirstOrDefault(e => e.OvlascenoLiceID == OLiceID);
         }
 
         public void UpdateOvlascenoLice(OvlascenoLiceModel ovlascenoLice)

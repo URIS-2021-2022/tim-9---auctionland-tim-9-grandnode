@@ -14,6 +14,8 @@ namespace OvlascenoLice.Data
         void UpdateOvlascenoLice(OvlascenoLiceModel ovlascenoLice);
         void DeleteOvlascenoLice(Guid OLiceID);
 
+        bool SaveChanges();
+
 
     }
 }

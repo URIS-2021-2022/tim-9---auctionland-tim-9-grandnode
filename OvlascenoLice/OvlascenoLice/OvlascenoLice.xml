@@ -24,6 +24,21 @@
             </summary>
             <param name="ovlascenoLiceId"></param>
             <returns></returns>
+            
+        </member>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.CreateOvlascenoLice(OvlascenoLice.Models.OvlascenoLiceDto)">
+            <summary>
+            Dodavanje novog ovlascenog lica
+            </summary>
+            <param name="ovlascenoLice">popunite ispravno model</param>
+            <returns></returns>
+        </member>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.UpdateOvlascenoLice(OvlascenoLice.Models.OvlascenoLiceDto)">
+            <summary>
+            Azuriranje 
+            </summary>
+            <param name="ovlascenoLice">popunite ispravno model</param>
+            <returns></returns>
         </member>
         <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.GetPrioritetOptions">
             <summary>

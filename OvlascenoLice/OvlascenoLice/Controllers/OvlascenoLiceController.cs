@@ -19,7 +19,9 @@ namespace OvlascenoLice.Controllers
         private readonly IOvlascenoLiceRepository ovlascenoLiceRepository;
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
-
+       // private Message message = new Message();
+        private readonly string serviceName = "OvlascenoLiceService";
+        
         public OvlascenoLiceController(IOvlascenoLiceRepository ovlascenoLiceRepository, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.ovlascenoLiceRepository = ovlascenoLiceRepository;
@@ -34,6 +36,8 @@ namespace OvlascenoLice.Controllers
         /// <response code="204">Nije pronađen ni jedna ličnost u sistemu</response>
         [HttpGet]
         [HttpHead]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<OvlascenoLiceDto>> GetOvlascenaLica()
         {
             List<OvlascenoLiceModel> lica = ovlascenoLiceRepository.GetOvlascenaLica();
@@ -63,6 +67,8 @@ namespace OvlascenoLice.Controllers
         /// </summary>
         /// <param name="ovlascenoLiceId"></param>
         /// <returns></returns>
+        /// 
+
         [HttpDelete("{ovlascenoLiceId}")]
         public IActionResult DeleteOvlascenoLice(Guid ovlascenoLiceId)
         {
@@ -76,10 +82,13 @@ namespace OvlascenoLice.Controllers
                 }
 
                 ovlascenoLiceRepository.DeleteOvlascenoLice(ovlascenoLiceId);
+                ovlascenoLiceRepository.SaveChanges();
+                //message logger
                 return NoContent();
             }
             catch
             {
+                //message logger
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
 
             }
@@ -96,6 +105,8 @@ namespace OvlascenoLice.Controllers
             {
                 OvlascenoLiceModel lice1 = mapper.Map<OvlascenoLiceModel>(ovlascenoLice);
                 OvlascenoLiceModel createLice = ovlascenoLiceRepository.CreateOvlascenoLice(lice1);
+                ovlascenoLiceRepository.SaveChanges();
+
                 string location = linkGenerator.GetPathByAction("GetOvlascenoLiceById", "OvlascenoLice", new { ovlascenoLiceId = lice1.OvlascenoLiceID});
                 return Created(location, mapper.Map<OvlascenoLiceModel>(createLice));
             }
@@ -118,9 +129,34 @@ namespace OvlascenoLice.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<OvlascenoLiceDto> UpdateOvlascenoLice(OvlascenoLiceDto ovlascenoLice)
         {
+            // message.ServiceName = serviceName;
+            // message.Method = "PUT";
+            try
+            {
+                OvlascenoLiceModel staroLice = ovlascenoLiceRepository.GetOvlascenoLiceById(ovlascenoLice.OvlascenoLiceID);
+                if (staroLice == null)
+                {
+                    //message logger
+                    return NotFound();
+                }
 
-            //baza 
-            return NoContent();
+                OvlascenoLiceModel novoLice = mapper.Map<OvlascenoLiceModel>(ovlascenoLice);
+                mapper.Map(novoLice, staroLice);
+
+                ovlascenoLiceRepository.SaveChanges();
+
+                //message.Information = staroLice.ToString();
+                //logerService.CreateMessage(message);
+                return Ok(mapper.Map<OvlascenoLiceDto>(staroLice));
+            }
+            catch
+            {
+                /*
+                message.Information = "Server error";
+                message.Error = ex.Message;
+                loggerService.CreateMessage(message); */
+                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
+            }
         }
 
         /// <summary>

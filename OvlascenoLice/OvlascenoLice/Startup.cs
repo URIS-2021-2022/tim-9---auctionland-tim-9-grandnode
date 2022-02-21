@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OvlascenoLice.Data;
+using OvlascenoLice.Entities;
 using OvlascenoLice.Helper;
 using System;
 using System.Collections.Generic;
@@ -42,10 +44,11 @@ namespace OvlascenoLice
            
             //services.AddSingleton<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
-            services.AddSingleton<IUserRepository, UserMockRepository>();
-            services.AddSingleton<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
+            services.AddScoped<IUserRepository, UserMockRepository>();
+            services.AddScoped<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+            services.AddDbContext<OvlascenoLiceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OvlascenoLiceDB"))); //Dodavanje konteksta za entity framework
+            
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
