@@ -11,5 +11,10 @@ namespace Mesto.Entities
         public string Ulica { get; set; }
         public string Mesto { get; set; }
         public int PostanskiBroj { get; set; }
+        override
+        public string ToString()
+        {
+            return "Adresa: { ID:" + this.AdresaId + " ";
+        }
     }
 }
