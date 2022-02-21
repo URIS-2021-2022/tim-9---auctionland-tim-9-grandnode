@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UgovorService.Entities;
 
 namespace UgovorService.Models
 {
@@ -18,7 +19,6 @@ namespace UgovorService.Models
         /// </summary>
 
         public Guid TipID { get; set; }
-        public TipGarancijeEnt TipGarancijeEnt { get; set; }
 
 
         /// <summary>

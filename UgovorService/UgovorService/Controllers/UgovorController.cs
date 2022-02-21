@@ -34,10 +34,6 @@ namespace UgovorService.Controllers
             this.linkGenerator = linkGenerator;
         }
 
-
-
-
-
         [HttpGet]
         [HttpHead]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,7 +52,7 @@ namespace UgovorService.Controllers
                 return NoContent();
             }
 
-            message.Information = "Returned list of Licnost";
+            message.Information = "Returned list of Ugovor";
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<UgovorDto>>(ugovori));
         }

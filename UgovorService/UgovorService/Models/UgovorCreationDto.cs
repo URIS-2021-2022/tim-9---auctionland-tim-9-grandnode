@@ -18,7 +18,7 @@ namespace UgovorService.Models
         /// </summary>
 
         public Guid TipID { get; set; }
-        public TipGarancijeEnt TipGarancijeEnt { get; set; }
+
 
 
         /// <summary>
