@@ -135,5 +135,25 @@
             <param name="principal">Autentifikovani principal</param>
             <returns></returns>
         </member>
+        <member name="P:OvlascenoLice.Models.Message.ServiceName">
+            <summary>
+            Naziv servisa
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Models.Message.Method">
+            <summary>
+            Metoda
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Models.Message.Information">
+            <summary>
+            Detalji
+            </summary>
+        </member>
+        <member name="P:OvlascenoLice.Models.Message.Error">
+            <summary>
+            Greska
+            </summary>
+        </member>
     </members>
 </doc>
