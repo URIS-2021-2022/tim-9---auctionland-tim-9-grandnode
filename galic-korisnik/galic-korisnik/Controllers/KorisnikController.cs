@@ -98,7 +98,7 @@ namespace galic_korisnik.Controllers
                 message.Information = "Server error";
                 message.Error = ex.Message;
                 loggerService.CreateMessage(message);
-                return StatusCode(StatusCodes.Status500InternalServerError, "Creation Error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Creation Error" + ex.Message);
             }
         }
 
