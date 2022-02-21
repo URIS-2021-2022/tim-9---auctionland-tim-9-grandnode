@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using OvlascenoLice.Data;
 using OvlascenoLice.Entities;
 using OvlascenoLice.Helper;
+using OvlascenoLice.ServiceCalls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +46,7 @@ namespace OvlascenoLice
             //services.AddSingleton<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
             services.AddScoped<IUserRepository, UserMockRepository>();
+            services.AddScoped<ILoggerService, LoggerService>(); 
             services.AddScoped<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<OvlascenoLiceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OvlascenoLiceDB"))); //Dodavanje konteksta za entity framework
