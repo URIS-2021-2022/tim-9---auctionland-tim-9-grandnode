@@ -130,6 +130,7 @@ namespace galic_korisnik.Controllers
             }
         }
 
+
         [HttpPut]
         public ActionResult<TipKorisnikaDto> UpdateTipKorisnika(TipKorisnika tipKorisnika)
         {
