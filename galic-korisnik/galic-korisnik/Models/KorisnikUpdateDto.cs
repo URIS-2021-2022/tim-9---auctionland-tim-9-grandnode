@@ -1,11 +1,13 @@
-﻿using System;
+﻿using galic_korisnik.Data;
+using galic_korisnik.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace galic_korisnik.Models
 {
-    public class KorisnikConfirmation
+    public class KorisnikUpdateDto
     {
         public Guid korisnikId { get; set; }
         public Guid tipKorisnikaId { get; set; }

@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace galic_korisnik.Models
 {
-
-    //Vraca podatke korisnika
-    public class KorisnikModel
+    public class KorisnikCreateDto
     {
         public Guid korisnikId { get; set; }
         public Guid tipKorisnikaId { get; set; }

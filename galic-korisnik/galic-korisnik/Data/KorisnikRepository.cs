@@ -1,97 +1,109 @@
-﻿using galic_korisnik.Models;
+﻿using AutoMapper;
+using galic_korisnik.Entities;
+using galic_korisnik.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace galic_korisnik.Data
 {
     public class KorisnikRepository : IKorisnikRepository
     {
-        public static List<KorisnikModel> Korisnici { get; set; } = new List<KorisnikModel>();
+        private readonly KorisnikContext context;
+        private readonly IMapper mapper;
 
-        public KorisnikRepository()
+        public List<Korisnik> korisnici { get; set; } = new List<Korisnik>();
+
+        public KorisnikRepository(KorisnikContext context, IMapper mapper)
         {
-            FillData();
+            this.context = context;
+            this.mapper = mapper;
+
+            korisnici.AddRange(GetKorisnikList());
+
         }
 
-        private void FillData()
+        public bool SaveChanges()
         {
-            Korisnici.AddRange(new List<KorisnikModel>
-            {
-                new KorisnikModel
-                {
-                    korisnikId = Guid.Parse("f7a20259-5aeb-3135-64ea-32cf7a96b98a"),
-                    tipKorisnikaId = Guid.Parse("ce4a6a8a-b25d-d5d0-9364-3dee56521821"),
-                    ime = "Petar",
-                    prezime = "Petrovic",
-                    korisnickoIme = "PPetrovic",
-                    lozinka = "123456"
-                },
-                new KorisnikModel
-                {
-                    korisnikId = Guid.Parse("e8920f41-e035-da6d-27d1-ee8909f6271d"),
-                    tipKorisnikaId = Guid.Parse("22caf793-fbaa-a3f5-8266-7fc3dcc798dc"),
-                    ime = "Marko",
-                    prezime = "Markovic",
-                    korisnickoIme = "MMarkovic",
-                    lozinka = "123456"
-                }
-            });
+            return context.SaveChanges() > 0;
         }
 
-        public List<KorisnikModel> GetKorisnikList()
+        public List<Korisnik> GetKorisnikList()
         {
-            return Korisnici.ToList();
+            return context.Korisnik.ToList();
         }
 
-        public KorisnikModel GetKorisnikById(Guid korisnikId)
+        public Korisnik GetKorisnikById(Guid korisnikId)
         {
-            return Korisnici.FirstOrDefault(e => e.korisnikId == korisnikId);
+            return context.Korisnik.FirstOrDefault(e => e.korisnikId == korisnikId);
         }
 
-        public KorisnikModel CreateKorisnik(KorisnikModel korisnik)
+        public Korisnik CreateKorisnik(Korisnik korisnik)
         {
             korisnik.korisnikId = Guid.NewGuid();
-            Korisnici.Add(korisnik);
-            KorisnikModel temp = GetKorisnikById(korisnik.korisnikId);
 
-            return new KorisnikModel
-            {
-                korisnikId = temp.korisnikId,
-                ime = temp.ime,
-                prezime = temp.prezime,
-                korisnickoIme = temp.korisnickoIme,
-                lozinka = temp.lozinka,
-                tipKorisnikaId = temp.tipKorisnikaId
-            };
+            var lozinka = HashPassword(korisnik.lozinka);
+
+            korisnik.lozinka = lozinka.Item1;
+            korisnik.Salt = lozinka.Item2;
+
+            var createdEntity = context.Add(korisnik);
+            return mapper.Map<Korisnik>(createdEntity.Entity);
         }
 
-        public KorisnikModel UpdateKorisnik(KorisnikModel korisnik)
+        public void UpdateKorisnik(Korisnik korisnik)
         {
-            var temp = GetKorisnikById(korisnik.korisnikId);
-
-            temp.korisnikId = korisnik.korisnikId;
-            temp.ime = korisnik.ime;
-            temp.prezime = korisnik.prezime;
-            temp.korisnickoIme = korisnik.korisnickoIme;
-            temp.lozinka = korisnik.lozinka;
-            temp.tipKorisnikaId = korisnik.tipKorisnikaId;
-
-            return new KorisnikModel
-            {
-                korisnikId = temp.korisnikId,
-                ime = temp.ime,
-                prezime = temp.prezime,
-                korisnickoIme = temp.korisnickoIme,
-                lozinka = temp.lozinka,
-                tipKorisnikaId = temp.tipKorisnikaId
-            };
+            //Nije potrebna implementacija jer EF core prati entitet koji smo izvukli iz baze
+            //i kada promenimo taj objekat i odradimo SaveChanges sve izmene će biti perzistirane
         }
 
         public void DeleteKorisnik(Guid korisnikId)
         {
-            Korisnici.Remove(Korisnici.FirstOrDefault(e => e.korisnikId == korisnikId));
+            var korisnik = GetKorisnikById(korisnikId);
+            context.Remove(korisnik);
+        }
+
+        private Tuple<string, string> HashPassword(string lozinka)
+        {
+            var sBytes = new byte[lozinka.Length];
+
+            new RNGCryptoServiceProvider().GetNonZeroBytes(sBytes);
+
+            var salt = Convert.ToBase64String(sBytes);
+            var derivedBytes = new Rfc2898DeriveBytes(lozinka, sBytes, 100);
+
+            return new Tuple<string, string>
+            (
+                Convert.ToBase64String(derivedBytes.GetBytes(256)), 
+                salt
+            );
+        }
+
+        private bool VerifyPassword(string lozinka, string savedLozinka, string savedSalt)
+        {
+            var saltBytes = Convert.FromBase64String(savedSalt);
+            var rfc2898DeriveBytes = new Rfc2898DeriveBytes(lozinka, saltBytes, 100);
+
+            return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256)) == savedLozinka;
+        }
+
+        public bool UserWithCredentialsExists(string korisnickoIme, string lozinka)
+        {
+            Korisnik korisnik = korisnici.FirstOrDefault(k => k.korisnickoIme == korisnickoIme);
+
+            if (korisnik == null)
+            {
+                return false;
+            }
+
+            if (VerifyPassword(lozinka, korisnik.lozinka, korisnik.Salt))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using galic_korisnik.Models;
+﻿using galic_korisnik.Entities;
+using galic_korisnik.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,26 +9,13 @@ namespace galic_korisnik.Data
 {
     public interface IKorisnikRepository
     {
-        List<KorisnikModel> GetKorisnikList();
-
-        KorisnikModel GetKorisnikById(Guid korisnikId); //vraca 1 prijavu po id-u
-
-        KorisnikModel CreateKorisnik(KorisnikModel korisnik); //kreiranje korisnika
-        KorisnikModel UpdateKorisnik(KorisnikModel korisnik); //update korisnika
-
+        List<Korisnik> GetKorisnikList();
+        Korisnik GetKorisnikById(Guid korisnikId); //vraca 1 prijavu po id-u
+        Korisnik CreateKorisnik(Korisnik korisnik); //kreiranje korisnika
+        void UpdateKorisnik(Korisnik korisnik); //update korisnika
         void DeleteKorisnik(Guid korisnikId); //brisanje
-
-
-
-
-
-        /*List<Korisnik> GetKorisnikList();
-        Korisnik GetKorisnikById(Guid korisnikId);
-        KorisnikConfirmationDto CreateKorisnik(Korisnik korisnik);
-        KorisnikConfirmationDto UpdateKorisnik(Korisnik korisnik);
-        KorisnikConfirmationDto DeleteKorisnik(Guid korisnikId);
-
-        bool UserWithCredentialsExists(string korisnickoIme, string lozinka);*/
+        bool SaveChanges();
+        public bool UserWithCredentialsExists(string korisnickoIme, string lozinka);
 
     }
 }

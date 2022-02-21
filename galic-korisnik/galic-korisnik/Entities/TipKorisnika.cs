@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace galic_korisnik.Entities
 {
-    public class KorisnikConfirmation
+    public class TipKorisnika
     {
+        public Guid tipKorisnikaId { get; set; }
+        public string uloga { get; set; }
     }
 }
