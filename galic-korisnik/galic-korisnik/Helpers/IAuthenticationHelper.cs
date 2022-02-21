@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace galic_korisnik.Helpers
 {
-    interface IAuthenticationHelper
+    public interface IAuthenticationHelper
     {
         public bool AuthenticatePrincipal(Principal principal);
         public string GenerateJwt(Principal principal);

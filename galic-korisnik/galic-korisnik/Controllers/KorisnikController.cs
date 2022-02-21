@@ -173,6 +173,21 @@ namespace galic_korisnik.Controllers
             }
         }
 
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("authorize/{token}")]
+        public ActionResult Authorize(string token)
+        {
+
+            if (korisnikRepository.Authorize(token))
+            {
+                return Ok();
+
+            }
+
+            return Unauthorized();
+        }
+
         [HttpOptions]
         public IActionResult GetKorisnikOptions()
         {
