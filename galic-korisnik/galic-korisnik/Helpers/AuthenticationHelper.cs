@@ -18,10 +18,11 @@ namespace galic_korisnik.Helpers //: IAuthenticationHelper
         private readonly IKorisnikRepository korisnikRepository;
         private readonly KorisnikContext context;
 
-        public AuthenticationHelper(IConfiguration configuration, IKorisnikRepository korisnikRepository)
+        public AuthenticationHelper(IConfiguration configuration, IKorisnikRepository korisnikRepository, KorisnikContext context)
         {
             this.configuration = configuration;
             this.korisnikRepository = korisnikRepository;
+            this.context = context;
         }
 
         public bool AuthenticatePrincipal(Principal principal)
@@ -60,6 +61,10 @@ namespace galic_korisnik.Helpers //: IAuthenticationHelper
             string finalToken = tokenResult.ToString() + "#" + korisnik.tipKorisnikaId;
 
             return finalToken;
+        }
+        public bool SaveChanges()
+        {
+            return context.SaveChanges() > 0;
         }
     }
 }
