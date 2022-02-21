@@ -28,5 +28,5 @@ namespace OvlascenoLice.Models
         /// </summary>
         public string Error { get; set; }
     }
-}
+
 }
