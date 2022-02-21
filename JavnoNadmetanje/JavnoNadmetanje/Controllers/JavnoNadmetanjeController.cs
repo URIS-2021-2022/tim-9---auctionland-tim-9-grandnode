@@ -25,14 +25,16 @@ namespace JavnoNadmetanje.Controllers
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "JavnoNadmetanjeService";
         private Message message = new Message();
+        private readonly IKupacService kupacService;
 
         //Pomocu dependency injection-a dodajemo potrebne zavisnosti
-        public JavnoNadmetanjeController(IJavnoNadmetanjeRepository javnoNadmetanjeRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
+        public JavnoNadmetanjeController(IJavnoNadmetanjeRepository javnoNadmetanjeRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, IKupacService kupacService)
         {
             this.javnoNadmetanjeRepository = javnoNadmetanjeRepository;
             this.linkGenerator = linkGenerator;
             this.mapper = mapper;
             this.loggerService = loggerService;
+            this.kupacService = kupacService;
         }
 
         /// <summary>
@@ -58,11 +60,20 @@ namespace JavnoNadmetanje.Controllers
                 loggerService.CreateMessage(message);
                 return NoContent();
             }
+
+            List<JavnoNadmetanjeDto> javnoNadmetanjeDto = mapper.Map<List<JavnoNadmetanjeDto>>(javnaNadmetanja);
+
+            foreach (JavnoNadmetanjeDto j in javnoNadmetanjeDto)
+            {
+                j.Kupac = kupacService.GetNajboljegPonudjaca(j.KupacID).Result;
+            }
+
             message.Information = "Returned list of JavnoNadmetanje";
             loggerService.CreateMessage(message);
 
             //ukoliko smo pronasli neko nadmetanje vratiti status 200 i listu pronadjenih nadmetanja
-            return Ok(mapper.Map<List<JavnoNadmetanjeDto>>(javnaNadmetanja));
+            //return Ok(mapper.Map<List<JavnoNadmetanjeDto>>(javnaNadmetanja));
+            return Ok(mapper.Map<List<JavnoNadmetanjeDto>>(javnoNadmetanjeDto));
         }
 
         /// <summary>
@@ -87,9 +98,14 @@ namespace JavnoNadmetanje.Controllers
                 loggerService.CreateMessage(message);
                 return NotFound();
             }
+
+            JavnoNadmetanjeDto javnoNadmetanjeDto = mapper.Map<JavnoNadmetanjeDto>(javnoNadmetanje);
+            javnoNadmetanjeDto.Kupac = kupacService.GetNajboljegPonudjaca(javnoNadmetanje.KupacID).Result;
+
             message.Information = javnoNadmetanje.ToString();
             loggerService.CreateMessage(message);
-            return Ok(mapper.Map<JavnoNadmetanjeDto>(javnoNadmetanje));
+            //return Ok(mapper.Map<JavnoNadmetanjeDto>(javnoNadmetanje));
+            return Ok(javnoNadmetanjeDto);
         }
 
         /// <summary>

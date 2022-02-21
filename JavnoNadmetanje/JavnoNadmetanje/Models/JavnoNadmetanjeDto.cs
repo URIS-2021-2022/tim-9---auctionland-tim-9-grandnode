@@ -69,5 +69,12 @@ namespace JavnoNadmetanje.Models
         /// Status javnog nadmetanja.
         /// </summary>
         public Guid StatusNadmetanjaID { get; set; }
+
+        /// <summary>
+        /// ID najboljeg ponudjaca.
+        /// </summary>
+        public Guid KupacID { get; set; }
+
+        public KupacDto Kupac { get; set; }
     }
 }
