@@ -65,6 +65,8 @@ namespace UgovorService.Models
 
         public DokumentDto DokumentDto { get; set; }
 
+        public KupacDto KupacDto { get; set; }
+
         /// <summary>
         /// Datum potpisivanja ugovora
         /// </summary>

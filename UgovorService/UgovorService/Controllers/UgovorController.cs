@@ -25,15 +25,17 @@ namespace UgovorService.Controllers
         private readonly string serviceName = "UgovorService";
         private Message message = new Message();
         private readonly IDokument_AKService dokument_AKService;
+        private readonly IKupac_SKService kupac_SKService;
 
 
-        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService)
+        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService, IKupac_SKService kupac_SKService)
         {
             this.ugovorRepository = ugovorRepository;
             this.mapper = mapper;
             this.loggerService = loggerService;
             this.linkGenerator = linkGenerator;
             this.dokument_AKService = dokument_AKService;
+            this.kupac_SKService = kupac_SKService;
         }
 
         [HttpGet]
@@ -63,6 +65,14 @@ namespace UgovorService.Controllers
                         {
                             u.DokumentDto = dokument;
                         }
+                }
+                foreach (UgovorEnt u in ugovori)
+                {
+                    KupacDto kupac = kupac_SKService.GetKupacById(u.KupacID).Result;
+                    if(kupac != null)
+                    {
+                        u.KupacDto = kupac;
+                    }
                 }
             }
             catch
