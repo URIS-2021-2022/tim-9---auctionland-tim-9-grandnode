@@ -90,7 +90,7 @@ namespace Kupac_SK.Controllers
                 return NotFound();
             }
 
-            message.Information = prioritetModel.ToString();
+            message.Information = kontaktOsobaModel.ToString();
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<KontaktOsobaDto>(kontaktOsobaModel));
         }
@@ -123,7 +123,7 @@ namespace Kupac_SK.Controllers
                 }
 
                 kontaktOsobaRepository.DeleteKontaktOsoba(kontaktOsobaId);
-                message.Information = "Successfully deleted " + prioritetId.ToString();
+                message.Information = "Successfully deleted " + kontaktOsobaId.ToString();
                 return NoContent();
             }
             catch (Exception ex)

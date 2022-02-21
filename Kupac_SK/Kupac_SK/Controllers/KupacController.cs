@@ -24,6 +24,7 @@ namespace Kupac_SK.Controllers
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
+        private readonly IovlascenoliceService ovlascenoLiceService;
         private Message message = new Message();
         private readonly string serviceName = "KupacService";
 
@@ -34,14 +35,16 @@ namespace Kupac_SK.Controllers
         /// <param name="fizickoLiceRepository"></param>
         /// <param name="pravnoLiceRepository"></param>
         /// <param name="loggerService"></param>
+        /// <param name="ovlascenoLiceService"></param>
         /// <param name="linkGenerator"></param>
         /// <param name="mapper"></param>
-        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)
+        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, IovlascenoliceService ovlascenoLiceService, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.fizickoLiceRepository = fizickoLiceRepository;
             this.pravnoLiceRepository = pravnoLiceRepository;
             this.linkGenerator = linkGenerator;
             this.loggerService = loggerService;
+            this.ovlascenoLiceService = ovlascenoLiceService;
             this.mapper = mapper;
         }
         /// <summary>
@@ -61,6 +64,19 @@ namespace Kupac_SK.Controllers
             List<KupacModel> temp = pravnaLica.ConvertAll(f => (KupacModel)f);
 
             sviKupci.AddRange(temp); //objedinjena fizicka i pravna lica 
+
+
+            try
+            {
+                foreach(KupacModel k in sviKupci)
+                {
+                    OvlascenoLiceDTO olice = ovlascenoLiceService.GetOvlascenoLiceById(k.OvlascenoLiceID).Result;
+                    if(olice != null)
+                    {
+                        k.OvlascenoLice = olice;
+                    }
+                }
+            }
 
             message.Information = "Returned list of kupci";
                  loggerService.CreateMessage(message);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kupac_SK.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,6 +28,12 @@ namespace Kupac_SK.Entities
 
         public string Email { get; set; }
         public string BrojRacuna { get; set; }
+
+
+        [NotMapped]
+        public OvlascenoLiceDTO OvlascenoLice { get; set; }
+
+
 
         override
       public string ToString()
