@@ -1,0 +1,70 @@
+{
+  "Routes": [
+    {
+      ///// KORISNIK /////
+      "DownstreamPathTemplate": "/api/korisnici/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44200
+        }
+      ],
+      "UpstreamPathTemplate": "/korisnici/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Options", "Head" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "DownstreamPathTemplate": "/api/korisnici",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44200
+        }
+      ],
+      "UpstreamPathTemplate": "/korisnici",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Options", "Head" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    ///// KORISNIK /////
+    ///// LOGGER /////
+    {
+      "DownstreamPathTemplate": "/api/logger",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44200
+        }
+      ],
+      "UpstreamPathTemplate": "/logger",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Options", "Head" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    }
+
+
+
+
+
+
+
+
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5021"
+  }
+}

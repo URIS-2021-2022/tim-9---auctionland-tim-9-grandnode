@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "galic-gateway", "galic-gateway\galic-gateway.csproj", "{E43728AB-CF9D-488C-BFDA-2FEA5E01826C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E43728AB-CF9D-488C-BFDA-2FEA5E01826C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E43728AB-CF9D-488C-BFDA-2FEA5E01826C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E43728AB-CF9D-488C-BFDA-2FEA5E01826C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E43728AB-CF9D-488C-BFDA-2FEA5E01826C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E293927F-45A7-4DB8-B338-613EF6A0AF84}
+	EndGlobalSection
+EndGlobal
