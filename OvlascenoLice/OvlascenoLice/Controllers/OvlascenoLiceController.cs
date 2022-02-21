@@ -39,6 +39,7 @@ namespace OvlascenoLice.Controllers
         /// <response code="204">Nije pronađen ni jedna ličnost u sistemu</response>
         [HttpGet]
         [HttpHead]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<OvlascenoLiceDto>> GetOvlascenaLica()
@@ -65,6 +66,7 @@ namespace OvlascenoLice.Controllers
         /// <param name="ovlascenoLiceId"></param>
         /// <returns></returns>
         [HttpGet("{ovlascenoLiceId}")]
+        [Consumes("application/json")]
         public ActionResult<OvlascenoLiceDto> GetOvlascenoLiceById(Guid ovlascenoLiceId )
         {
             OvlascenoLiceModel lice = ovlascenoLiceRepository.GetOvlascenoLiceById(ovlascenoLiceId);
@@ -139,6 +141,7 @@ namespace OvlascenoLice.Controllers
         /// <param name="ovlascenoLice">popunite ispravno model</param>
         /// <returns></returns>
         [HttpPost]
+        [Consumes("application/json")]
         public ActionResult<OvlascenoLiceDto> CreateOvlascenoLice([FromBody] OvlascenoLiceDto ovlascenoLice)
         {
 
@@ -148,17 +151,23 @@ namespace OvlascenoLice.Controllers
 
             try
             {
+                Console.WriteLine("1");
                 OvlascenoLiceModel lice1 = mapper.Map<OvlascenoLiceModel>(ovlascenoLice);
+                // lice1 = ovlascenoLiceRepository.CreateOvlascenoLice(lice1);
+                Console.WriteLine("2");
                 OvlascenoLiceModel createLice = ovlascenoLiceRepository.CreateOvlascenoLice(lice1);
+                Console.WriteLine("3");
                 ovlascenoLiceRepository.SaveChanges();
+                Console.WriteLine("4");
 
-                string location = linkGenerator.GetPathByAction("GetOvlascenoLiceById", "OvlascenoLice", new { ovlascenoLiceId = lice1.OvlascenoLiceID});
+
+                string location = linkGenerator.GetPathByAction("GetOvlascenoLiceById", "OvlascenoLice", new { ovlascenoLiceId = createLice.OvlascenoLiceID});
 
                 message.Information = ovlascenoLice.ToString() + " | Ovlasceno lice location: " + location;
                 loggerService.CreateMessage(message);
 
 
-                return Created(location, mapper.Map<OvlascenoLiceModel>(createLice));
+                return Created(location, mapper.Map<OvlascenoLiceDto>(createLice));
             }
             catch (Exception e)
             {
