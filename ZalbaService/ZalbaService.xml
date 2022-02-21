@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZalbaService</name>
+    </assembly>
+    <members>
+        <member name="M:ZalbaService.Controllers.RadnjaController.GetAllRadnja(System.String)">
+            <summary>
+            Vraća sve radnje na osnovu zalbe.
+            </summary>
+            <returns>Lista radnji na osnovu zalbe</returns>
+            <response code="200">Vraća listu radnji na osnovu zalbe</response>
+            <response code="204">Nije pronađena ni jedna radnja na osnovu zalbe u sistemu</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.RadnjaController.GetRadnja(System.Guid)">
+            <summary>
+            Vraća radnju na osnovu identifikatora radnje na osnovu zalbe.
+            </summary>
+            <param name="radnjaId">Identifikator radnja (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Radnja na osnovu zalbe</returns>
+            <response code="200">Vraća radnju na osnovu zalbe koja je pronađena</response>
+            <response code="204">Ne postoji radnja na osnovu zalbe sa datim identifikatorom</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.RadnjaController.GetRadnjaOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+        <member name="M:ZalbaService.Controllers.StatusZalbeController.GetAllStatusZalbe(System.String)">
+            <summary>
+            Vraća sve statuse zalbi.
+            </summary>
+            <returns>Lista statusa zalbi</returns>
+            <response code="200">Vraća listu statusa zalbi</response>
+            <response code="204">Nije pronađen ni jedan status zalbe u sistemu</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.StatusZalbeController.GetStatusZalbe(System.Guid)">
+            <summary>
+            Vraća status zalbe na osnovu identifikatora status zalbe.
+            </summary>
+            <param name="statusZalbeId">Identifikator status zalbe (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Status Zalbe</returns>
+            <response code="200">Vraća status zalbe koji je pronađen</response>
+            <response code="204">Ne postoji status zalbe sa datim identifikatorom</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.StatusZalbeController.GetStatusZalbeOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+        <member name="M:ZalbaService.Controllers.TipZalbeController.GetAllTipZalbe(System.String)">
+            <summary>
+            Vraća sve tipove zalbi.
+            </summary>
+            <returns>Lista tipova zalbi</returns>
+            <response code="200">Vraća listu tipova zalbi</response>
+            <response code="204">Nije pronađen ni jedan tip zalbe u sistemu</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.TipZalbeController.GetTipZalbe(System.Guid)">
+            <summary>
+            Vraća tip zalbe na osnovu identifikatora tipa zalbe.
+            </summary>
+            <param name="tipZalbeId">Identifikator tip zalbe (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Tip Zalbe</returns>
+            <response code="200">Vraća tip zalbe koji je pronađen</response>
+            <response code="204">Ne postoji tip zalbe sa datim identifikatorom</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.TipZalbeController.GetTipZalbeOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+        <member name="M:ZalbaService.Controllers.ZalbaController.GetAllZalba">
+            <summary>
+            Vraća sve zalbe.
+            </summary>
+            <returns>Lista zalbi</returns>
+            <response code="200">Vraća listu zalbi</response>
+            <response code="204">Nije pronađena ni jedna zalba u sistemu</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.ZalbaController.GetZalba(System.Guid)">
+            <summary>
+            Vraća zalbu na osnovu identifikatora zalba.
+            </summary>
+            <param name="zalbaId">Identifikator zalba (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>Zalba</returns>
+            <response code="200">Vraća zalbu koji je pronađen</response>
+            <response code="204">Ne postoji zalba sa datim identifikatorom</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.ZalbaController.CreateZalba(ZalbaService.Models.Zalba.ZalbaCreationDto)">
+            <summary>
+            Upisuje zalbu.
+            </summary>
+            <param name="zalbaDto">Model zalbe</param>
+            <returns>Podatke o zalbi koja je upisana</returns>
+            <remarks>
+            Primer zahteva za upis zalbe \
+            POST /api/zalba \
+            {
+                "ZalbaId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+                "TipZalbeId" : "1584d0d5-2055-4a10-f724-08d9f3dcf72m",
+                "DatumZalbe" : "2021-04-20T11:00:00",
+                "PodnosilacZalbe" : "bb14ca98-fcc0-4063-8a2b-341c3f38cdc4" ,
+                "Razlog" : "Krsenje pravilnika za javno nadmetanje",
+                "Obrazlozenje" : "Neispravnost prilikom dodeljivanja parcele",
+                "DatumResenja" : "2021-06-03T10:00:00",
+                "BrojResenja" : "15487",
+                "StatusZalbeId" : "212b6e83-ab50-49ec-bd95-92cd5e8f8a25",
+                "BrojOdluke" : "12540",
+                "RadnjaId" : "3eeede02-9e9e-46d2-8034-d21125e45b43"
+                
+            }
+            </remarks>
+            <response code="201">Vraća podatke o upisanoj zalbi</response>
+            <response code="500">Postoji neki problem sa upisom</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.ZalbaController.UpdateZalba(ZalbaService.Models.Zalba.ZalbaUpdateDto)">
+            <summary>
+            Menja vrednosti obeležja zalba.
+            </summary>
+            <param name="zalbaDto">Model zalbe</param>
+            <returns>Podatke o zalbi koja je upisana</returns>
+                /// <remarks>
+            Primer zahteva za upis zalbe \
+            POST /api/zalba \
+            {
+                 "ZalbaId": "7684d0d5-2055-4a10-f724-08d9f3dcf86e",
+                "TipZalbeId" : "1584d0d5-2055-4a10-f724-08d9f3dcf72m",
+                "DatumZalbe" : "2021-04-20T11:00:00",
+                "PodnosilacZalbe" : "bb14ca98-fcc0-4063-8a2b-341c3f38cdc4" ,
+                "Razlog" : "Krsenje pravilnika za javno nadmetanje",
+                "Obrazlozenje" : "Neispravnost prilikom dodeljivanja parcele",
+                "DatumResenja" : "2021-06-03T10:00:00",
+                "BrojResenja" : "15487",
+                "StatusZalbeId" : "212b6e83-ab50-49ec-bd95-92cd5e8f8a25",
+                "BrojOdluke" : "12540",
+                "RadnjaId" : "3eeede02-9e9e-46d2-8034-d21125e45b43"
+            }
+            </remarks>
+            <response code="200">Vraća podatke o izmenjenoj zalbi</response>
+            <response code="404">Ne postoji zalba za koju je pokušana izmena</response>
+            <response code="500">Postoji neki problem sa izmenom</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.ZalbaController.DeleteZalba(System.Guid)">
+            <summary>
+            Briše zalbu na osnovu identifikatora.
+            </summary>
+            <param name="zalbaId">Identifikator zalbe (npr. 7684d0d5-2055-4a10-f724-08d9f3dcf86e)</param>
+            <returns>string</returns>
+            <response code="204">Vraća poruku o uspešnom brisanju</response>
+            <response code="404">Ne postoji zalba sa tim identifikatorom</response>
+            <response code="500">Postoji problem sa brisanjem na serveru</response>
+        </member>
+        <member name="M:ZalbaService.Controllers.ZalbaController.GetZalbaOptions">
+            <summary>
+            Prikazuje metode koje je moguće koristiti
+            </summary>
+        </member>
+    </members>
+</doc>
