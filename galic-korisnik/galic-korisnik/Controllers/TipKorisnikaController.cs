@@ -35,7 +35,7 @@ namespace galic_korisnik.Controllers
         [HttpGet]
         public ActionResult<List<TipKorisnikaDto>> GetTipKorisnikaList()
         {
-            var tipovi = tipKorisnikaRepository.GetTipKorisnikaList();
+            List<TipKorisnika> tipovi = tipKorisnikaRepository.GetTipKorisnikaList();
             message.Method = "GET";
 
 
@@ -51,10 +51,11 @@ namespace galic_korisnik.Controllers
             return Ok(mapper.Map<List<TipKorisnikaDto>>(tipovi));
         }
 
+
         [HttpGet("{tipKorisnikaId}")]
         public ActionResult<TipKorisnikaDto> GetTipKorisnikaById(Guid tipKorisnikaId) //Na ovaj parametar će se mapirati ono što je prosleđeno u ruti
         {
-            var tipKorisnika = tipKorisnikaRepository.GetTipKorisnikaById(tipKorisnikaId);
+            TipKorisnika tipKorisnika = tipKorisnikaRepository.GetTipKorisnikaById(tipKorisnikaId);
             message.Method = "GET";
 
             if (tipKorisnika == null)
@@ -120,7 +121,7 @@ namespace galic_korisnik.Controllers
 
                 return NoContent();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 message.Information = "Server error";
                 message.Error = ex.Message;
@@ -129,7 +130,6 @@ namespace galic_korisnik.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error during the deletion");
             }
         }
-
 
         [HttpPut]
         public ActionResult<TipKorisnikaDto> UpdateTipKorisnika(TipKorisnika tipKorisnika)

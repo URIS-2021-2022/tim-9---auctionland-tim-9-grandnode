@@ -15,6 +15,7 @@ namespace galic_korisnik.Controllers
 {
     [ApiController]
     [Route("api/korisnici")]
+    [Produces("application/json", "application/xml")]
     public class KorisnikController : ControllerBase
     {
         //dependency injector
@@ -33,6 +34,9 @@ namespace galic_korisnik.Controllers
         }
 
         [HttpGet]
+        [HttpHead]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult<List<KorisnikDto>> GetKorisnikList()
         {
             List<Korisnik> korisnikList = korisnikRepository.GetKorisnikList();
@@ -51,6 +55,8 @@ namespace galic_korisnik.Controllers
         }
 
         [HttpGet("{korisnikId}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<KorisnikDto>> GetKorisnikById(Guid korisnikId)
         {
             Korisnik korisnik = korisnikRepository.GetKorisnikById(korisnikId);
@@ -69,6 +75,7 @@ namespace galic_korisnik.Controllers
         }
 
         [HttpPost]
+        [Produces("application/json")]
         public ActionResult<KorisnikDto> CreateKorisnik([FromBody] KorisnikCreateDto korisnik) //FromBody uzima iz bodya requesta
         {
             message.Method = "POST";
@@ -77,6 +84,7 @@ namespace galic_korisnik.Controllers
             {
                 Korisnik createKorisnik = mapper.Map<Korisnik>(korisnik);
                 Korisnik confirmation = korisnikRepository.CreateKorisnik(createKorisnik);
+                korisnikRepository.SaveChanges();
 
                 string location = linkGenerator.GetPathByAction("GetKorisnik", "Korisnik", new { korisnikId = confirmation.korisnikId });
 
@@ -85,7 +93,7 @@ namespace galic_korisnik.Controllers
 
                 return Created(location, mapper.Map<KorisnikDto>(confirmation));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 message.Information = "Server error";
                 message.Error = ex.Message;
@@ -116,7 +124,7 @@ namespace galic_korisnik.Controllers
                 message.Information = "Successfully deleted " + deleteKorisnik.ToString();
                 return StatusCode(StatusCodes.Status200OK, "You have successfully deleted " + deleteKorisnik.ToString());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 message.Information = "Server error";
                 message.Error = ex.Message;
@@ -127,6 +135,7 @@ namespace galic_korisnik.Controllers
 
 
         [HttpPut]
+        [Produces("application/json")]
         public ActionResult<KorisnikDto> UpdateKorisnik(KorisnikUpdateDto korisnik)
         {
             message.Method = "PUT";
@@ -163,7 +172,23 @@ namespace galic_korisnik.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Update error");
             }
         }
-        
+
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("authorize/{token}")]
+        public ActionResult Authorize(string token)
+        {
+
+            if (korisnikRepository.Authorize(token))
+            {
+                return Ok();
+
+            }
+
+            return Unauthorized();
+        }
+
+        [HttpOptions]
         public IActionResult GetKorisnikOptions()
         {
             Response.Headers.Add("Allow", "GET, POST, PUT, DELETE");

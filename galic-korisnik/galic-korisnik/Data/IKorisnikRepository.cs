@@ -16,6 +16,7 @@ namespace galic_korisnik.Data
         void DeleteKorisnik(Guid korisnikId); //brisanje
         bool SaveChanges();
         public bool UserWithCredentialsExists(string korisnickoIme, string lozinka);
+        bool Authorize(string token);
 
     }
 }

@@ -65,6 +65,13 @@ namespace galic_korisnik.Data
             context.Remove(korisnik);
         }
 
+        public bool Authorize(String token)
+        {
+
+            return context.Tokens.FirstOrDefault(e => e.token == token) != null;
+
+        }
+
         private Tuple<string, string> HashPassword(string lozinka)
         {
             var sBytes = new byte[lozinka.Length];
@@ -76,7 +83,7 @@ namespace galic_korisnik.Data
 
             return new Tuple<string, string>
             (
-                Convert.ToBase64String(derivedBytes.GetBytes(256)), 
+                Convert.ToBase64String(derivedBytes.GetBytes(256)),
                 salt
             );
         }

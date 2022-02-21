@@ -1,4 +1,5 @@
 ﻿using galic_korisnik.Data;
+using galic_korisnik.Entities;
 using galic_korisnik.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -11,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace galic_korisnik.Helpers //: IAuthenticationHelper
 {
-    public class AuthenticationHelper
+    public class AuthenticationHelper : IAuthenticationHelper
     {
         private readonly IConfiguration configuration;
         private readonly IKorisnikRepository korisnikRepository;
+        private readonly KorisnikContext context;
 
         public AuthenticationHelper(IConfiguration configuration, IKorisnikRepository korisnikRepository)
         {
@@ -43,7 +45,21 @@ namespace galic_korisnik.Helpers //: IAuthenticationHelper
                                              expires: DateTime.Now.AddMinutes(120),
                                              signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            TokenTime tokenTime = new TokenTime();
+            Korisnik korisnik = context.Korisnik.FirstOrDefault(e => e.korisnickoIme == principal.Username);
+            Random rand = new Random();
+
+            tokenTime.tokenId = rand.Next();
+            tokenTime.korisnikId = korisnik.korisnikId;
+            tokenTime.time = DateTime.Now;
+            tokenTime.token = new JwtSecurityTokenHandler().WriteToken(token).ToString();
+
+            var createdEntity = context.Add(tokenTime);
+
+            var tokenResult = new JwtSecurityTokenHandler().WriteToken(token);
+            string finalToken = tokenResult.ToString() + "#" + korisnik.tipKorisnikaId;
+
+            return finalToken;
         }
     }
 }
