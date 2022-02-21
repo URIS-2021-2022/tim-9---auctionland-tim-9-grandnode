@@ -17,6 +17,7 @@ namespace Kupac_SK.Controllers
 /// </summary>
     [ApiController]
     [Route("api/kupci")]
+    [Produces("application/json", "application/xml")]
     public class KupacController : ControllerBase 
     {
         private readonly IFizickoLiceRepository fizickoLiceRepository;
@@ -53,6 +54,7 @@ namespace Kupac_SK.Controllers
         /// <returns></returns>
         [HttpGet]
         [HttpHead]
+     
 
         public ActionResult<List<KupacModelDto>> GetKupci()
         {
@@ -79,7 +81,7 @@ namespace Kupac_SK.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "error");
+                return default;
             }
 
             message.Information = "Returned list of kupci";
@@ -238,6 +240,7 @@ namespace Kupac_SK.Controllers
         }
 
         [HttpPost]
+        [Produces("application/json")]
         public ActionResult<KupacModelDto> CreateKupac([FromBody] KupacModelDto kupac)
         {
             message.ServiceName = serviceName;

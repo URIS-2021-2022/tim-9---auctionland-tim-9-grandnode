@@ -21,6 +21,7 @@ namespace Kupac_SK.ServiceCalls_
 
         public void CreateMessage(Message message)
         {
+            try { 
             using (HttpClient client = new HttpClient())
             {
                 var x = configuration["Services:LoggerService"];    //Services:LoggerService je definisano u appsettings.json i sadrži lokaciju servisa
@@ -30,6 +31,11 @@ namespace Kupac_SK.ServiceCalls_
                 content.Headers.ContentType.MediaType = "application/json";
 
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            }
+            }
+            catch
+            {
 
             }
         }
