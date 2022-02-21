@@ -109,8 +109,10 @@ namespace UgovorService
             services.AddSingleton<IUgovorRepository, UgovorMockRepository>();
             services.AddSingleton<ITipGarancijeRepository, TipGarancijeMockRepository>();
             services.AddSingleton<IUserRepository, UserMockRepository>();
+            services.AddScoped<IDokument_AKService, Dokument_AKService>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
+          
 
 
 

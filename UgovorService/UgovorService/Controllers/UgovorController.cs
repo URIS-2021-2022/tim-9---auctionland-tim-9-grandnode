@@ -24,14 +24,16 @@ namespace UgovorService.Controllers
         private readonly IMapper mapper;
         private readonly string serviceName = "UgovorService";
         private Message message = new Message();
+        private readonly IDokument_AKService dokument_AKService;
 
 
-        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator)
+        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService)
         {
             this.ugovorRepository = ugovorRepository;
             this.mapper = mapper;
             this.loggerService = loggerService;
             this.linkGenerator = linkGenerator;
+            this.dokument_AKService = dokument_AKService;
         }
 
         [HttpGet]
@@ -50,6 +52,28 @@ namespace UgovorService.Controllers
                 message.Error = "There is no content in database!";
                 loggerService.CreateMessage(message);
                 return NoContent();
+            }
+            try
+            {
+                foreach (UgovorEnt u in ugovori)
+                {
+                    try
+                    {
+                        DokumentDto dokument = dokument_AKService.GetDokumentByID(u.DokumentID).Result.Value;
+                        if (dokument != null)
+                        {
+                            u.DokumentDto = dokument;
+                        }
+                    }
+                    catch
+                    {
+                        return default;
+                    }
+                }
+            }
+            catch
+            {
+                return default;
             }
 
             message.Information = "Returned list of Ugovor";

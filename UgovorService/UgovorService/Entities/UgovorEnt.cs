@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using UgovorService.Models;
 
 namespace UgovorService.Entities
 {
@@ -70,6 +71,9 @@ namespace UgovorService.Entities
         /// Datum potpisivanja ugovora
         /// </summary>
        public DateTime DatumPot { get; set; }
+
+        [NotMapped]
+        public DokumentDto DokumentDto { get; set; }
 
         override
         public string ToString()
