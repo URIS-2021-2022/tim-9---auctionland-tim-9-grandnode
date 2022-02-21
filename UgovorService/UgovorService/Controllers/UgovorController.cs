@@ -26,9 +26,10 @@ namespace UgovorService.Controllers
         private Message message = new Message();
         private readonly IDokument_AKService dokument_AKService;
         private readonly IKupac_SKService kupac_SKService;
+        private readonly IJavnoNadmetanjeService javnoNadmetanjeService;
 
 
-        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService, IKupac_SKService kupac_SKService)
+        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService, IKupac_SKService kupac_SKService, IJavnoNadmetanjeService javnoNadmetanjeService)
         {
             this.ugovorRepository = ugovorRepository;
             this.mapper = mapper;
@@ -36,6 +37,7 @@ namespace UgovorService.Controllers
             this.linkGenerator = linkGenerator;
             this.dokument_AKService = dokument_AKService;
             this.kupac_SKService = kupac_SKService;
+            this.javnoNadmetanjeService = javnoNadmetanjeService;
         }
 
         [HttpGet]
@@ -72,6 +74,14 @@ namespace UgovorService.Controllers
                     if(kupac != null)
                     {
                         u.KupacDto = kupac;
+                    }
+                }
+                foreach (UgovorEnt u in ugovori)
+                {
+                    JavnoNadmetanjeDto nadmetanje = javnoNadmetanjeService.GetJavnoNadmetanjeByID(u.JavnoNadmetanjeID).Result;
+                    if (nadmetanje != null)
+                    {
+                        u.JavnoNadmetanjeDto = nadmetanje;
                     }
                 }
             }

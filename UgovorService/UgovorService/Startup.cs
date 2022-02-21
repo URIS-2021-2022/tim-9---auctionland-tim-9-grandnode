@@ -111,6 +111,7 @@ namespace UgovorService
             services.AddSingleton<IUserRepository, UserMockRepository>();
             services.AddScoped<IDokument_AKService, Dokument_AKService>();
             services.AddScoped<IKupac_SKService, Kupac_SKService>();
+            services.AddScoped<IJavnoNadmetanjeService, JavnoNadmetanjeService>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
           

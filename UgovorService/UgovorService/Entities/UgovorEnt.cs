@@ -78,6 +78,9 @@ namespace UgovorService.Entities
         [NotMapped]
         public KupacDto KupacDto { get; set; }
 
+        [NotMapped]
+        public JavnoNadmetanjeDto JavnoNadmetanjeDto { get; set; }
+
         override
         public string ToString()
         {
