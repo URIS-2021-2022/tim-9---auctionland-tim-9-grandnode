@@ -11,9 +11,7 @@ namespace ZalbaService.Data.Interfaces
 
         List<TipZalbe> GetAllTipZalbe(string NazivTipa = null);
         TipZalbe GetTipZalbeById(Guid tipZalbeId);
-        /*TipZalbe CreateTipZalbe(TipZalbe tipZalbe);
-        void UpdateTipZalbe(TipZalbe tipZalbe);
-        void DeleteTipZalbe(Guid tipZalbeId);*/
+
         bool SaveChanges();
 
     }

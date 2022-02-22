@@ -15,7 +15,7 @@ namespace ZalbaService.Entities
         [Required]
         public string NazivStatusa { get; set; }
 
-        public string ToString()
+        public override string ToString()
         {
             return "StatusZalbe: { StatusZalbeId: " + this.StatusZalbeId + ", NazivStatusa: " + this.NazivStatusa + " }";
         }

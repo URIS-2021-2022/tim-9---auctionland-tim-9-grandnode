@@ -52,7 +52,7 @@ namespace ZalbaService.Data
 
         public void UpdateZalba(Zalba zalba)
         {
-            
+            //Entity framework core prati entitet pa nema potrebe za implementacijom
         }
     }
 }

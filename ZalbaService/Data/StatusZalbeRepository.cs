@@ -14,12 +14,10 @@ namespace ZalbaService.Data
     {
 
         private readonly ZalbaContext zalbaContext;
-        private readonly IMapper mapper;
 
-        public StatusZalbeRepository(ZalbaContext context, IMapper mapper)
+        public StatusZalbeRepository(ZalbaContext context)
         {
             zalbaContext = context;
-            this.mapper = mapper;
         }
 
         public bool SaveChanges()
@@ -27,18 +25,7 @@ namespace ZalbaService.Data
             return zalbaContext.SaveChanges() > 0;
         }
 
-       /* public StatusZalbe CreateStatusZalbe(StatusZalbe statusZalbe)
-        {
-            var createdEntity = zalbaContext.Add(statusZalbe);
-            return mapper.Map<StatusZalbe>(createdEntity.Entity);
-        }
 
-        public void DeleteStatusZalbe(Guid statusZalbeId)
-        {
-            var statusZalbe = GetStatusZalbeById(statusZalbeId);
-            zalbaContext.Remove(statusZalbe);
-        }
-       */
         public List<StatusZalbe> GetAllStatusZalbe(string NazivStatusa = null)
         {
             return zalbaContext.StatusZalbe

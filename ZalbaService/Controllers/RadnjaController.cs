@@ -23,16 +23,14 @@ namespace ZalbaService.Controllers
     {
 
         private readonly IRadnjaRepository radnjaRepository;
-        private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "ZalbaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
-        public RadnjaController(IRadnjaRepository radnjaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
+        public RadnjaController(IRadnjaRepository radnjaRepository, IMapper mapper, ILoggerService loggerService)
         {
             this.radnjaRepository = radnjaRepository;
-            this.linkGenerator = linkGenerator;
             this.mapper = mapper;
             this.loggerService = loggerService;
         }
@@ -90,67 +88,7 @@ namespace ZalbaService.Controllers
             return Ok(mapper.Map<RadnjaDto>(radnja));
         }
 
-        /*[HttpPost]
-        public  ActionResult<RadnjaDto> CreateRadnja([FromBody] RadnjaCreationDto radnja)
-        {
-            try
-            {
-                Radnja _radnja = mapper.Map<Radnja>(radnja);
-                _radnja = radnjaRepository.CreateRadnja(_radnja);
-                radnjaRepository.SaveChanges();
-
-                string lokacija = linkGenerator.GetPathByAction("GetRadnja", "Radnja", new { radnjaId = _radnja.RadnjaId });
-                return Created(lokacija, mapper.Map<RadnjaDto>(_radnja));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom kreiranja radnje!");
-            }
-        }
-
-        [HttpPut]
-        public ActionResult<RadnjaDto> UpdateRadnja(RadnjaUpdateDto radnja)
-        {
-            try
-            {
-                var staraRadnja = radnjaRepository.GetRadnjaById(radnja.RadnjaId);
-                if (staraRadnja == null)
-                {
-                    return NotFound();
-                }
-                Radnja novaRadnja = mapper.Map<Radnja>(radnja);
-                mapper.Map(novaRadnja, staraRadnja);
-                radnjaRepository.SaveChanges();
-
-                return Ok(mapper.Map<RadnjaDto>(staraRadnja));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom izmene radnje!");
-            }
-        }
-
-        [HttpDelete("{radnjaId}")]
-        public IActionResult DeleteRadnja(Guid radnjaId)
-        {
-            try
-            {
-                var radnja = radnjaRepository.GetRadnjaById(radnjaId);
-                if (radnja == null)
-                {
-                    return NotFound();
-                }
-                radnjaRepository.DeleteRadnja(radnjaId);
-                radnjaRepository.SaveChanges();
-
-                return NoContent();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja radnje!");
-            }
-        }
-        */
+        
         /// <summary>
         /// Prikazuje metode koje je moguće koristiti
         /// </summary>

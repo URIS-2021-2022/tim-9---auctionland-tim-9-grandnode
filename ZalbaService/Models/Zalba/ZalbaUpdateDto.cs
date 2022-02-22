@@ -11,7 +11,7 @@ namespace ZalbaService.Models.Zalba
         public Guid ZalbaId { get; set; }
 
         [Required(ErrorMessage = "Obavezno uneti id tipa zalbe!")]
-        public Guid TipZalbe { get; set; }
+        public Guid TipZalbeId { get; set; }
         [Required(ErrorMessage = "Obavezno uneti datum zalbe!")]
         public DateTime DatumZalbe { get; set; }
         [Required(ErrorMessage = "Obavezno uneti ime podnosioca zalbe!")]
@@ -25,10 +25,10 @@ namespace ZalbaService.Models.Zalba
         [Required(ErrorMessage = "Obavezno uneti naziv broj resenja!")]
         public string BrojResenja { get; set; }
         [Required(ErrorMessage = "Obavezno uneti id statusa zalbe!")]
-        public Guid StatusZalbe { get; set; }
+        public Guid StatusZalbeId { get; set; }
         [Required(ErrorMessage = "Obavezno uneti broj odluke!")]
         public string BrojOdluke { get; set; }
         [Required(ErrorMessage = "Obavezno uneti id radnje!")]
-        public Guid Radnja { get; set; }
+        public Guid RadnjaId { get; set; }
     }
 }

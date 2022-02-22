@@ -23,8 +23,8 @@ namespace ZalbaService.ServiceCalls
         {
             using (HttpClient client = new HttpClient())
             {
-                var x = configuration["Services:Kupac_SK"];
-                Uri url = new Uri($"{ configuration["Services:Kupac_SK"] }api/kupac/{kupacId}");
+                
+                Uri url = new Uri($"{ configuration["Services:Kupac_SK"] }api/kupci/{kupacId}");
 
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(kupacId));
                 content.Headers.ContentType.MediaType = "application/json";

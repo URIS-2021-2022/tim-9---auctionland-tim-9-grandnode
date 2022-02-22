@@ -57,7 +57,7 @@ namespace ZalbaService.Data
         }
 
 
-        private Tuple<string, string> HashPassword(string password)
+        private static Tuple<string, string> HashPassword(string password)
         {
             var sBytes = new byte[password.Length];
             new RNGCryptoServiceProvider().GetNonZeroBytes(sBytes);

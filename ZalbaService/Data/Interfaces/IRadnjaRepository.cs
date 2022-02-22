@@ -10,9 +10,7 @@ namespace ZalbaService.Data.Interfaces
     {
         List<Radnja> GetAllRadnja(string NazivRadnje = null);
         Radnja GetRadnjaById(Guid radnjaId);
-        /*Radnja CreateRadnja(Radnja radnja);
-        void UpdateRadnja(Radnja radnja);
-        void DeleteRadnja(Guid radnjaId);*/
+
         bool SaveChanges();
 
     }

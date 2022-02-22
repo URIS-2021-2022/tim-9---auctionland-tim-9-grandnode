@@ -14,7 +14,7 @@ namespace ZalbaService.Entities
         [Required]
         public string NazivTipa { get; set; }
 
-        public string ToString()
+        public override string ToString()
         {
             return "TipZalbe: { TipZalbeId: " + this.TipZalbeId + ", NazivTipa: " + this.NazivTipa + " }";
         }

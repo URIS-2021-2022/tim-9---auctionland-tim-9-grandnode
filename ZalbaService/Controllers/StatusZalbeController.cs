@@ -21,17 +21,15 @@ namespace ZalbaService.Controllers
     public class StatusZalbeController : ControllerBase
     {
         private readonly IStatusZalbeRepository statusZalbeRepository;
-        private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "ZalbaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
 
-        public StatusZalbeController(IStatusZalbeRepository statusZalbeRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
+        public StatusZalbeController(IStatusZalbeRepository statusZalbeRepository, IMapper mapper, ILoggerService loggerService)
         {
             this.statusZalbeRepository = statusZalbeRepository;
-            this.linkGenerator = linkGenerator;
             this.mapper = mapper;
             this.loggerService = loggerService;
         }
@@ -88,67 +86,7 @@ namespace ZalbaService.Controllers
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<StatusZalbeDto>(statusZalbe));
         }
-        /*
-        [HttpPost]
-        public ActionResult<StatusZalbeDto> CreateStatusZalbe([FromBody] StatusZalbeCreationDto statusZalbe)
-        {
-            try
-            {
-                StatusZalbe statusz = mapper.Map<StatusZalbe>(statusZalbe);
-                statusz = statusZalbeRepository.CreateStatusZalbe(statusz);
-                statusZalbeRepository.SaveChanges();
-
-                string lokacija = linkGenerator.GetPathByAction("GetStatusZalbe", "StatusZalbe", new { statusZalbeId = statusz.StatusZalbeId });
-                return Created(lokacija, mapper.Map<StatusZalbeDto>(statusz));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom kreiranja statusa zalbe!");
-            }
-        }
-
-        [HttpPut]
-        public ActionResult<StatusZalbeDto> UpdateStatusZalbe(StatusZalbeUpdateDto statusZalbe)
-        {
-            try
-            {
-                var stariStatusZ = statusZalbeRepository.GetStatusZalbeById(statusZalbe.StatusZalbeId);
-                if (stariStatusZ == null)
-                {
-                    return NotFound();
-                }
-                StatusZalbe noviStatusZ = mapper.Map<StatusZalbe>(statusZalbe);
-                mapper.Map(noviStatusZ, stariStatusZ);
-                statusZalbeRepository.SaveChanges();
-
-                return Ok(mapper.Map<StatusZalbeDto>(stariStatusZ));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom izmene statusa zalbe!");
-            }
-        }
-
-        [HttpDelete("{statusZalbeId}")]
-        public IActionResult DeleteStatusZalbe(Guid statusZalbeId)
-        {
-            try
-            {
-                var statusZalbe = statusZalbeRepository.GetStatusZalbeById(statusZalbeId);
-                if (statusZalbe == null)
-                {
-                    return NotFound();
-                }
-                statusZalbeRepository.DeleteStatusZalbe(statusZalbeId);
-                statusZalbeRepository.SaveChanges();
-
-                return NoContent();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja statusa zalbe!");
-            }
-        }*/
+      
 
         /// <summary>
         /// Prikazuje metode koje je moguće koristiti

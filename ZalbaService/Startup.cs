@@ -76,18 +76,7 @@ namespace ZalbaService
                         Title = "Zalba Service API",
                         Version = "1",
                         Description = "Ovaj API sluzi za rad sa objektima tipa Zalba.",
-                        Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                        {
-                            Name = "Milica Tomanovic",
-                            Email = "milicatomanovic@gmail.com",
-                            Url = new Uri("http://www.ftn.uns.ac.rs/")
-                        },
-                        License = new Microsoft.OpenApi.Models.OpenApiLicense
-                        {
-                            Name = "FTN licence",
-                            Url = new Uri("http://www.ftn.uns.ac.rs/")
-                        },
-                        TermsOfService = new Uri("http://www.ftn.uns.ac.rs/examRegistrationTermsOfService")
+                        
                     });
                 setupAction.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
@@ -106,7 +95,7 @@ namespace ZalbaService
                                 Id = "Bearer"
                         }
                     },
-                    new string[] {}
+                    Array.Empty<string>()
                 }
                 });
                 var xmlComments = $"{ Assembly.GetExecutingAssembly().GetName().Name }.xml";
