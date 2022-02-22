@@ -48,6 +48,7 @@ namespace OvlascenoLice
             services.AddScoped<IUserRepository, UserMockRepository>();
             services.AddScoped<ILoggerService, LoggerService>(); 
             services.AddScoped<IOvlascenoLiceRepository, OvlascenoLiceRepository>();
+            services.AddScoped<IAdresaService, AdresaService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<OvlascenoLiceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OvlascenoLiceDB"))); //Dodavanje konteksta za entity framework
             

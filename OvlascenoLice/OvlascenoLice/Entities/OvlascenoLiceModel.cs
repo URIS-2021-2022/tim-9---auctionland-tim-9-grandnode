@@ -1,6 +1,8 @@
-﻿using System;
+﻿using OvlascenoLice.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +22,9 @@ namespace OvlascenoLice.Entities
         /// adresa ovlascenog lica koju preuzima iz vo
         /// </summary>
         public Guid AdresaID { get; set; }
+
+        [NotMapped]
+        public AdresaDto Adresa { get; set; }
 
         override
        public string ToString()

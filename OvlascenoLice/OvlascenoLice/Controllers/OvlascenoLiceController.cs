@@ -19,15 +19,26 @@ namespace OvlascenoLice.Controllers
     {
         private readonly IOvlascenoLiceRepository ovlascenoLiceRepository;
         private readonly LinkGenerator linkGenerator;
+        private readonly IAdresaService adresaService;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly Message message = new Message();
         private readonly string serviceName = "OvlascenoLiceService";
         
-        public OvlascenoLiceController(IOvlascenoLiceRepository ovlascenoLiceRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)
+
+        /// <summary>
+        /// konstruktor
+        /// </summary>
+        /// <param name="ovlascenoLiceRepository"></param>
+        /// <param name="loggerService"></param>
+        /// <param name="adresaService"></param>
+        /// <param name="linkGenerator"></param>
+        /// <param name="mapper"></param>
+        public OvlascenoLiceController(IOvlascenoLiceRepository ovlascenoLiceRepository, ILoggerService loggerService, IAdresaService adresaService,LinkGenerator linkGenerator, IMapper mapper)
         {
             this.ovlascenoLiceRepository = ovlascenoLiceRepository;
             this.linkGenerator = linkGenerator;
+            this.adresaService = adresaService;
             this.loggerService = loggerService;
             this.mapper = mapper;
         }
@@ -47,11 +58,29 @@ namespace OvlascenoLice.Controllers
             List<OvlascenoLiceModel> lica = ovlascenoLiceRepository.GetOvlascenaLica();
             message.ServiceName = serviceName;
             message.Method = "GET";
+
             if (lica == null || lica.Count ==0) {
                 message.Information = "No content";
                 message.Error = "There is no content in database!";
                 loggerService.CreateMessage(message);
                 return NoContent(); 
+            }
+
+            try
+            {
+                foreach (OvlascenoLiceModel ol in lica)
+                {
+                    AdresaDto adresa = adresaService.GetAdresaById(ol.AdresaID).Result;
+
+                    if (adresa != null)
+                    {
+                        ol.Adresa = adresa;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return default;
             }
 
             message.Information = "Returned list of ovlascena lica";

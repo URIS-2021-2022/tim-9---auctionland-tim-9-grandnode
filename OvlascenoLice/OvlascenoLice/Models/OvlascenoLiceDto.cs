@@ -14,5 +14,7 @@ namespace OvlascenoLice.Models
         public string BrojDokumenta { get; set; }
         public string BrojTable { get; set; }
         public Guid AdresaID { get; set; }
+
+        public AdresaDto Adresa { get; set; }
     }
 }

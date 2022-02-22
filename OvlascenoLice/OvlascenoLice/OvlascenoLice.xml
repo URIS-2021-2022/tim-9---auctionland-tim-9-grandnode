@@ -4,6 +4,16 @@
         <name>OvlascenoLice</name>
     </assembly>
     <members>
+        <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.#ctor(OvlascenoLice.Data.IOvlascenoLiceRepository,OvlascenoLice.ServiceCalls.ILoggerService,OvlascenoLice.ServiceCalls.IAdresaService,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
+            <summary>
+            konstruktor
+            </summary>
+            <param name="ovlascenoLiceRepository"></param>
+            <param name="loggerService"></param>
+            <param name="adresaService"></param>
+            <param name="linkGenerator"></param>
+            <param name="mapper"></param>
+        </member>
         <member name="M:OvlascenoLice.Controllers.OvlascenoLiceController.GetOvlascenaLica">
             <summary>
             Sva ovlascena lica 
