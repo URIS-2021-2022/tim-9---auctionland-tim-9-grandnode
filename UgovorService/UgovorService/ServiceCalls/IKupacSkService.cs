@@ -6,9 +6,9 @@ using UgovorService.Models;
 
 namespace UgovorService.ServiceCalls
 {
-    public interface IKupac_SKService
+    public interface IKupacSkService
     {
 
-        public Task<KupacDto> GetKupacById(Guid kupadId);
+        public Task<KupacDto> GetKupacById(Guid kupacId);
     }
 }

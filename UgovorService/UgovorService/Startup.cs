@@ -75,7 +75,7 @@ namespace UgovorService
                         {
                             ContentTypes = { "application/problem+json" }
                         };
-                    };
+                    }
 
                     
                     problemDetails.Status = StatusCodes.Status400BadRequest;
@@ -110,7 +110,7 @@ namespace UgovorService
             services.AddSingleton<ITipGarancijeRepository, TipGarancijeMockRepository>();
             services.AddSingleton<IUserRepository, UserMockRepository>();
             services.AddScoped<IDokument_AKService, Dokument_AKService>();
-            services.AddScoped<IKupac_SKService, Kupac_SKService>();
+            services.AddScoped<IKupacSkService, KupacSkService>();
             services.AddScoped<IJavnoNadmetanjeService, JavnoNadmetanjeService>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();

@@ -14,7 +14,7 @@ namespace UgovorService.Data
             FillData();
         }
 
-        private void FillData()
+        private static void FillData()
         {
             Ugovors.AddRange(new List<UgovorEnt>
             {

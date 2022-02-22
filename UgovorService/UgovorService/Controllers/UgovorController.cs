@@ -23,13 +23,13 @@ namespace UgovorService.Controllers
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly string serviceName = "UgovorService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly IDokument_AKService dokument_AKService;
-        private readonly IKupac_SKService kupac_SKService;
+        private readonly IKupacSkService kupac_SKService;
         private readonly IJavnoNadmetanjeService javnoNadmetanjeService;
 
 
-        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService, IKupac_SKService kupac_SKService, IJavnoNadmetanjeService javnoNadmetanjeService)
+        public UgovorController(IUgovorRepository ugovorRepository, IMapper mapper, ILoggerService loggerService, LinkGenerator linkGenerator, IDokument_AKService dokument_AKService, IKupacSkService kupac_SKService, IJavnoNadmetanjeService javnoNadmetanjeService)
         {
             this.ugovorRepository = ugovorRepository;
             this.mapper = mapper;
