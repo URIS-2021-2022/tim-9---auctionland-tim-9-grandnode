@@ -8,7 +8,28 @@ namespace Kupac_SK.Entities
     public class FizickoLice : KupacModel
     {
         //exor od Kupca
+        public FizickoLice()
+        {
+          
+        }
+   
+        public FizickoLice(KupacModel kupac)
+        {
+            KupacID = kupac.KupacID;
+            FizPravno = kupac.FizPravno;
+            OstvarenaPovrsina = kupac.OstvarenaPovrsina;
+            Zabrana = kupac.Zabrana;
+            PocetakZabrane = kupac.PocetakZabrane;
+            OvlascenoLiceID = kupac.OvlascenoLiceID;
+            PrioritetID = kupac.PrioritetID;
+            BrTel1 = kupac.BrTel1;
+            BrTel2 = kupac.BrTel2;
+            AdresaID = kupac.AdresaID;
+            UplataID = kupac.UplataID;
+            Email = kupac.Email;
+            BrojRacuna = kupac.BrojRacuna;
 
+        }
         public string JMBG { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }

@@ -33,6 +33,9 @@ namespace Kupac_SK.Entities
         [NotMapped]
         public OvlascenoLiceDTO OvlascenoLice { get; set; }
 
+        [NotMapped]
+        public UplataDTO Uplata { get; set; }
+
 
 
         override

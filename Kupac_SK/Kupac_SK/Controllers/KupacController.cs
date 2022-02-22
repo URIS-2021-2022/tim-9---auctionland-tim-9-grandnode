@@ -26,6 +26,7 @@ namespace Kupac_SK.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly IovlascenoliceService ovlascenoLiceService;
+        private readonly IUplataService uplataService;
         private Message message = new Message();
         private readonly string serviceName = "KupacService";
 
@@ -39,13 +40,14 @@ namespace Kupac_SK.Controllers
         /// <param name="ovlascenoLiceService"></param>
         /// <param name="linkGenerator"></param>
         /// <param name="mapper"></param>
-        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, IovlascenoliceService ovlascenoLiceService, LinkGenerator linkGenerator, IMapper mapper)
+        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, IUplataService uplataService, IovlascenoliceService ovlascenoLiceService, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.fizickoLiceRepository = fizickoLiceRepository;
             this.pravnoLiceRepository = pravnoLiceRepository;
             this.linkGenerator = linkGenerator;
             this.loggerService = loggerService;
             this.ovlascenoLiceService = ovlascenoLiceService;
+            this.uplataService = uplataService;
             this.mapper = mapper;
         }
         /// <summary>
@@ -67,7 +69,7 @@ namespace Kupac_SK.Controllers
 
             sviKupci.AddRange(temp); //objedinjena fizicka i pravna lica 
 
-
+            
             try
             {
                 foreach(KupacModel k in sviKupci)
@@ -83,7 +85,24 @@ namespace Kupac_SK.Controllers
             {
                 return default;
             }
-
+            /*
+            try
+            {
+                foreach(KupacModel k in sviKupci)
+                {
+                    UplataDTO uplata = uplataService.GetUplataById(Guid.Parse((k.UplataID))).Result;
+                    if(uplata != null)
+                    {
+                        k.Uplata = uplata; 
+                    }
+                }
+            } 
+            catch (Exception ex)
+            {
+                return default;
+           
+            }
+            */
             message.Information = "Returned list of kupci";
                  loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<KupacModelDto>>(sviKupci));
@@ -249,15 +268,15 @@ namespace Kupac_SK.Controllers
             KupacModel k = mapper.Map<KupacModel>(kupac);
             KupacModel kupacCreated;
 
-            if(k.FizPravno)
+            if(k.FizPravno == true)
             {
-                FizickoLice fizickoCreated = k as FizickoLice;
+                FizickoLice fizickoCreated = new FizickoLice(k);
                 kupacCreated = fizickoLiceRepository.CreateFizickoLice(fizickoCreated);
                 fizickoLiceRepository.SaveChanges();
             } 
             else
             {
-                PravnoLice pravnoCreated = k as PravnoLice;
+                PravnoLice pravnoCreated = new PravnoLice(k);
                 kupacCreated = pravnoLiceRepository.CreatePravnoLice(pravnoCreated);
                 pravnoLiceRepository.SaveChanges();
             }

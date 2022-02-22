@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Kupac_SK.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace Kupac_SK.Data
         }
         public KontaktOsobaModel CreateKontaktOsoba(KontaktOsobaModel kontaktOsoba)
         {
+           
             var kontakt = context.Add(kontaktOsoba);
             return mapper.Map<KontaktOsobaModel>(kontakt.Entity);
         }

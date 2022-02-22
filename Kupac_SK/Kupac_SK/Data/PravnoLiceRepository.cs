@@ -55,6 +55,11 @@ namespace Kupac_SK.Data
         }
         public PravnoLice CreatePravnoLice(PravnoLice pravnoLice)
         {
+            if (pravnoLice == null)
+            {
+                Console.WriteLine("1");
+                return null;
+            }
             var crt = context.Add(pravnoLice);
             return mapper.Map<PravnoLice>(crt.Entity);
         }
