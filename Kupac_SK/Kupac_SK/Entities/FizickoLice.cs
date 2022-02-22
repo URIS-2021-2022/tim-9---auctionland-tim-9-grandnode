@@ -34,6 +34,7 @@ namespace Kupac_SK.Entities
         public string Ime { get; set; }
         public string Prezime { get; set; }
 
+        override
         public string ToString()
         {
             return "Kupac: { KupacID: " + this.KupacID + ", fiz/pravno " + this.FizPravno + ", " +

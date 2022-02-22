@@ -27,7 +27,7 @@ namespace Kupac_SK.Controllers
         private readonly ILoggerService loggerService;
         private readonly IovlascenoliceService ovlascenoLiceService;
         private readonly IUplataService uplataService;
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly string serviceName = "KupacService";
 
 
@@ -148,8 +148,8 @@ namespace Kupac_SK.Controllers
 
         public IActionResult DeleteKupac(Guid kupacId)
         {
-            /*message.ServiceName = serviceName;
-          message.Method = "DELETE";*/
+            message.ServiceName = serviceName;
+            message.Method = "DELETE";
 
             try
             {
@@ -159,29 +159,29 @@ namespace Kupac_SK.Controllers
                 if (kupac == null) kupac = (KupacModel)pravnoLiceRepository.GetPravnoLiceById(kupacId);
                 if (kupac == null)
                 {
-                    /*message.Information = "Not found";
-                    message.Error = "There is no object of ovlasceno lice with identifier: " + ovlascenoLiceId;
-                    loggerService.CreateMessage(message);*/
+                    message.Information = "Not found";
+                    message.Error = "There is no object of ovlasceno lice with identifier: " + kupacId;
+                    loggerService.CreateMessage(message);
                     return NotFound();
                 }
 
-                if(kupac.FizPravno == true)
+                if(kupac.FizPravno)
                 {
                     fizickoLiceRepository.DeleteFizickoLice(kupacId);
                 } else
                 {
                     pravnoLiceRepository.DeletePravnoLice(kupacId);
                 }
-                // message.Information = "Successfully deleted "
+                message.Information = "Successfully deleted ";
                 return NoContent();
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                /*       message.Information = "Server error";
+                 message.Information = "Server error";
                message.Error = ex.Message;
-               loggerService.CreateMessage(message);*/
+               loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Delete Error");
             }
         }
@@ -199,7 +199,7 @@ namespace Kupac_SK.Controllers
 
             try
             {
-                if(kupac.FizPravno == true)
+                if(kupac.FizPravno)
                 {
                     //fizicko lice menjamo
                     var staroFL = fizickoLiceRepository.GetFizickoLiceById(kupac.KupacId);
