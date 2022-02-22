@@ -25,7 +25,7 @@ namespace ZalbaService.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "ZalbaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly IKupacService kupacService;
 
         public ZalbaController(IZalbaRepository zalbaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, IKupacService kupacService)
@@ -69,7 +69,7 @@ namespace ZalbaService.Controllers
             message.Information = "Returned list of Zalba";
             loggerService.CreateMessage(message);
             return Ok(zalbaDto);
-            //return Ok(mapper.Map<List<ZalbaDto>>(zalba));
+            
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace ZalbaService.Controllers
         [HttpGet("{zalbaId}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<ZalbaDto> GetZalba(Guid zalbaId)
+        public ActionResult<ZalbaDto> GetZalbaById(Guid zalbaId)
         {
             Zalba zalba = zalbaRepository.GetZalbaById(zalbaId);
             message.ServiceName = serviceName;
@@ -99,7 +99,7 @@ namespace ZalbaService.Controllers
             message.Information = zalba.ToString();
             loggerService.CreateMessage(message);
             return Ok(zalbaDto);
-            //return Ok(mapper.Map<ZalbaDto>(zalba));
+            
         }
 
         /// <summary>
@@ -141,11 +141,11 @@ namespace ZalbaService.Controllers
                 ZalbaConfirmationDto confirmation = zalbaRepository.CreateZalba(_zalba);
                 zalbaRepository.SaveChanges();
 
-                string lokacija = linkGenerator.GetPathByAction("GetZalba", "Zalba", new { zalbaId = confirmation.ZalbaId });
+                string lokacija = linkGenerator.GetPathByAction("GetZalbaById", "Zalba", new { zalbaId = confirmation.ZalbaId });
                 message.Information = zalba.ToString() + " | Zalba location: " + lokacija;
                 loggerService.CreateMessage(message);
                 
-                return Created(lokacija, mapper.Map<ZalbaConfirmationDto>(confirmation));
+                return Created(lokacija, mapper.Map<ZalbaConfirmationDto>(_zalba));
             }
             catch (Exception ex)
             {

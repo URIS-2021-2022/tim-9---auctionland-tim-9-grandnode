@@ -44,6 +44,7 @@ namespace ZalbaService.Entities
 
         [ForeignKey("Radnja")]
         public Guid RadnjaId { get; set; }
+        
         public Radnja Radnja { get; set; }
     }
 }

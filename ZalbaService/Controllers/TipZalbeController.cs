@@ -21,16 +21,14 @@ namespace ZalbaService.Controllers
     public class TipZalbeController : ControllerBase
     {
         private readonly ITipZalbeRepository tipZalbeRepository;
-        private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "ZalbaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
-        public TipZalbeController(ITipZalbeRepository tipZalbeRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
+        public TipZalbeController(ITipZalbeRepository tipZalbeRepository, IMapper mapper, ILoggerService loggerService)
         {
             this.tipZalbeRepository = tipZalbeRepository;
-            this.linkGenerator = linkGenerator;
             this.mapper = mapper;
             this.loggerService = loggerService;
         }
@@ -87,67 +85,7 @@ namespace ZalbaService.Controllers
             loggerService.CreateMessage(message);
             return Ok(mapper.Map<TipZalbeDto>(tipZalbe));
         }
-        /*
-        [HttpPost]
-        public ActionResult<TipZalbeDto> CreateTipZalbe([FromBody] TipZalbeCreationDto tipZalbe)
-        {
-            try
-            {
-                TipZalbe tipz = mapper.Map<TipZalbe>(tipZalbe);
-                tipz = tipZalbeRepository.CreateTipZalbe(tipz);
-                tipZalbeRepository.SaveChanges();
-
-                string lokacija = linkGenerator.GetPathByAction("GetTipZalbe", "TipZalbe", new { tipZalbeId = tipz.TipZalbeId });
-                return Created(lokacija, mapper.Map<TipZalbeDto>(tipz));
-            }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom kreiranja tipa zalbe!");
-            }
-        }
-
-        [HttpPut]
-        public ActionResult<TipZalbeDto> UpdateTipZalbe(TipZalbeUpdateDto tipZalbe)
-        {
-            try
-            {
-                var stariTipZ = tipZalbeRepository.GetTipZalbeById(tipZalbe.TipZalbeId);
-                if(stariTipZ == null)
-                {
-                    return NotFound();
-                }
-                TipZalbe noviTipZ = mapper.Map<TipZalbe>(tipZalbe);
-                mapper.Map(noviTipZ, stariTipZ);
-                tipZalbeRepository.SaveChanges();
-
-                return Ok(mapper.Map<TipZalbeDto>(stariTipZ));
-            }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom izmene tipa zalbe!");
-            }
-        }
-
-        [HttpDelete("{tipZalbeId}")]
-        public IActionResult DeleteTipZalbe(Guid tipZalbeId)
-        {
-            try
-            {
-                var tipZalbe =  tipZalbeRepository.GetTipZalbeById(tipZalbeId);
-                if(tipZalbe == null)
-                {
-                    return NotFound();
-                }
-                tipZalbeRepository.DeleteTipZalbe(tipZalbeId);
-                tipZalbeRepository.SaveChanges();
-
-                return NoContent();
-            }
-            catch(Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska prilikom brisanja tipa zalbe!");
-            }
-        }*/
+        
 
         /// <summary>
         /// Prikazuje metode koje je moguće koristiti

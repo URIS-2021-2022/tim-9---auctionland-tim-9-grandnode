@@ -10,9 +10,7 @@ namespace ZalbaService.Data.Interfaces
     {
         List<StatusZalbe> GetAllStatusZalbe(string NazivStatusa = null);
         StatusZalbe GetStatusZalbeById(Guid statusZalbeId);
-        /*StatusZalbe CreateStatusZalbe(StatusZalbe statusZalbe);
-        void UpdateStatusZalbe(StatusZalbe statusZalbe);
-        void DeleteStatusZalbe(Guid statusZalbeId);*/
+
         bool SaveChanges();
 
     }

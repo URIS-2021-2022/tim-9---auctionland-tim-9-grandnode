@@ -13,12 +13,11 @@ namespace ZalbaService.Data
     public class RadnjaRepository : IRadnjaRepository
     {
         private readonly ZalbaContext context;
-        private readonly IMapper mapper;
+        
 
-        public RadnjaRepository(ZalbaContext context, IMapper mapper)
+        public RadnjaRepository(ZalbaContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
 
         public bool SaveChanges()
@@ -26,17 +25,6 @@ namespace ZalbaService.Data
             return context.SaveChanges() > 0;
         }
 
-       /* public Radnja CreateRadnja(Radnja radnja)
-        {
-            var createdEntity = context.Add(radnja);
-            return mapper.Map<Radnja>(createdEntity.Entity);
-        }
-
-        public void DeleteRadnja(Guid radnjaId)
-        {
-            var radnja = GetRadnjaById(radnjaId);
-            context.Remove(radnja);
-        }*/
 
         public List<Radnja> GetAllRadnja(string NazivRadnje = null)
         {

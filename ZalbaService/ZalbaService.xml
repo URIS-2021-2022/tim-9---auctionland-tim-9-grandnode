@@ -78,7 +78,7 @@
             <response code="200">Vraća listu zalbi</response>
             <response code="204">Nije pronađena ni jedna zalba u sistemu</response>
         </member>
-        <member name="M:ZalbaService.Controllers.ZalbaController.GetZalba(System.Guid)">
+        <member name="M:ZalbaService.Controllers.ZalbaController.GetZalbaById(System.Guid)">
             <summary>
             Vraća zalbu na osnovu identifikatora zalba.
             </summary>
