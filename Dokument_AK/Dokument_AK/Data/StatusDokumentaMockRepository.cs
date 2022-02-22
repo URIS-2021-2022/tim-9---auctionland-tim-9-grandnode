@@ -16,7 +16,7 @@ namespace Dokument_AK.Data
             FillData();
         }
 
-        private void FillData()
+        private static void FillData()
         {
             StatusDokumentaEnts.AddRange(new List<StatusDokumentaEnt>
             {
@@ -37,15 +37,15 @@ namespace Dokument_AK.Data
                 }
             });
         }
-        public StatusDokumentaEnt GetStatusDokumentaByID(Guid statusdokID)
+        public StatusDokumentaEnt GetStatusDokumentaByID(Guid statusDokID)
         {
-            return StatusDokumentaEnts.FirstOrDefault(D => D.StatusDokID == statusdokID);
+            return StatusDokumentaEnts.FirstOrDefault(D => D.StatusDokID == statusDokID);
         }
 
         public List<StatusDokumentaEnt> GetStatusDokumentaEnts(bool Usvojen = false)
         {
             return (from e in StatusDokumentaEnts
-                    where Usvojen == false || Usvojen==true || e.Usvojen == Usvojen
+                    where Usvojen == false || Usvojen!=true || e.Usvojen == Usvojen
                     select e).ToList();
         }
 

@@ -31,7 +31,7 @@ namespace Dokument_AK.Data
         /// <returns></returns>
         public List<EksterniDokumentEnt> GetEksterniDokumentEnts(bool Izmenjen = false)
         {
-            return context.EksterniDokumentEnt.Where(e => (Izmenjen == null)).ToList();
+            return context.EksterniDokumentEnt.Where(e => (Izmenjen == false)).ToList();
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace Dokument_AK.Data
         /// <summary>
         /// Metoda koja kreira dokument
         /// </summary>
-        /// <param name="dokument">Potrebno je proslediti telo dokumenta</param>
+        /// <param name="dokumentID">Potrebno je proslediti telo dokumenta</param>
         /// <returns></returns>
-        public EksterniDokumentConfirmation CreateEksterniDokument(EksterniDokumentEnt dokument)
+        public EksterniDokumentConfirmation CreateEksterniDokument(EksterniDokumentEnt dokumentID)
         {
-            var createdEntity = context.Add(dokument);
+            var createdEntity = context.Add(dokumentID);
             return mapper.Map<EksterniDokumentConfirmation>(createdEntity.Entity);
         }
 

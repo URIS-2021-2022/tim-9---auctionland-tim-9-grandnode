@@ -16,7 +16,7 @@ namespace Dokument_AK.Data
             FillData();
         }
 
-        private void FillData()
+        private static void FillData()
         {
             EksterniDokumentEnts.AddRange(new List<EksterniDokumentEnt>
             {
@@ -31,7 +31,7 @@ namespace Dokument_AK.Data
                     DokumentID= Guid.Parse("4ff5c5a0-93d4-443d-bf2c-dc9cf9fa4296"),
                      Izmenjen=false
                 }
-            }); ;
+            }); 
         }
         public EksterniDokumentEnt GetEskterniDokumentByID(Guid dokumentID)
         {
@@ -41,15 +41,15 @@ namespace Dokument_AK.Data
         public List<EksterniDokumentEnt> GetEksterniDokumentEnts(bool Izmenjen = false)
         {
             return (from e in EksterniDokumentEnts
-                    where Izmenjen == false || Izmenjen == true || e.Izmenjen == Izmenjen
+                    where Izmenjen == false || Izmenjen != false || e.Izmenjen == Izmenjen
                     select e).ToList();
         }
 
-        public EksterniDokumentConfirmation CreateEksterniDokument(EksterniDokumentEnt dokument)
+        public EksterniDokumentConfirmation CreateEksterniDokument(EksterniDokumentEnt dokumentID)
         {
-            dokument.DokumentID = Guid.NewGuid();
-            EksterniDokumentEnts.Add(dokument);
-            var d = GetEskterniDokumentByID(dokument.DokumentID);
+            dokumentID.DokumentID = Guid.NewGuid();
+            EksterniDokumentEnts.Add(dokumentID);
+            var d = GetEskterniDokumentByID(dokumentID.DokumentID);
 
             return new EksterniDokumentConfirmation
             {
@@ -63,12 +63,12 @@ namespace Dokument_AK.Data
             EksterniDokumentEnts.Remove(EksterniDokumentEnts.FirstOrDefault(e => e.DokumentID == dokumentID));
         }
 
-        public void UpdateEksterniDokument(EksterniDokumentEnt dokument)
+        public void UpdateEksterniDokument(EksterniDokumentEnt dokumentID)
         {
-            EksterniDokumentEnt dok = GetEskterniDokumentByID(dokument.DokumentID);
+            EksterniDokumentEnt dok = GetEskterniDokumentByID(dokumentID.DokumentID);
 
-            dok.DokumentID = dokument.DokumentID;
-            dok.Izmenjen = dokument.Izmenjen;
+            dok.DokumentID = dokumentID.DokumentID;
+            dok.Izmenjen = dokumentID.Izmenjen;
 
 
         }

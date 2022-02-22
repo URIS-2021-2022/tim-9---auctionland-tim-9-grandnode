@@ -29,23 +29,6 @@ namespace Dokument_AK.Models
         /// </summary>
         public bool Otvoren { get; set; }
 
-        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        //{
-        //    if (Usvojen == true)
-        //    {
-        //        yield return new ValidationResult("Dokument koji je usvojen ne moze imati druge vrednosti.",
-        //            new[] { "StatusDokumentaCreationDto" });
-        //    }
-        //    if (Odbijen == true)
-        //    {
-        //        yield return new ValidationResult("Dokument koji je odbijen ne moze imati druge vrednosti.",
-        //            new[] { "StatusDokumentaCreationDto" });
-        //    }
-        //    if (Otvoren == true)
-        //    {
-        //        yield return new ValidationResult("Dokument koji je otvoren ne moze imati druge vrednosti.",
-        //            new[] { "StatusDokumentaCreationDto" });
-        //    }
-        //}
+       
     }
 }

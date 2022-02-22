@@ -42,7 +42,7 @@ namespace Dokument_AK.Data
         /// <returns></returns>
         public List<InterniDokumentEnt> GetInterniDokumentEnts(bool Izmenjen = false)
         {
-            return context.InterniDokumentEnt.Where(e => (Izmenjen == null)).ToList();
+            return context.InterniDokumentEnt.Where(e => (Izmenjen == false)).ToList();
         }
 
         /// <summary>
