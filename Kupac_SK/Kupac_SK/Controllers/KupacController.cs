@@ -92,25 +92,26 @@ namespace Kupac_SK.Controllers
             {
                 return default;
             }
-            /*
             try
             {
-                foreach(KupacModel k in sviKupci)
+                foreach (KupacModel k in sviKupci)
                 {
-                    UplataDTO uplata = uplataService.GetUplataById(Guid.Parse((k.UplataID))).Result;
-                    if(uplata != null)
+                    if (!((k.UplataID).Equals("string") || (k.UplataID).Length < 25))
                     {
-                        k.Uplata = uplata; 
+                        UplataDTO uplata = uplataService.GetUplataById(Guid.Parse((k.UplataID))).Result;
+                        if (uplata != null)
+                        {
+                            k.Uplata = uplata;
+                        }
                     }
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 return default;
-           
+
             }
-            */
-            
+
             try
             {
                 
