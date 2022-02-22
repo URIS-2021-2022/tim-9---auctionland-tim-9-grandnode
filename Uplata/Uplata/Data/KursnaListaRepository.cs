@@ -29,7 +29,6 @@ namespace Uplata.Data
         {
             kursnaLista.KursnaListaID = Guid.NewGuid();
             var noviEntitet = context.KursneListe.Add(kursnaLista);
-            //context.SaveChanges();
 
             //return mapper.Map<KursnaListaConfirmationDto>(kursnaLista);
             return mapper.Map<KursnaListaConfirmationDto>(noviEntitet.Entity);

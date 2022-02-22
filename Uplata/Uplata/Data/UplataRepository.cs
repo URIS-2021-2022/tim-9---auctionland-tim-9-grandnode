@@ -29,7 +29,6 @@ namespace Uplata.Data
         {
             uplata.UplataID = Guid.NewGuid();
             var noviEntitet = context.Uplate.Add(uplata);
-            //context.SaveChanges();
 
             //return mapper.Map<UplataConfirmationDto>(uplata);
             return mapper.Map<UplataConfirmationDto>(noviEntitet.Entity);
