@@ -11,12 +11,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:44200/api/tipKorisnika",
+					"raw": "http://localhost:55204/api/tipKorisnika",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"tipKorisnika"
@@ -31,12 +31,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:44200/api/tipKorisnika/9d8004cb-fad6-40a9-9d9e-978ff4f98481",
+					"raw": "http://localhost:55204/api/tipKorisnika/9d8004cb-fad6-40a9-9d9e-978ff4f98481",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"tipKorisnika",
@@ -61,12 +61,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:44200/api/tipKorisnika",
+					"raw": "http://localhost:55204/api/tipKorisnika",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"tipKorisnika"
@@ -81,12 +81,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:44200/api/tipKorisnika/0bb7286c-cf02-4be1-bb98-6e44366c6b7f",
+					"raw": "http://localhost:55204/api/tipKorisnika/0bb7286c-cf02-4be1-bb98-6e44366c6b7f",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"tipKorisnika",
@@ -111,12 +111,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:44200/api/tipKorisnika/0bb7286c-cf02-4be1-bb98-6e44366c6b7f",
+					"raw": "http://localhost:55204/api/tipKorisnika/0bb7286c-cf02-4be1-bb98-6e44366c6b7f",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"tipKorisnika",

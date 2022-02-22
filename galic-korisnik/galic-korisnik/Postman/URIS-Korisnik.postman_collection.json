@@ -36,12 +36,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:44200/api/korisnici",
+					"raw": "http://localhost:55204/api/korisnici",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"korisnici"
@@ -56,12 +56,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:44200/api/korisnici/f77cb745-a9d9-427a-aece-76803b9aad84",
+					"raw": "http://localhost:55204/api/korisnici/f77cb745-a9d9-427a-aece-76803b9aad84",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"korisnici",
@@ -81,12 +81,12 @@
 					"raw": "{\r\n    \"ime\": \"Mile\",\r\n    \"korisnickoIme\": \"MMile\",\r\n    \"lozinka\": \"654321\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:44200/api/korisnici/f77cb745-a9d9-427a-aece-76803b9aad84",
+					"raw": "http://localhost:55204/api/korisnici/f77cb745-a9d9-427a-aece-76803b9aad84",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "44200",
+					"port": "55204",
 					"path": [
 						"api",
 						"korisnici",
