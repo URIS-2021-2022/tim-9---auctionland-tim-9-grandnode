@@ -47,7 +47,7 @@ namespace Mesto.Data
 
         public void UpdateAdresa(Adresa adresa)
         {
-           
+           //nije potrebno implementirati posebno update
         }
     }
 }

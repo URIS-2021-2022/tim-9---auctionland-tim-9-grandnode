@@ -24,7 +24,7 @@ namespace Mesto.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "Adresa";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         /// <summary>
         /// Konstruktor
