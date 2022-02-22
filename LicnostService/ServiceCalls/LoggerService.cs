@@ -30,6 +30,7 @@ namespace LicnostService.ServiceCalls
                     HttpContent content = new StringContent(JsonConvert.SerializeObject(message));
                     content.Headers.ContentType.MediaType = "application/json";
 
+                    //response has to be user
                     HttpResponseMessage response = client.PostAsync(url, content).Result;
                 }
                 catch 
