@@ -24,7 +24,7 @@ namespace JavnoNadmetanje.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "JavnoNadmetanjeService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         //Pomocu dependency injection-a dodajemo potrebne zavisnosti
         public TipJavnogNadmetanjaController(ITipJavnogNadmetanjaRepository tipJavnogNadmetanjaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
@@ -131,7 +131,6 @@ namespace JavnoNadmetanje.Controllers
                 message.Error = ex.Message;
                 loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
-                //return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -164,7 +163,6 @@ namespace JavnoNadmetanje.Controllers
                     return NotFound(); //ukoliko ne postoji vraca se status 404 (NotFoud)
                 }
                 TipJavnogNadmetanja tipJavnogNadmetanja = mapper.Map<TipJavnogNadmetanja>(tipJavnogNadmetanjaDto);
-                //TipJavnogNadmetanjaConfirmationDto t = tipJavnogNadmetanjaRepository.UpdateTipJavnogNadmetanja(tipJavnogNadmetanja);
                 mapper.Map(tipJavnogNadmetanja, starije);
                 tipJavnogNadmetanjaRepository.SaveChanges(); //Perzistiramo promene
                 message.Information = starije.ToString();

@@ -29,7 +29,6 @@ namespace JavnoNadmetanje.Data
         {
             licitacija.LicitacijaID = Guid.NewGuid();
             var noviEntitet = context.Licitacije.Add(licitacija);
-            //context.SaveChanges();
 
             //return mapper.Map<LicitacijaConfirmationDto>(licitacija);
             return mapper.Map<LicitacijaConfirmationDto>(noviEntitet.Entity);

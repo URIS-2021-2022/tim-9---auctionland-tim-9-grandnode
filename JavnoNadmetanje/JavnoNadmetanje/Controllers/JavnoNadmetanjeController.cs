@@ -24,7 +24,7 @@ namespace JavnoNadmetanje.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "JavnoNadmetanjeService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly IKupacService kupacService;
 
         //Pomocu dependency injection-a dodajemo potrebne zavisnosti
@@ -72,7 +72,6 @@ namespace JavnoNadmetanje.Controllers
             loggerService.CreateMessage(message);
 
             //ukoliko smo pronasli neko nadmetanje vratiti status 200 i listu pronadjenih nadmetanja
-            //return Ok(mapper.Map<List<JavnoNadmetanjeDto>>(javnaNadmetanja));
             return Ok(mapper.Map<List<JavnoNadmetanjeDto>>(javnoNadmetanjeDto));
         }
 
@@ -104,7 +103,6 @@ namespace JavnoNadmetanje.Controllers
 
             message.Information = javnoNadmetanje.ToString();
             loggerService.CreateMessage(message);
-            //return Ok(mapper.Map<JavnoNadmetanjeDto>(javnoNadmetanje));
             return Ok(javnoNadmetanjeDto);
         }
 
@@ -193,7 +191,6 @@ namespace JavnoNadmetanje.Controllers
                     return NotFound(); //ukoliko ne postoji vraca se status 404 (NotFoud)
                 }
                 Entities.JavnoNadmetanje javnoNadmetanje = mapper.Map<Entities.JavnoNadmetanje>(javnoNadmetanjeDto);
-                //JavnoNadmetanjeConfirmationDto j = javnoNadmetanjeRepository.UpdateJavnoNadmetanje(javnoNadmetanje);
                 mapper.Map(javnoNadmetanje, starije);
                 javnoNadmetanjeRepository.SaveChanges(); //Perzistiramo promene
                 message.Information = starije.ToString();

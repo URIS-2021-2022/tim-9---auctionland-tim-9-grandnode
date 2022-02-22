@@ -8,7 +8,6 @@ namespace JavnoNadmetanje.Entities
 {
     public class JavnoNadmetanjeContext : DbContext
     {
-        //private readonly IConfiguration configuration;
 
         public JavnoNadmetanjeContext(DbContextOptions<JavnoNadmetanjeContext> options) : base(options)
         {
@@ -26,41 +25,41 @@ namespace JavnoNadmetanje.Entities
         /// <summary>
         /// Popunjava bazu podataka inicijalnim podacima
         /// </summary>
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<TipJavnogNadmetanja>()
+            modelBuilder.Entity<TipJavnogNadmetanja>()
               .HasData(new
               {
                   TipJavnogNadmetanjaID = Guid.Parse("4246a611-7b2f-429d-a9ba-0e539c81b82f"),
                   NazivTipaJavnogNadmetanja = "Javna licitacija"
               });
-            builder.Entity<TipJavnogNadmetanja>()
+            modelBuilder.Entity<TipJavnogNadmetanja>()
               .HasData(new
               {
                   TipJavnogNadmetanjaID = Guid.Parse("99b6d6ec-4358-4898-936b-31b31d236324"),
                   NazivTipaJavnogNadmetanja = "Otvaranje zatvorenih ponuda"
               });
 
-            builder.Entity<StatusNadmetanja>()
+            modelBuilder.Entity<StatusNadmetanja>()
                .HasData(new
                {
                    StatusNadmetanjaID = Guid.Parse("8aaa90c8-56f3-4a76-b07a-f895eded5a84"),
                    NazivStatusaNadmetanja = "Prvi krug"
                });
-            builder.Entity<StatusNadmetanja>()
+            modelBuilder.Entity<StatusNadmetanja>()
               .HasData(new
               {
                   StatusNadmetanjaID = Guid.Parse("b1ad846b-f76f-4485-8c89-08e2dfebd112"),
                   NazivStatusaNadmetanja = "Drugi krug sa starim uslovima"
               });
-            builder.Entity<StatusNadmetanja>()
+            modelBuilder.Entity<StatusNadmetanja>()
               .HasData(new
               {
                   StatusNadmetanjaID = Guid.Parse("d85b4a71-27e4-4626-9a3e-0412430e03d6"),
                   NazivStatusaNadmetanja = "Drugi krug sa novim uslovima"
               });
-            
-            builder.Entity<JavnoNadmetanje>()
+
+            modelBuilder.Entity<JavnoNadmetanje>()
                 .HasData(new
                 {
                     JavnoNadmetanjeID = Guid.Parse("208a48a5-371c-4f9d-ac23-18bb176ff8f3"),
@@ -83,7 +82,7 @@ namespace JavnoNadmetanje.Entities
                     //KupciID = new List<Guid>() { Guid.Parse("93cb5df3-e411-4917-bbe1-26018df7a7cb") }
                 });
 
-            builder.Entity<JavnoNadmetanje>()
+            modelBuilder.Entity<JavnoNadmetanje>()
                .HasData(new
                {
                    JavnoNadmetanjeID = Guid.Parse("13d6ced2-ab84-4132-bf67-e96037f4813d"),
@@ -106,7 +105,7 @@ namespace JavnoNadmetanje.Entities
                    //KupciID = new List<Guid>() { Guid.Parse("93cb5df3-e411-4917-bbe1-26018df7a7cb") }
                });
 
-            builder.Entity<Licitacija>()
+            modelBuilder.Entity<Licitacija>()
                 .HasData(new
                 {
                     LicitacijaID = Guid.Parse("a215e4cb-a427-40cf-88b2-8488d140a939"),
@@ -121,7 +120,7 @@ namespace JavnoNadmetanje.Entities
                     RokPrijava = DateTime.Parse("2022-2-15")
 
                 });
-            builder.Entity<Licitacija>()
+            modelBuilder.Entity<Licitacija>()
                .HasData(new
                {
                    LicitacijaID = Guid.Parse("1de13266-85e8-4120-8b1f-daacc32c5811"),
