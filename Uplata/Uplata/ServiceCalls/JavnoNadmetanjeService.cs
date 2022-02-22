@@ -22,7 +22,7 @@ namespace Uplata.ServiceCalls
         {
             using (HttpClient client = new HttpClient())
             {
-                var x = configuration["Services:JavnoNadmetanje"];
+                
                 Uri url = new Uri($"{ configuration["Services:JavnoNadmetanje"] }api/javnaNadmetanja/{javnoNadmetanjeID}");
 
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(javnoNadmetanjeID));

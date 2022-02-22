@@ -24,7 +24,7 @@ namespace Uplata.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "UplataService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         //Pomocu dependency injection-a dodajemo potrebne zavisnosti
         public KursnaListaController(IKursnaListaRepository kursnaListaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
@@ -133,7 +133,6 @@ namespace Uplata.Controllers
                 message.Error = ex.Message;
                 loggerService.CreateMessage(message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Create Error");
-                //return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -166,7 +165,6 @@ namespace Uplata.Controllers
                     return NotFound(); //ukoliko ne postoji vraca se status 404 (NotFoud)
                 }
                 KursnaLista kursnaLista = mapper.Map<KursnaLista>(kursnaListaDto);
-                //KursnaListaConfirmationDto k = kursnaListaRepository.UpdateKursnaLista(kursnaLista);
                 mapper.Map(kursnaLista, starije);
                 kursnaListaRepository.SaveChanges(); //Perzistiramo promene
                 message.Information = starije.ToString();

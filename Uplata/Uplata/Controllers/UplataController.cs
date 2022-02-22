@@ -23,7 +23,7 @@ namespace Uplata.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "UplataService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly IJavnoNadmetanjeService javnoNadmetanjeService;
         private readonly IKupacService kupacService;
 
@@ -74,7 +74,6 @@ namespace Uplata.Controllers
             loggerService.CreateMessage(message);
 
             //ukoliko smo pronasli neku uplatu vratiti status 200 i listu uplata
-            //return Ok(mapper.Map<List<UplataDto>>(uplate));
             return Ok(uplataDto);
         }
 
@@ -106,7 +105,6 @@ namespace Uplata.Controllers
 
             message.Information = uplata.ToString();
             loggerService.CreateMessage(message);
-            //return Ok(mapper.Map<UplataDto>(uplata));
             return Ok(uplataDto);
         }
 
@@ -186,7 +184,6 @@ namespace Uplata.Controllers
                     return NotFound(); //ukoliko ne postoji vraca se status 404 (NotFoud)
                 }
                 Entities.Uplata uplata = mapper.Map<Entities.Uplata>(uplataDto);
-                //UplataConfirmationDto u = uplataRepository.UpdateUplata(uplata);
                 mapper.Map(uplata, starije);
                 uplataRepository.SaveChanges(); //Perzistiramo promene
                 message.Information = starije.ToString();

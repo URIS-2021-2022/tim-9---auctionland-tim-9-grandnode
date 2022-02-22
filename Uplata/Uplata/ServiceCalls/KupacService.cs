@@ -22,7 +22,7 @@ namespace Uplata.ServiceCalls
         {
             using (HttpClient client = new HttpClient())
             {
-                var x = configuration["Services:Kupac_SK"];
+                
                 Uri url = new Uri($"{ configuration["Services:Kupac_SK"] }api/kupac/{kupacId}");
 
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(kupacId));

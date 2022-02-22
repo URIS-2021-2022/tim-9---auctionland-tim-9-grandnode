@@ -8,8 +8,7 @@ namespace Uplata.Entities
 {
     public class UplataContext : DbContext
     {
-        //private readonly IConfiguration configuration;
-
+        
         public UplataContext(DbContextOptions<UplataContext> options) : base(options)
         {
 
@@ -22,9 +21,9 @@ namespace Uplata.Entities
         /// <summary>
         /// Popunjava bazu podataka inicijalnim podacima
         /// </summary>
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<KursnaLista>()
+            modelBuilder.Entity<KursnaLista>()
               .HasData(new
               {
                   KursnaListaID = Guid.Parse("c8a3972c-ed80-4030-a6a3-61c37cc5b36d"),
@@ -32,7 +31,7 @@ namespace Uplata.Entities
                   Valuta = "RSD",
                   Vrednost = float.Parse("1234")
               });
-            builder.Entity<KursnaLista>()
+            modelBuilder.Entity<KursnaLista>()
               .HasData(new
               {
                   KursnaListaID = Guid.Parse("f9d0d94c-a332-4437-a8d1-e2b64349e0ad"),
@@ -41,7 +40,7 @@ namespace Uplata.Entities
                   Vrednost = float.Parse("4321")
               });
 
-            builder.Entity<Uplata>()
+            modelBuilder.Entity<Uplata>()
                 .HasData(new
                 {
                     //UplataID = Guid.Parse("608eba57-ec53-4286-b745-b4db269a611c"),
@@ -56,7 +55,7 @@ namespace Uplata.Entities
                     JavnoNadmetanjeID = Guid.Parse("13d6ced2-ab84-4132-bf67-e96037f4813d")
                 });
 
-            builder.Entity<Uplata>()
+            modelBuilder.Entity<Uplata>()
                .HasData(new
                {
                    //UplataID = Guid.Parse("608eba57-ec53-4286-b745-b4db269a611c"),
