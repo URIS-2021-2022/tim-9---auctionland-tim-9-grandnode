@@ -27,6 +27,7 @@ namespace Kupac_SK.Controllers
         private readonly ILoggerService loggerService;
         private readonly IovlascenoliceService ovlascenoLiceService;
         private readonly IUplataService uplataService;
+        private readonly IAdresaService adresaService;
         private readonly Message message = new Message();
         private readonly string serviceName = "KupacService";
 
@@ -37,10 +38,12 @@ namespace Kupac_SK.Controllers
         /// <param name="fizickoLiceRepository"></param>
         /// <param name="pravnoLiceRepository"></param>
         /// <param name="loggerService"></param>
+        /// <param name="uplataService"></param>
+        /// <param name="adresaService"></param>
         /// <param name="ovlascenoLiceService"></param>
         /// <param name="linkGenerator"></param>
         /// <param name="mapper"></param>
-        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, IUplataService uplataService, IovlascenoliceService ovlascenoLiceService, LinkGenerator linkGenerator, IMapper mapper)
+        public KupacController(IFizickoLiceRepository fizickoLiceRepository, IPravnoLiceRepository pravnoLiceRepository, ILoggerService loggerService, IUplataService uplataService, IAdresaService adresaService,IovlascenoliceService ovlascenoLiceService, LinkGenerator linkGenerator, IMapper mapper)
         {
             this.fizickoLiceRepository = fizickoLiceRepository;
             this.pravnoLiceRepository = pravnoLiceRepository;
@@ -48,6 +51,7 @@ namespace Kupac_SK.Controllers
             this.loggerService = loggerService;
             this.ovlascenoLiceService = ovlascenoLiceService;
             this.uplataService = uplataService;
+            this.adresaService = adresaService;
             this.mapper = mapper;
         }
         /// <summary>
@@ -72,12 +76,15 @@ namespace Kupac_SK.Controllers
             
             try
             {
+               
                 foreach(KupacModel k in sviKupci)
                 {
+                 
                     OvlascenoLiceDTO olice = ovlascenoLiceService.GetOvlascenoLiceById(k.OvlascenoLiceID).Result;
                     if(olice != null)
                     {
                         k.OvlascenoLice = olice;
+                      
                     }
                 }
             }
@@ -103,6 +110,33 @@ namespace Kupac_SK.Controllers
            
             }
             */
+            
+            try
+            {
+                
+                foreach (KupacModel k in sviKupci)
+                {
+                    
+                    if (!((k.AdresaID).Equals("string") || (k.AdresaID).Length < 25))
+                    {
+                        AdresaDto adr = adresaService.GetAdresaById(Guid.Parse(k.AdresaID)).Result;
+                        Console.WriteLine(adr);
+
+                        if (adr != null)
+                        {
+                            k.AdresaDto = adr;
+                        }
+                    }
+                }
+
+             
+            }
+            catch (Exception ex)
+            {
+                return default;
+
+            }
+
             message.Information = "Returned list of kupci";
                  loggerService.CreateMessage(message);
             return Ok(mapper.Map<List<KupacModelDto>>(sviKupci));

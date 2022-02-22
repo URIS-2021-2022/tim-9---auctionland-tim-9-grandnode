@@ -36,6 +36,9 @@ namespace Kupac_SK.Entities
         [NotMapped]
         public UplataDTO Uplata { get; set; }
 
+        [NotMapped]
+        public AdresaDto AdresaDto { get; set; }
+
 
 
         override

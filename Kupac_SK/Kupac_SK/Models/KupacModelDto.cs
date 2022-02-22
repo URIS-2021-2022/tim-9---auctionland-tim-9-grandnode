@@ -23,14 +23,15 @@ namespace Kupac_SK.Models
         //obelezja zajednicka za Flice i Plice koje prebacujemo ovde 
         public string BrTel1 { get; set; }
         public string BrTel2 { get; set; }
-        public string Adresa { get; set; }
+      //  public string Adresa { get; set; }
         public string Email { get; set; }
         public string BrojRacuna { get; set; }
         public string AdresaID { get; set; } //ss iz VO Adresa info
         public string UplataID { get; set; } //ss iz VO Uplata info
 
-      public OvlascenoLiceDTO OvlascenoLice { get; set; }
+        public OvlascenoLiceDTO OvlascenoLice { get; set; }
         public UplataDTO Uplata { get; set; }
+        public AdresaDto AdresaDto { get; set; }
 
     }
 }
