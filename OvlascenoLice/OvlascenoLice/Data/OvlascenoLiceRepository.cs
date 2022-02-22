@@ -28,32 +28,7 @@ namespace OvlascenoLice.Data
             return context.SaveChanges() > 0;
         }
 
-        private void FillData()
-        {
-            Lica.AddRange(new List<OvlascenoLiceModel>{
-                new OvlascenoLiceModel
-                {
-                    OvlascenoLiceID = Guid.Parse("5dc3dfcd-de07-4e5f-878e-a07636db322f"),
-                    Ime ="Sara",
-                    Prezime ="Kijanovic",
-                    BrojDokumenta = "4585248",
-                    BrojTable = "74474",
-                    AdresaID = Guid.Parse("7280c84a-a070-4516-94e7-ef905c7dcf8b")
-                },
-                new OvlascenoLiceModel
-                {
-                    OvlascenoLiceID = Guid.Parse("668e0c43-810b-4443-82a7-649b4f25a840"),
-                    Ime ="Marko",
-                    Prezime ="Ruzic",
-                    BrojDokumenta = "465548",
-                    BrojTable = "7434664",
-                    AdresaID = Guid.Parse("4ead0649-3ad7-42cb-92b3-80e504006df9")
-
-                }
-
-
-            });
-        }
+  
         public OvlascenoLiceModel CreateOvlascenoLice(OvlascenoLiceModel ovlascenoLice)
         {
             var createdEntity = context.Add(ovlascenoLice);
@@ -62,7 +37,6 @@ namespace OvlascenoLice.Data
 
         public void DeleteOvlascenoLice(Guid OLiceID)
         {
-            //Lica.Remove(Lica.FirstOrDefault(e => e.OvlascenoLiceID == OLiceID));
             var ovlLice = GetOvlascenoLiceById(OLiceID);
             context.Remove(ovlLice);
 
