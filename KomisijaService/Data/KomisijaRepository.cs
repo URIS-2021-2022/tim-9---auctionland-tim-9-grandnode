@@ -52,7 +52,7 @@ namespace KomisijaService.Data
 
         public void UpdateKomisija(Komisija komisija)
         {
-            
+            //Entity framework core prati entitet pa nema potrebe za implementacijom
         }
     }
 }

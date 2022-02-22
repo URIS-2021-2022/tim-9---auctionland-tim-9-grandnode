@@ -25,7 +25,7 @@ namespace KomisijaService.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "KomisijaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly ILicnostService licnostService;
 
         public ClanoviController(IClanoviRepository clanoviRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, ILicnostService licnostService)
@@ -48,7 +48,7 @@ namespace KomisijaService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<ClanoviDto>> GetAllClanovi(Guid? komisijaId)
         {
-            //var clanovi = clanoviRepository.GetAllClanovi(komisijaId);
+            
             message.ServiceName = serviceName;
             message.Method = "GET";
             List<Clanovi> clanovi = clanoviRepository.GetAllClanovi();
@@ -70,7 +70,7 @@ namespace KomisijaService.Controllers
             message.Information = "Returned list of Clanovi";
             loggerService.CreateMessage(message);
             return Ok(clanoviDto);
-            // return Ok(mapper.Map<List<ClanoviDto>>(clanovi));
+            
         }
         /// <summary>
         /// Vraća clana na osnovu identifikatora clan.
@@ -99,7 +99,7 @@ namespace KomisijaService.Controllers
             message.Information = clanovi.ToString();
             loggerService.CreateMessage(message);
             return Ok(clanoviDto);
-            //return Ok(mapper.Map<ClanoviDto>(clanovi));
+            
         }
         /// <summary>
         /// Upisuje clana.

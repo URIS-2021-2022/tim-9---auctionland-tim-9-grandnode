@@ -25,7 +25,7 @@ namespace KomisijaService.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "KomisijaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly ILicnostService licnostService;
 
 
@@ -49,7 +49,7 @@ namespace KomisijaService.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<List<PredsednikDto>> GetAllPredsednik()
         {
-            //var predsednik = predsednikRepository.GetAllPredsednik();
+            
             message.ServiceName = serviceName;
             message.Method = "GET";
             List<Predsednik> predsednik = predsednikRepository.GetAllPredsednik();
@@ -70,7 +70,7 @@ namespace KomisijaService.Controllers
             message.Information = "Returned list of Predsednik";
             loggerService.CreateMessage(message);
             return Ok(predsednikDto);
-            //return Ok(mapper.Map<List<PredsednikDto>>(predsednik));
+            
         }
         /// <summary>
         /// Vraća predsednika na osnovu identifikatora predsednik.
@@ -99,7 +99,7 @@ namespace KomisijaService.Controllers
             message.Information = predsednik.ToString();
             loggerService.CreateMessage(message);
             return Ok(predsednikDto);
-            //return Ok(mapper.Map<PredsednikDto>(predsednik));
+           
         }
         /// <summary>
         /// Upisuje predsednika.
@@ -163,7 +163,7 @@ namespace KomisijaService.Controllers
             message.Method = "DELETE";
             try
             {
-                var predsednik = predsednikRepository.GetPredsednikById(predsednikId);
+                Predsednik predsednik = predsednikRepository.GetPredsednikById(predsednikId);
                 if (predsednik == null)
                 {
                     message.Information = "Not found";
