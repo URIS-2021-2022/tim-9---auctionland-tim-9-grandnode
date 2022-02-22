@@ -21,7 +21,7 @@ namespace KomisijaService.ServiceCalls
         {
             using (HttpClient client = new HttpClient())
             {
-                var x = configuration["Services:LicnostService"];
+                
                 Uri url = new Uri($"{ configuration["Services:LicnostService"] }api/licnost/{licnostId}");
 
                 HttpContent content = new StringContent(JsonConvert.SerializeObject(licnostId));

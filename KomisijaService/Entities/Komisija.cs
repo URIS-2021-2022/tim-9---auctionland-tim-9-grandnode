@@ -19,7 +19,7 @@ namespace KomisijaService.Entities
         public Guid? PredsednikId { get; set; } 
         public Predsednik Predsednik { get; set; }
 
-        public string ToString()
+        public override string ToString()
         {
             return "Komisija: { KomisijaId: " + this.KomisijaId + ", PredsednikId: " + this.PredsednikId + " }";
         }

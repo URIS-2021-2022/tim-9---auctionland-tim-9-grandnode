@@ -51,7 +51,7 @@ namespace KomisijaService.Data
 
         public void UpdateClanovi(Clanovi clanovi)
         {
-            
+            //Entity framework core prati entitet pa nema potrebe za implementacijom
         }
     }
 }

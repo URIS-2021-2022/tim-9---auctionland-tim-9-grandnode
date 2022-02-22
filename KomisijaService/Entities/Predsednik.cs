@@ -12,7 +12,7 @@ namespace KomisijaService.Entities
         [Key]
         public Guid PredsednikId { get; set; } = Guid.NewGuid();
 
-        public string ToString()
+        public override string ToString()
         {
             return "Predsednik: { PredsednikId: " + this.PredsednikId + " }";
         }

@@ -25,7 +25,7 @@ namespace KomisijaService.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "KomisijaService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         public KomisijaController(IKomisijaRepository komisijaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
         {
