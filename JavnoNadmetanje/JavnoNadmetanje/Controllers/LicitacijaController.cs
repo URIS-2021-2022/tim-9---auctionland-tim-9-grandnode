@@ -24,7 +24,7 @@ namespace JavnoNadmetanje.Controllers
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "JavnoNadmetanjeService";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         //Pomocu dependency injection-a dodajemo potrebne zavisnosti
         public LicitacijaController(ILicitacijaRepository licitacijaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
@@ -169,7 +169,6 @@ namespace JavnoNadmetanje.Controllers
                     return NotFound(); //ukoliko ne postoji vraca se status 404 (NotFoud)
                 }
                 Licitacija licitacija = mapper.Map<Licitacija>(licitacijaDto);
-                //LicitacijaConfirmationDto l = licitacijaRepository.UpdateLicitacija(licitacija);
                 mapper.Map(licitacija, starije);
                 licitacijaRepository.SaveChanges(); //Perzistiramo promene
                 message.Information = starije.ToString();

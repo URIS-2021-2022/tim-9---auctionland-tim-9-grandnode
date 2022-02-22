@@ -29,7 +29,6 @@ namespace JavnoNadmetanje.Data
         {
             tipJavnogNadmetanja.TipJavnogNadmetanjaID = Guid.NewGuid();
             var noviEntitet = context.TipoviJavnihNadmetanja.Add(tipJavnogNadmetanja);
-            //context.SaveChanges();
 
             //return mapper.Map<TipJavnogNadmetanjaConfirmationDto>(tipJavnogNadmetanja);
             return mapper.Map<TipJavnogNadmetanjaConfirmationDto>(noviEntitet.Entity);

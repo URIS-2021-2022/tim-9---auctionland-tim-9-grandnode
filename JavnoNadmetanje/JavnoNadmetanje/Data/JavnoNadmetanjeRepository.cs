@@ -29,7 +29,6 @@ namespace JavnoNadmetanje.Data
         {
             javnoNadmetanje.JavnoNadmetanjeID = Guid.NewGuid();
             var noviEntitet = context.JavnaNadmetanja.Add(javnoNadmetanje);
-            //context.SaveChanges();
 
             //return mapper.Map<JavnoNadmetanjeConfirmationDto>(javnoNadmetanje);
             return mapper.Map<JavnoNadmetanjeConfirmationDto>(noviEntitet.Entity);
