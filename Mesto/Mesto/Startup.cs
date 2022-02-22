@@ -51,7 +51,7 @@ namespace Mesto
                     {
                         Title = "Adresa API",
                         Version = "1"
-                        
+
                     });
 
                 //Pomocu refleksije dobijamo ime XML fajla sa komentarima (ovako smo ga nazvali u Project -> Properties)
@@ -84,25 +84,26 @@ namespace Mesto
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            app.UseSwagger();
+                app.UseSwagger();
 
-            app.UseSwaggerUI(setupAction =>
-            {
+                app.UseSwaggerUI(setupAction =>
+                {
                 //Podesavamo endpoint gde Swagger UI moze da pronadje OpenAPI specifikaciju
                 setupAction.SwaggerEndpoint("/swagger/AdresaOpenApiSpecification/swagger.json", "Adresa API");
-                setupAction.RoutePrefix = ""; //Dokumentacija ce sada biti dostupna na root-u (ne mora da se pise /swagger)
+                    setupAction.RoutePrefix = ""; //Dokumentacija ce sada biti dostupna na root-u (ne mora da se pise /swagger)
             });
 
-            app.UseHttpsRedirection();
+                app.UseHttpsRedirection();
 
-            app.UseRouting();
+                app.UseRouting();
 
-            app.UseAuthorization();
+                app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
+            }
         }
     }
 }
