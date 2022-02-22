@@ -21,7 +21,7 @@ namespace OvlascenoLice.Controllers
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly string serviceName = "OvlascenoLiceService";
         
         public OvlascenoLiceController(IOvlascenoLiceRepository ovlascenoLiceRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)
@@ -153,7 +153,7 @@ namespace OvlascenoLice.Controllers
             {
                 Console.WriteLine("1");
                 OvlascenoLiceModel lice1 = mapper.Map<OvlascenoLiceModel>(ovlascenoLice);
-                // lice1 = ovlascenoLiceRepository.CreateOvlascenoLice(lice1);
+ 
                 Console.WriteLine("2");
                 OvlascenoLiceModel createLice = ovlascenoLiceRepository.CreateOvlascenoLice(lice1);
                 Console.WriteLine("3");
