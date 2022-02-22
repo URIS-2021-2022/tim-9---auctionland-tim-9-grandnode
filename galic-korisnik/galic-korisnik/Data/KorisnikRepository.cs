@@ -65,14 +65,7 @@ namespace galic_korisnik.Data
             context.Remove(korisnik);
         }
 
-        public bool Authorize(String token)
-        {
-
-            return context.Tokens.FirstOrDefault(e => e.token == token) != null;
-
-        }
-
-        private Tuple<string, string> HashPassword(string lozinka)
+        private static Tuple<string, string> HashPassword(string lozinka)
         {
             var sBytes = new byte[lozinka.Length];
 
@@ -88,7 +81,7 @@ namespace galic_korisnik.Data
             );
         }
 
-        private bool VerifyPassword(string lozinka, string savedLozinka, string savedSalt)
+        private static bool VerifyPassword(string lozinka, string savedLozinka, string savedSalt)
         {
             var saltBytes = Convert.FromBase64String(savedSalt);
             var rfc2898DeriveBytes = new Rfc2898DeriveBytes(lozinka, saltBytes, 100);

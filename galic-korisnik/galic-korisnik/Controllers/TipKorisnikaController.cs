@@ -23,7 +23,7 @@ namespace galic_korisnik.Controllers
         private readonly LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
-        private Message message = new Message();
+        private readonly Message message = new Message();
         public TipKorisnikaController(ITipKorisnikaRepository tipRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService)
         {
             this.tipKorisnikaRepository = tipRepository;

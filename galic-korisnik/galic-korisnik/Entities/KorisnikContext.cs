@@ -12,7 +12,6 @@ namespace galic_korisnik.Entities
         private readonly IConfiguration configuration;
         public DbSet<Korisnik> Korisnik { get; set; }
         public DbSet<TipKorisnika> TipKorisnika { get; set; }
-        public DbSet<TokenTime> Tokens { get; set; }
 
         public KorisnikContext(DbContextOptions<KorisnikContext> options, IConfiguration configuration) : base(options)
         {
@@ -23,9 +22,9 @@ namespace galic_korisnik.Entities
         {
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("KorisnikDB"));
         }
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.Entity<Korisnik>()
+            modelBuilder.Entity<Korisnik>()
                 .HasData(
                 new Korisnik
                 {
@@ -46,7 +45,7 @@ namespace galic_korisnik.Entities
                     lozinka = "123456"
                 }
                 );
-            builder.Entity<TipKorisnika>()
+            modelBuilder.Entity<TipKorisnika>()
                 .HasData(
                 new TipKorisnika
                 {
@@ -54,14 +53,6 @@ namespace galic_korisnik.Entities
                     uloga = "Admin"
                 }
                 );
-           builder.Entity<TokenTime>()
-               .HasData(new
-               {
-                   tokenId = 1,
-                   token = "token",
-                   korisnikId = "e8920f41 - e035 - da6d - 27d1 - ee8909f6271d",
-                   time = DateTime.Parse("2021-21-11 21:21:21")
-               });
         }
     }
 }

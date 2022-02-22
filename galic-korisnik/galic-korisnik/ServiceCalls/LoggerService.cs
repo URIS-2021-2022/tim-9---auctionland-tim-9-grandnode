@@ -39,8 +39,7 @@ namespace galic_korisnik.ServiceCalls
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    //default
                 }
             }
 

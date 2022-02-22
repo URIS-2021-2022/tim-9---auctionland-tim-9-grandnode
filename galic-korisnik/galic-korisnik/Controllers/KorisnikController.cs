@@ -23,7 +23,7 @@ namespace galic_korisnik.Controllers
         private readonly IMapper mapper;
         private readonly LinkGenerator linkGenerator;
         private readonly ILoggerService loggerService;
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         public KorisnikController(IKorisnikRepository korisnikRepository, IMapper mapper, LinkGenerator linkGenerator, ILoggerService loggerService)
         {
@@ -176,10 +176,10 @@ namespace galic_korisnik.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("authorize/{token}")]
-        public ActionResult Authorize(string token)
+        public ActionResult Authorize(Principal principal)
         {
 
-            if (korisnikRepository.Authorize(token))
+            if (korisnikRepository.UserWithCredentialsExists(principal.Username, principal.Password))
             {
                 return Ok();
 

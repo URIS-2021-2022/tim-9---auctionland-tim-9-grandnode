@@ -37,7 +37,8 @@ namespace galic_korisnik.Data
 
         public void UpdateTipKorisnika(TipKorisnika tipKorisnika)
         {
-
+            //Nije potrebna implementacija jer EF core prati entitet koji smo izvukli iz baze
+            //i kada promenimo taj objekat i odradimo SaveChanges sve izmene će biti perzistirane
         }
         public void DeleteTipKorisnika(Guid tipKorisnikaId)
         {
