@@ -10,11 +10,9 @@ namespace Parcela.Data
     public class KatastarskaOpstinaRepository : IKatastarskaOpstinaRepository
     {
         private readonly ParcelaContext context;
-        private readonly IMapper mapper;
-        public KatastarskaOpstinaRepository(ParcelaContext context, IMapper mapper)
+        public KatastarskaOpstinaRepository(ParcelaContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
         public bool SaveChanges()
         {

@@ -46,7 +46,7 @@ namespace Parcela.ServiceCalls
             }
             catch
             {
-
+                //default
             }
         }
     }

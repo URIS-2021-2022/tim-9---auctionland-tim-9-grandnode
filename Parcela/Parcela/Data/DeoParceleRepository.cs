@@ -49,15 +49,8 @@ namespace Parcela.Data
 
 
         public void UpdateDeoParcele(DeoParcele deoParcele)
-        {
-        //    DeoParcele dp = GetDeoParcelaById(deoParcele.DeoParceleID);
-
-        //    dp.DeoParceleID = deoParcele.DeoParceleID;
-        //    dp.IdealniDeoParcele = deoParcele.IdealniDeoParcele;
-        //    dp.ParcelaID = deoParcele.ParcelaID;
-        //    dp.StvarniDeoParcele = deoParcele.StvarniDeoParcele;
-
-        //    return dp;
+        {   
+            //nema potrebe za update
 
         }
     }

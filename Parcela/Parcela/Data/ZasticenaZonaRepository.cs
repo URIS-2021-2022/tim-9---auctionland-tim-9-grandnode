@@ -10,11 +10,9 @@ namespace Parcela.Data
     public class ZasticenaZonaRepository : IZasticenaZonaRepository
     {
         private readonly ParcelaContext context;
-        private readonly IMapper mapper;
-        public ZasticenaZonaRepository(ParcelaContext context, IMapper mapper)
+        public ZasticenaZonaRepository(ParcelaContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
         public bool SaveChanges()
         {

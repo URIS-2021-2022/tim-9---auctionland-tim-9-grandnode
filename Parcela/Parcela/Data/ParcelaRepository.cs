@@ -35,12 +35,6 @@ namespace Parcela.Data
         public void DeleteParcela(Guid parcelaId)
         {
             Parcela.Entities.Parcela parcela = GetParcelaById(parcelaId);
-
-            if (parcela == null)
-            {
-                throw new ArgumentNullException("parcelaId");
-            }
-
             context.Parcela.Remove(parcela);
             context.SaveChanges();
 
