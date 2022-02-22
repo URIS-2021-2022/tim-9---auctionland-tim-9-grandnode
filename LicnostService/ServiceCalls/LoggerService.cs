@@ -34,7 +34,7 @@ namespace LicnostService.ServiceCalls
                 }
                 catch 
                 {
-                
+                    //Lets the program function properly without logger service being active
                 }
             }
         }
