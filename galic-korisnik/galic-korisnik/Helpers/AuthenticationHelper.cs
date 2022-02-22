@@ -46,21 +46,9 @@ namespace galic_korisnik.Helpers //: IAuthenticationHelper
                                              expires: DateTime.Now.AddMinutes(120),
                                              signingCredentials: credentials);
 
-            TokenTime tokenTime = new TokenTime();
             Korisnik korisnik = context.Korisnik.FirstOrDefault(e => e.korisnickoIme == principal.Username);
-            Random rand = new Random();
 
-            tokenTime.tokenId = rand.Next();
-            tokenTime.korisnikId = korisnik.korisnikId;
-            tokenTime.time = DateTime.Now;
-            tokenTime.token = new JwtSecurityTokenHandler().WriteToken(token).ToString();
-
-            var createdEntity = context.Add(tokenTime);
-
-            var tokenResult = new JwtSecurityTokenHandler().WriteToken(token);
-            string finalToken = tokenResult.ToString() + "#" + korisnik.tipKorisnikaId;
-
-            return finalToken;
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
         public bool SaveChanges()
         {

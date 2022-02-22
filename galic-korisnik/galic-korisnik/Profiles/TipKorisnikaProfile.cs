@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using galic_korisnik.Entities;
 using galic_korisnik.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,10 @@ namespace galic_korisnik.Profiles
         public TipKorisnikaProfile()
         {
             CreateMap<TipKorisnikaProfile, TipKorisnikaDto>();
+
+            CreateMap<TipKorisnikaDto, TipKorisnika>();
+
+            CreateMap<TipKorisnika, TipKorisnikaDto>();
         }
     }
 }
