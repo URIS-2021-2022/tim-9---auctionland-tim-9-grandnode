@@ -23,7 +23,7 @@ namespace Kupac_SK.Controllers
         private readonly  LinkGenerator linkGenerator;
         private readonly IMapper mapper;
         private readonly ILoggerService loggerService;
-        private Message message = new Message();
+        private readonly Message message = new Message();
         private readonly string serviceName = "KupacService";
 
         public KontaktOsobaController(IKontaktOsobaRepository kontaktOsobaRepository, ILoggerService loggerService, LinkGenerator linkGenerator, IMapper mapper)

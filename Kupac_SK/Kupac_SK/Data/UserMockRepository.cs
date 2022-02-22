@@ -3,12 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-/*
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-*/
 namespace Kupac_SK.Data
 {
     public class UserMockRepository : IUserRepository
@@ -72,7 +67,7 @@ namespace Kupac_SK.Data
         /// </summary>
         /// <param name="password">Korisnička lozinka</param>
         /// <returns>Generisan hash i salt</returns>
-        private Tuple<string, string> HashPassword(string password)
+        private static Tuple<string, string> HashPassword(string password)
         {
             var sBytes = new byte[password.Length];
             new RNGCryptoServiceProvider().GetNonZeroBytes(sBytes);

@@ -63,7 +63,7 @@
             
             </summary>
         </member>
-        <member name="M:Kupac_SK.Controllers.KupacController.#ctor(Kupac_SK.Data.IFizickoLiceRepository,Kupac_SK.Data.IPravnoLiceRepository,Kupac_SK.ServiceCalls_.ILoggerService,Kupac_SK.ServiceCalls_.IovlascenoliceService,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
+        <member name="M:Kupac_SK.Controllers.KupacController.#ctor(Kupac_SK.Data.IFizickoLiceRepository,Kupac_SK.Data.IPravnoLiceRepository,Kupac_SK.ServiceCalls_.ILoggerService,Kupac_SK.ServiceCalls_.IUplataService,Kupac_SK.ServiceCalls_.IovlascenoliceService,Microsoft.AspNetCore.Routing.LinkGenerator,AutoMapper.IMapper)">
             <summary>
             
             </summary>

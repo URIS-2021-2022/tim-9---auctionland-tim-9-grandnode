@@ -56,6 +56,7 @@ namespace Kupac_SK
             services.AddScoped<IPravnoLiceRepository, PravnoLiceRepository>();
             services.AddScoped<ILoggerService, LoggerService>();
             services.AddScoped<IovlascenoliceService, ovlascenoliceService>();
+            services.AddScoped<IUplataService, UplataService>();
 
             services.AddDbContext<KupacContext>(options => options.UseSqlServer(Configuration.GetConnectionString("KupacDB")));
 

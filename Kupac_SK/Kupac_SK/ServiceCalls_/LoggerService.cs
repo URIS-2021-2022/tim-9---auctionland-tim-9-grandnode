@@ -36,7 +36,7 @@ namespace Kupac_SK.ServiceCalls_
             }
             catch
             {
-
+                //stop crashing
             }
         }
     }

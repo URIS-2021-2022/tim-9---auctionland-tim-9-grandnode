@@ -29,5 +29,8 @@ namespace Kupac_SK.Models
         public string AdresaID { get; set; } //ss iz VO Adresa info
         public string UplataID { get; set; } //ss iz VO Uplata info
 
+      public OvlascenoLiceDTO OvlascenoLice { get; set; }
+        public UplataDTO Uplata { get; set; }
+
     }
 }
