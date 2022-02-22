@@ -9,21 +9,28 @@ using System.Threading.Tasks;
 
 namespace Kupac_SK.ServiceCalls_
 {
-    public class UplataService : IUplataService
+    public class AdresaService : IAdresaService
     {
-        //api/uplate
         private readonly IConfiguration configuration;
 
-        public UplataService(IConfiguration configuration)
+        public AdresaService(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
-        public async Task<UplataDTO> GetUplataById(Guid UplataID)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="AdresaId"></param>
+        /// <returns></returns>
+
+        public async Task<AdresaDto> GetAdresaById(Guid AdresaId)
         {
+
             try
             {
                 using var httpClient = new HttpClient();
-                Uri url = new Uri($"{ configuration["Services:Uplata"] }api/uplate/" + UplataID);
+                Uri url = new Uri($"{ configuration["Services:Mesto"] }api/adresa/" + AdresaId);
                 var request = new HttpRequestMessage(HttpMethod.Get, url);
                 request.Headers.Add("Accept", "application/json");
                 var response = await httpClient.SendAsync(request);
@@ -34,7 +41,7 @@ namespace Kupac_SK.ServiceCalls_
                     {
                         return default;
                     }
-                    return JsonConvert.DeserializeObject<UplataDTO>(content);
+                    return JsonConvert.DeserializeObject<AdresaDto>(content);
                 }
                 return default;
             }
