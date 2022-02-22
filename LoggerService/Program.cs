@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace LoggerService
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
 
-            var logger = NLog.LogManager.Setup().RegisterNLogWeb().GetCurrentClassLogger();
+            //var logger = NLog.LogManager.Setup().RegisterNLogWeb().GetCurrentClassLogger();
 
 
 
