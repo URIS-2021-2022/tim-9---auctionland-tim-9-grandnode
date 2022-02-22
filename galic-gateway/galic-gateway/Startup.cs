@@ -27,10 +27,7 @@ namespace galic_gateway
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerForOcelot(Configuration);
-
-            var secret = Configuration["ApplicationSettings:JWT_Secret"].ToString();
+            var secret = "secret";
             var key = Encoding.ASCII.GetBytes(secret);
 
             services.AddAuthentication(options =>
@@ -61,8 +58,6 @@ namespace galic_gateway
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseSwaggerForOcelotUI();
 
             app.UseRouting();
 
