@@ -78,7 +78,7 @@ namespace Dokument_AK
                         {
                             ContentTypes = { "application/problem+json" }
                         };
-                    };
+                    }
 
                    
                     problemDetails.Status = StatusCodes.Status400BadRequest;

@@ -17,7 +17,7 @@ namespace Dokument_AK.Data
             FillData();
         }
 
-        private void FillData()
+        private static void FillData()
         {
             DokumentEnts.AddRange(new List<DokumentEnt>
             {

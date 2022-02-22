@@ -251,7 +251,7 @@
             <summary>
             Metoda koja kreira dokument
             </summary>
-            <param name="dokument">Potrebno je proslediti telo dokumenta</param>
+            <param name="dokumentID">Potrebno je proslediti telo dokumenta</param>
             <returns></returns>
         </member>
         <member name="M:Dokument_AK.Data.EksterniDokumentRepository.UpdateEksterniDokument(Dokument_AK.Entities.EksterniDokumentEnt)">

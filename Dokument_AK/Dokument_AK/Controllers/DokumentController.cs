@@ -26,7 +26,7 @@ namespace Dokument_AK.Controllers
 
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "Dokument_AK";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
         /// <summary>
         /// Konstruktor

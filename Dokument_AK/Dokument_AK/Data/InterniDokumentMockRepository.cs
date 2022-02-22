@@ -16,7 +16,7 @@ namespace Dokument_AK.Data
             FillData();
         }
 
-        private void FillData()
+        private static void FillData()
         {
             InterniDokumentEnts.AddRange(new List<InterniDokumentEnt>
             {
@@ -31,7 +31,7 @@ namespace Dokument_AK.Data
                     DokumentID= Guid.Parse("4ff5c5a0-93d4-443d-bf2c-dc9cf9fa4296"),
                      Izmenjen=false
                 }
-            }); ;
+            }); 
         }
         public InterniDokumentEnt GetInterniDokumentByID(Guid dokumentID)
         {
@@ -41,7 +41,7 @@ namespace Dokument_AK.Data
         public List<InterniDokumentEnt> GetInterniDokumentEnts(bool Izmenjen = false)
         {
             return (from e in InterniDokumentEnts
-                    where Izmenjen == false || Izmenjen == true || e.Izmenjen == Izmenjen
+                    where Izmenjen == false || Izmenjen != false || e.Izmenjen == Izmenjen
                     select e).ToList();
         }
 
