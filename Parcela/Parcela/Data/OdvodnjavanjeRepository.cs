@@ -10,11 +10,9 @@ namespace Parcela.Data
     public class OdvodnjavanjeRepository : IOdvodnjavanjeRepository
     {
         private readonly ParcelaContext context;
-        private readonly IMapper mapper;
-        public OdvodnjavanjeRepository(ParcelaContext context, IMapper mapper)
+        public OdvodnjavanjeRepository(ParcelaContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
         public bool SaveChanges()
         {

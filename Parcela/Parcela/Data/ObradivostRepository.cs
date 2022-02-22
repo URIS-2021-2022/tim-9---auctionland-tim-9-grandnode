@@ -10,11 +10,9 @@ namespace Parcela.Data
     public class ObradivostRepository : IObradivostRepository
     {
         private readonly ParcelaContext context;
-        private readonly IMapper mapper;
-        public ObradivostRepository(ParcelaContext context, IMapper mapper)
+        public ObradivostRepository(ParcelaContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
         public bool SaveChanges()
         {

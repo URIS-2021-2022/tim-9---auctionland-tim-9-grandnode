@@ -25,7 +25,7 @@ namespace Parcela.Controllers
 
         private readonly ILoggerService loggerService;
         private readonly string serviceName = "Parcela";
-        private Message message = new Message();
+        private readonly Message message = new Message();
 
 
         public ParcelaController(IParcelaRepository parcelaRepository, LinkGenerator linkGenerator, IMapper mapper, ILoggerService loggerService, IKupac_SKService kupac_SKService)

@@ -10,11 +10,9 @@ namespace Parcela.Data
     public class KulturaRepository : IKulturaRepository
     {
         private readonly ParcelaContext context;
-        private readonly IMapper mapper;
-        public KulturaRepository(ParcelaContext context, IMapper mapper)
+        public KulturaRepository(ParcelaContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
         public bool SaveChanges()
         {

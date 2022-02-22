@@ -120,7 +120,7 @@ namespace Parcela.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Greska u izmeni");
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
