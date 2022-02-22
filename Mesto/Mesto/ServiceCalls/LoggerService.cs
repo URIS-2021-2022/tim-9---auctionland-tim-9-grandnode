@@ -46,7 +46,7 @@ namespace Mesto.ServiceCalls
             }
             catch
             {
-
+                //default
             }
         }
     }

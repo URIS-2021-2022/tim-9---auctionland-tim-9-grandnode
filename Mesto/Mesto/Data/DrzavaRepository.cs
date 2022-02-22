@@ -46,7 +46,7 @@ namespace Mesto.Data
 
         public void UpdateDrzava(Drzava drzava)
         {
-            
+            //nije potrebno posebno implementirati update
         }
     }
 }
