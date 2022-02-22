@@ -14,7 +14,7 @@ namespace UgovorService.Data
             FillData();
         }
 
-        private void FillData()
+        private static void FillData()
         {
             TipGarancijes.AddRange(new List<TipGarancijeEnt>
             {

@@ -9,12 +9,12 @@ using UgovorService.Models;
 
 namespace UgovorService.ServiceCalls
 {
-    public class Kupac_SKService : IKupac_SKService
+    public class KupacSkService : IKupacSkService
     {
 
         private readonly IConfiguration configuration;
 
-        public Kupac_SKService(IConfiguration configuration)
+        public KupacSkService(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
