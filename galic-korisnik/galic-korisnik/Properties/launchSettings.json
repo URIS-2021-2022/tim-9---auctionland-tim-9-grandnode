@@ -14,7 +14,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:44200"
+      "applicationUrl": "http://localhost:55204"
     },
     "galic_korisnik": {
       "commandName": "Project",
