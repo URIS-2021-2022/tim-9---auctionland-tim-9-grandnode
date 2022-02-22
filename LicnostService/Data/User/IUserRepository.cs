@@ -7,6 +7,6 @@ namespace LicnostService.Data.User
 {
     public interface IUserRepository
     {
-        public bool validateUser(string username, string lastname);
+        public bool validateUser(string username, string password);
     }
 }
